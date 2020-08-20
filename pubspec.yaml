@@ -1,8 +1,9 @@
 name: nav
-description: A new Flutter package project.
-version: 0.0.1
-author:
-homepage: https://github.com/bansooknam/tdd_widget
+description: Provide easy way to navigate. Includes lots of routers. You can use this library on Android & iOS.
+version: 0.0.3
+homepage: https://github.com/bansooknam/nav
+
+
 
 
 environment:
@@ -22,7 +23,11 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
+  plugin:
+    platforms:
+      web:
+        pluginClass: Nav
+        fileName: nav.dart
   # To add assets to your package, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

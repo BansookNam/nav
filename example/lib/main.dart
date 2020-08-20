@@ -18,8 +18,8 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
+    Nav.setGlobalKey(globalKey);
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => Nav.setGlobalKey(globalKey, context));
   }
 
   @override
