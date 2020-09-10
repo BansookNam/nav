@@ -7,13 +7,9 @@ class SlideLeftRoute<T> extends CustomPageRouteBuilder<T> {
   final Widget widget;
 
   SlideLeftRoute({this.widget})
-      : super(pageBuilder: (BuildContext context, Animation<double> animation,
-            Animation<double> secondaryAnimation) {
+      : super(pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
           return widget;
-        }, transitionsBuilder: (BuildContext context,
-            Animation<double> animation,
-            Animation<double> secondaryAnimation,
-            Widget child) {
+        }, transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
           return new SlideTransition(
             position: new Tween<Offset>(
               begin: const Offset(-1.0, 0.0),
@@ -29,15 +25,11 @@ class SlideRightRoute<T> extends CustomPageRouteBuilder<T> {
 
   SlideRightRoute({this.widget})
       : super(
-            pageBuilder: (BuildContext context, Animation<double> animation,
-                Animation<double> secondaryAnimation) {
+            pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
               return widget;
             },
             transitionDuration: Duration(milliseconds: durationMs),
-            transitionsBuilder: (BuildContext context,
-                Animation<double> animation,
-                Animation<double> secondaryAnimation,
-                Widget child) {
+            transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
               return new SlideTransition(
                 position: new Tween<Offset>(
                   begin: const Offset(1.0, 0.0),
@@ -53,18 +45,34 @@ class SlideTopRoute<T> extends CustomPageRouteBuilder<T> {
 
   SlideTopRoute({this.widget})
       : super(
-            pageBuilder: (BuildContext context, Animation<double> animation,
-                Animation<double> secondaryAnimation) {
+            pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
               return widget;
             },
             transitionDuration: Duration(milliseconds: durationMs),
-            transitionsBuilder: (BuildContext context,
-                Animation<double> animation,
-                Animation<double> secondaryAnimation,
-                Widget child) {
+            transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
               return new SlideTransition(
                 position: new Tween<Offset>(
                   begin: const Offset(0.0, 1.0),
+                  end: Offset.zero,
+                ).animate(animation),
+                child: child,
+              );
+            });
+}
+
+class SlideBottomRoute<T> extends CustomPageRouteBuilder<T> {
+  final Widget widget;
+
+  SlideBottomRoute({this.widget})
+      : super(
+            pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
+              return widget;
+            },
+            transitionDuration: Duration(milliseconds: durationMs),
+            transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+              return new SlideTransition(
+                position: new Tween<Offset>(
+                  begin: const Offset(0.0, -1.0),
                   end: Offset.zero,
                 ).animate(animation),
                 child: child,
