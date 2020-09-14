@@ -6,7 +6,7 @@
 
 
 
-![sample](/Users/nam/Projects/flutter-library/nav/img/sample.gif | width=100)
+<img src="https://raw.githubusercontent.com/BansookNam/nav/master/img/sample.gif" width="300" />
 
 ### 🏠 [Homepage](https://github.com/bansooknam/nav)
 
