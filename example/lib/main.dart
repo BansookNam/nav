@@ -76,73 +76,87 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: bgColor,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Nav.pushRoundFromBottomRight(MyHomePage(
-          navType: NavType.Float,
-        )),
-        tooltip: 'Ripple',
-        child: Icon(Icons.open_in_new),
-      ),
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      onPressed: () => Nav.pushFromTop(MyHomePage(navType: NavType.Top)),
-                      icon: icon(Icons.vertical_align_bottom),
-                    )
-                  ],
-                ),
-                Expanded(
-                  child: Container(
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconButton(
-                            onPressed: () => Nav.pushFromLeft(MyHomePage(navType: NavType.Left)),
-                            icon: icon(Icons.keyboard_arrow_right),
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              icon(iconData),
-                              isHome ? Text("Click an Arrow", style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w700)) : Container(),
-                            ],
-                          ),
-                          IconButton(
-                            onPressed: () => Nav.pushFromRight(MyHomePage(navType: NavType.Right)),
-                            icon: icon(Icons.keyboard_arrow_left),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      onPressed: () => Nav.pushFromBottom(MyHomePage(navType: NavType.Bottom)),
-                      icon: icon(Icons.vertical_align_top),
-                    )
-                  ],
-                ),
-              ],
-            ),
-            !showBackButton
-                ? Container()
-                : IconButton(
-                    onPressed: () => Nav.pop(context),
-                    icon: icon(Platform.isIOS ? Icons.arrow_back_ios : Icons.arrow_back),
-                  )
-          ],
+      floatingActionButton: Builder(
+        builder: (context) => FloatingActionButton(
+          onPressed: () async => onResult(
+              context,
+              await Nav.pushRoundFromBottomRight(MyHomePage(
+                navType: NavType.Float,
+              ))),
+          tooltip: 'Ripple',
+          child: Icon(Icons.open_in_new),
         ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
+      body: Builder(
+          builder: (context) => SafeArea(
+                child: Stack(
+                  children: [
+                    Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            IconButton(
+                              onPressed: () async => onResult(context, await Nav.pushFromTop(MyHomePage(navType: NavType.Top))),
+                              icon: icon(Icons.vertical_align_bottom),
+                            )
+                          ],
+                        ),
+                        Expanded(
+                          child: Container(
+                            child: Center(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  IconButton(
+                                    onPressed: () async {
+                                      onResult(context, await Nav.pushFromLeft(MyHomePage(navType: NavType.Left)));
+                                    },
+                                    icon: icon(Icons.keyboard_arrow_right),
+                                  ),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      InkWell(
+                                        child: icon(iconData),
+                                        onTap: () {
+                                          //Nav.pop(context, result: {Nav.RESULT: Nav.SUCCESS, "extraParam": 123});
+                                          //If there is no extra param you want, just call simple method below.
+                                          Nav.popResultSuccess(context);
+                                        },
+                                      ),
+                                      isHome ? Text("Click an Arrow", style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w700)) : Container(),
+                                    ],
+                                  ),
+                                  IconButton(
+                                    onPressed: () async => onResult(context, await Nav.pushFromRight(MyHomePage(navType: NavType.Right))),
+                                    icon: icon(Icons.keyboard_arrow_left),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            IconButton(
+                              onPressed: () async => onResult(context, await Nav.pushFromBottom(MyHomePage(navType: NavType.Bottom))),
+                              icon: icon(Icons.vertical_align_top),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                    !showBackButton
+                        ? Container()
+                        : IconButton(
+                            onPressed: () => Nav.pop(context),
+                            icon: icon(Platform.isIOS ? Icons.arrow_back_ios : Icons.arrow_back),
+                          )
+                  ],
+                ),
+              )), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
@@ -179,7 +193,7 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
         backgroundColor: Colors.transparent,
         content: GestureDetector(
           onTap: () {
-            Scaffold.of(context).hideCurrentSnackBar();
+            //Scaffold.of(context).hideCurrentSnackBar();
           },
           child: Container(
             color: Colors.transparent,
@@ -203,5 +217,12 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
             ),
           ),
         ));
+  }
+
+  void onResult(BuildContext context, dynamic result) {
+    if (Nav.isSuccess(result)) {
+      final snackbar = createSnackBar(context, "Result is Success: ${result.toString()}");
+      Scaffold.of(context).showSnackBar(snackbar);
+    }
   }
 }
