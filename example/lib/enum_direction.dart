@@ -1,1 +1,1 @@
-enum NavType { Top, Bottom, Left, Right, Float }
+enum NavType { Top, Bottom, Left, Right, Ripple, ClearAll }

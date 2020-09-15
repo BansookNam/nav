@@ -79,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
           onPressed: () async => onResult(
               context,
               await Nav.pushRoundFromBottomRight(MyHomePage(
-                navType: NavType.Float,
+                navType: NavType.Ripple,
               ))),
           tooltip: 'Ripple',
           child: Icon(Icons.open_in_new),
@@ -125,9 +125,15 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
                                       InkWell(
                                         child: icon(iconData),
                                         onTap: () {
-                                          //Nav.pop(context, result: {Nav.RESULT: Nav.SUCCESS, "extraParam": 123});
-                                          //If there is no extra param you want, just call simple method below.
-                                          Nav.popResultSuccess(context);
+                                          if (isHome) {
+                                            Nav.clearAllAndPush(MyHomePage(
+                                              navType: NavType.ClearAll,
+                                            ));
+                                          } else {
+                                            //Nav.pop(context, result: {Nav.RESULT: Nav.SUCCESS, "extraParam": 123});
+                                            //If there is no extra param you want, just call simple method below.
+                                            Nav.popResultSuccess(context);
+                                          }
                                         },
                                       ),
                                       isHome
@@ -197,8 +203,11 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
         return Icons.keyboard_arrow_left;
       case NavType.Right:
         return Icons.keyboard_arrow_right;
-      case NavType.Float:
+      case NavType.Ripple:
         return Icons.archive;
+        break;
+      case NavType.ClearAll:
+        return Icons.border_clear;
         break;
       default:
         return Icons.home;

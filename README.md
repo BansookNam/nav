@@ -56,6 +56,7 @@ Nav.pushFromLeft(Widget)
 Nav.pushFromTop(Widget)
 Nav.pushFromBottom(Widget)
 Nav.pushReplacement(Widget)
+Nav.pushWithRippleEffect(Widget)
 Nav.clearAllAndPush(Widget)
 ```
 
