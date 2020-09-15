@@ -58,7 +58,8 @@ mixin Nav<T extends StatefulWidget> on State<T> {
     );
   }
 
-  static Future<T> pushRoundFromBottomRight<T>(Widget screen, {BuildContext context}) {
+  static Future<T> pushRoundFromBottomRight<T>(Widget screen,
+      {BuildContext context}) {
     return navigatorState(context).push(
       RoundRevealRoute(
         widget: screen,
@@ -81,14 +82,15 @@ mixin Nav<T extends StatefulWidget> on State<T> {
 
   static Future<T> pushReplacement<T, TO extends Object>(Widget screen,
           {BuildContext context, TO result}) =>
-      navigatorState(context).pushReplacement(SlideTopRoute(widget: screen), result: result);
+      navigatorState(context)
+          .pushReplacement(SlideTopRoute(widget: screen), result: result);
 
   static Future<T> clearAllAndPush<T>(Widget screen, {BuildContext context}) {
     if (screen == null) {
       return null;
     }
-    return navigatorState(context)
-        .pushAndRemoveUntil(SlideTopRoute(widget: screen), (Route<dynamic> route) => false);
+    return navigatorState(context).pushAndRemoveUntil(
+        SlideTopRoute(widget: screen), (Route<dynamic> route) => false);
   }
 
   static bool isSuccess(result) {
