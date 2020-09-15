@@ -54,13 +54,12 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
   @override
   void initState() {
     bgColor = getRandomColor();
+    Nav.initInsideOfApp();
     super.initState();
   }
 
   @override
   void afterFirstLayout(BuildContext context) {
-    //to pushRoundFromBottomRight method you should init once
-    Nav.initInsideOfApp(context);
     checkCanPop();
   }
 

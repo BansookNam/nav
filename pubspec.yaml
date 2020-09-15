@@ -1,8 +1,9 @@
 name: nav
 author: Bansook Nam <short28kr@gmail.com>
 description: Provide easy way to navigate. Includes lots of routers. You can use this library on Android & iOS.
-version: 0.0.8
+version: 0.0.9
 homepage: https://github.com/bansooknam/nav
+#dartfmt -w .
 
 environment:
   sdk: ">=2.7.0 <3.0.0"

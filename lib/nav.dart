@@ -29,17 +29,29 @@ mixin Nav<T extends StatefulWidget> on State<T> {
     });
   }
 
-  static void initInsideOfApp(BuildContext context) {
+  /// Initializing method for nav.
+  ///
+  /// You should call this method for using pushRoundFromBottomRight method.
+  /// Call this method on your first screen widget which is below [MaterialApp] or [CupertinoApp]
+  static void initInsideOfApp() {
     if (_height != null) {
       return;
     }
-    _height = MediaQuery.of(context).size.height;
-    _width = MediaQuery.of(context).size.width;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _height = MediaQuery.of(context).size.height;
+      _width = MediaQuery.of(context).size.width;
+    });
   }
 
+  /// Get navigator state
   static NavigatorState navigatorState(BuildContext context) =>
       context != null ? Navigator.of(context) : _globalKey.currentState;
 
+  /// Push screen from right to left
+  ///
+  /// On ios "Swipe back gesture" is default
+  /// Set prohibitSwipeBack true if you don't want allow swipe back.
+  /// If you provide context, you can nest navigate in your specific context
   static Future<T> pushFromRight<T>(
     Widget screen, {
     bool prohibitSwipeBack = false,
@@ -52,12 +64,34 @@ mixin Nav<T extends StatefulWidget> on State<T> {
     );
   }
 
+  /// Push screen from left to right
+  ///
+  /// If you provide context, you can nest navigate in your specific context
   static Future<T> pushFromLeft<T>(Widget screen, {BuildContext context}) {
     return navigatorState(context).push(
       SlideLeftRoute(widget: screen),
     );
   }
 
+  /// Push screen from bottom to top
+  ///
+  /// If you provide context, you can nest navigate in your specific context
+  static Future<T> pushFromBottom<T>(Widget screen, {BuildContext context}) =>
+      navigatorState(context).push(
+        SlideTopRoute(widget: screen),
+      );
+
+  /// Push screen from top to bottom
+  ///
+  /// If you provide context, you can nest navigate in your specific context
+  static Future<T> pushFromTop<T>(Widget screen, {BuildContext context}) =>
+      navigatorState(context).push(
+        SlideBottomRoute(widget: screen),
+      );
+
+  /// Push screen from bottomRight to topLeft with Ripple Effect
+  ///
+  /// If you provide context, you can nest navigate in your specific context
   static Future<T> pushRoundFromBottomRight<T>(Widget screen,
       {BuildContext context}) {
     return navigatorState(context).push(
@@ -71,20 +105,17 @@ mixin Nav<T extends StatefulWidget> on State<T> {
     );
   }
 
-  static Future<T> pushFromBottom<T>(Widget screen, {BuildContext context}) =>
-      navigatorState(context).push(
-        SlideTopRoute(widget: screen),
-      );
-  static Future<T> pushFromTop<T>(Widget screen, {BuildContext context}) =>
-      navigatorState(context).push(
-        SlideBottomRoute(widget: screen),
-      );
-
+  /// Push Replacement screen
+  ///
+  /// If you provide context, you can nest navigate in your specific context
   static Future<T> pushReplacement<T, TO extends Object>(Widget screen,
           {BuildContext context, TO result}) =>
       navigatorState(context)
           .pushReplacement(SlideTopRoute(widget: screen), result: result);
 
+  /// Clear All screen on navigator state and push the new one.
+  ///
+  /// If you provide context, you can nest navigate in your specific context
   static Future<T> clearAllAndPush<T>(Widget screen, {BuildContext context}) {
     if (screen == null) {
       return null;
@@ -93,28 +124,32 @@ mixin Nav<T extends StatefulWidget> on State<T> {
         SlideTopRoute(widget: screen), (Route<dynamic> route) => false);
   }
 
+  /// Check result is success
   static bool isSuccess(result) {
     return result != null && result[RESULT] == SUCCESS;
   }
 
+  /// Check result is fail
   static bool isFail(result) {
     return result != null && result[RESULT] == FAIL;
   }
 
+  /// Check result is cancel
   static bool isCancel(result) {
     return result != null && result[RESULT] == CANCEL;
   }
 
+  /// Check result is deleted
   static bool isDeleted(result) {
     return result != null && result[RESULT] == DELETED;
   }
 
+  /// Check result is refresh
   static bool isRefresh(result) {
     return result != null && result[RESULT] == REFRESH;
   }
 
-  //pop methods
-
+  /// pop screen with result
   static void pop<T extends Object>(BuildContext context, {T result}) {
     if (result == null) {
       Navigator.of(context).pop();
@@ -123,26 +158,32 @@ mixin Nav<T extends StatefulWidget> on State<T> {
     }
   }
 
+  /// simple pop with success result
   static void popResultSuccess(BuildContext context) {
     pop(context, result: {RESULT: SUCCESS});
   }
 
+  /// simple pop with fail result
   static void popResultFail(BuildContext context) {
     pop(context, result: {RESULT: FAIL});
   }
 
+  /// simple pop with cancel result
   static void popResultCancel(BuildContext context) {
     pop(context, result: {RESULT: CANCEL});
   }
 
+  /// simple pop with delete result
   static void popResultDelete(BuildContext context) {
     pop(context, result: {RESULT: DELETED});
   }
 
+  /// simple pop with refresh result
   static void popResultRefresh(BuildContext context) {
     pop(context, result: {RESULT: REFRESH});
   }
 
+  /// Check if can pop
   static Future<bool> canPop({BuildContext context}) async {
     return navigatorState(context).canPop();
   }
