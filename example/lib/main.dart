@@ -78,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
         builder: (context) => FloatingActionButton(
           onPressed: () async => onResult(
               context,
-              await Nav.pushRoundFromBottomRight(MyHomePage(
+              await Nav.pushWithRippleEffect(MyHomePage(
                 navType: NavType.Ripple,
               ))),
           tooltip: 'Ripple',
