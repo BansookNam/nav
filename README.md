@@ -78,8 +78,7 @@ Nav.pop(context, result: {"key": "value", "key2": 2})
 @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance
-        .addPostFrameCallback((_) => Nav.initInsideOfApp(context));
+    Nav.initInsideOfApp();
   }
 ```
 
