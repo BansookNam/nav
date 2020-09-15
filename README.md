@@ -71,19 +71,6 @@ Nav.pop(context, result: {"key": "value", "key2": 2})
 
 
 
-4. If you want to use ripple push please initialize Nav before use.
-
-```dart
- //This should be called inside layer of Material App Widget (just once any where)
-@override
-  void initState() {
-    super.initState();
-    Nav.initInsideOfApp();
-  }
-```
-
-
-
 ## Author
 
 👤 **Bansook Nam**

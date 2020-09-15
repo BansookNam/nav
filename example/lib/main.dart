@@ -54,7 +54,6 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
   @override
   void initState() {
     bgColor = getRandomColor();
-    Nav.initInsideOfApp();
     super.initState();
   }
 

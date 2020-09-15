@@ -29,18 +29,9 @@ mixin Nav<T extends StatefulWidget> on State<T> {
     });
   }
 
-  /// Initializing method for nav.
-  ///
-  /// You should call this method for using pushRoundFromBottomRight method.
-  /// Call this method on your first screen widget which is below [MaterialApp] or [CupertinoApp]
-  static void initInsideOfApp() {
-    if (_height != null) {
-      return;
-    }
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _height = MediaQuery.of(context).size.height;
-      _width = MediaQuery.of(context).size.width;
-    });
+  static void _initDeviceSize(BuildContext context) {
+    _height = MediaQuery.of(context).size.height;
+    _width = MediaQuery.of(context).size.width;
   }
 
   /// Get navigator state
@@ -94,6 +85,10 @@ mixin Nav<T extends StatefulWidget> on State<T> {
   /// If you provide context, you can nest navigate in your specific context
   static Future<T> pushRoundFromBottomRight<T>(Widget screen,
       {BuildContext context}) {
+    if (_height == null) {
+      _initDeviceSize(navigatorState(context).context);
+    }
+
     return navigatorState(context).push(
       RoundRevealRoute(
         widget: screen,
