@@ -2,12 +2,12 @@
 [![Version](https://img.shields.io/pub/v/nav.svg?style=flat-square)](https://pub.dev/packages/nav)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache2.0-yellow.svg)](https://github.com/BansookNam/nav/blob/master/LICENSE)
 
-<img src="./img/nav.png" align="left" width="150">
+<img src="https://raw.githubusercontent.com/BansookNam/nav/master/img/nav.png" align="left" width="150">
+<br>
+> -- Provide easy way to navigate. Includes lots of routers. 
+> -- Avaliable On - Android & iOS
 
-> Provide easy way to navigate. Includes lots of routers. 
-> Avaliable On - Android & iOS
-
-
+<br><br>
 
 <img src="https://raw.githubusercontent.com/BansookNam/nav/master/img/sample.gif" align="center" width="300" />
 
