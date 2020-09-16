@@ -4,12 +4,11 @@
 
 <img src="https://raw.githubusercontent.com/BansookNam/nav/master/img/nav-title.png" align="left" width="500">
 
-
+<br/><br/><br/><br/>
   Provide easy way to navigate. Includes lots of routers. Avaliable On - Android & iOS
+<br/><br/><br/>
 
-
-
-<img src="https://raw.githubusercontent.com/BansookNam/nav/master/img/sample.gif" align="left" width="300" />
+<img src="https://raw.githubusercontent.com/BansookNam/nav/master/img/sample.gif" width="300" />
 
 ## Install
 
@@ -54,13 +53,19 @@ class _MyAppState extends State<MyApp> with Nav {
 3. Use push methods
 
 ```dart
+//dynamic
+Nav.push(Widget, navAni: NavAni.Blink)
+
+//or
 Nav.pushFromRight(Widget)
 Nav.pushFromLeft(Widget)
 Nav.pushFromTop(Widget)
 Nav.pushFromBottom(Widget)
 Nav.pushReplacement(Widget)
-Nav.pushWithRippleEffect(Widget)
+Nav.pushWithRippleEffect(Widget, centerAlignment : Alignment.bottomRight, centerOffset : Offset(10, 10))
 Nav.clearAllAndPush(Widget)
+
+enum NavAni { Left, Right, Top, Bottom, Fade, Ripple, Blink }
 ```
 
 4. All methods can return value
