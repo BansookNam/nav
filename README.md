@@ -5,7 +5,7 @@
 <img src="https://raw.githubusercontent.com/BansookNam/nav/master/img/nav-title.png" align="left" width="500">
 
 <br/><br/><br/><br/>
-  Provide easy way to navigate. Includes lots of routers. Avaliable On - Android & iOS
+  Provide an easy way to navigate. Includes lots of routers. Available On Android & iOS
 <br/><br/><br/>
 
 <img src="https://raw.githubusercontent.com/BansookNam/nav/master/img/sample.gif" width="300" />
