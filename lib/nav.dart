@@ -6,7 +6,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nav/enum/enum_nav_ani.dart';
-import 'package:nav/route/r_round.dart';
+import 'package:nav/route/r_ripple.dart';
 import 'package:nav/route/r_slide.dart';
 
 mixin Nav<T extends StatefulWidget> on State<T> {
