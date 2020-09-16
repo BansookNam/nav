@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:nav/nav.dart';
+import 'package:nav/route/r_blink.dart';
 import 'package:nav/route/r_fade.dart';
 import 'package:nav/route/r_round.dart';
 import 'package:nav/route/r_slide.dart';
 
-enum NavAni { Left, Right, Top, Bottom, Fade, Ripple }
+enum NavAni { Left, Right, Top, Bottom, Fade, Ripple, Blink }
 
 extension NavAniExt on NavAni {
   PageRoute<T> createRoute<T>(Widget screen, BuildContext context) {
@@ -19,6 +20,8 @@ extension NavAniExt on NavAni {
         return SlideFromBottomRoute(widget: screen);
       case NavAni.Fade:
         return FadeRoute(widget: screen);
+      case NavAni.Blink:
+        return BlinkRoute(widget: screen);
       case NavAni.Ripple:
         if (Nav.height == null) {
           Nav.initDeviceSize(context);
