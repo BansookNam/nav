@@ -2,7 +2,7 @@
 [![Version](https://img.shields.io/pub/v/nav.svg?style=flat-square)](https://pub.dev/packages/nav)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache2.0-yellow.svg)](https://github.com/BansookNam/nav/blob/master/LICENSE)
 
-<img src="https://raw.githubusercontent.com/BansookNam/nav/master/img/nav-title.png" align="left" width="500">
+<img src="https://raw.githubusercontent.com/BansookNam/nav/master/img/nav-tag.png" align="left" width="500">
 
 <br/><br/><br/><br/>
   Provide an easy way to navigate. Includes lots of routers. Available On Android & iOS
