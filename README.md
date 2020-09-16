@@ -1,12 +1,15 @@
 # Welcome to Nav 👋
-![Version](https://img.shields.io/pub/v/nav.svg?style=flat-square)
+[![Version](https://img.shields.io/pub/v/nav.svg?style=flat-square)](https://pub.dev/packages/nav)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache2.0-yellow.svg)](https://github.com/BansookNam/nav/blob/master/LICENSE)
 
-> Provide easy way to navigate. Includes lots of routers. You can use this library on Android & iOS.
+<img src="./img/nav.png" align="left" width="150">
+
+> Provide easy way to navigate. Includes lots of routers. 
+> Avaliable On - Android & iOS
 
 
 
-<img src="https://raw.githubusercontent.com/BansookNam/nav/master/img/sample.gif" width="300" />
+<img src="https://raw.githubusercontent.com/BansookNam/nav/master/img/sample.gif" align="center" width="300" />
 
 ## Install
 
