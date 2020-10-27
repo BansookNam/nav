@@ -1,3 +1,7 @@
+## [0.1.8] - 2020-10-28.
+
+* Export dialog state
+
 ## [0.1.7] - 2020-10-27.
 
 * Apply Dartfmt

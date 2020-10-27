@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nav/enum/enum_nav_ani.dart';
 import 'package:nav/nav.dart';
 import 'package:nav/route/clipper_circle.dart';
+export 'package:nav/dialog/dialog_state.dart';
 
 // ignore: must_be_immutable
 abstract class DialogWidget extends StatefulWidget {
