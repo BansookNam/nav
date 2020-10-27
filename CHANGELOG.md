@@ -1,3 +1,4 @@
-## [0.0.1] - TODO: Add release date.
+## [0.1.6] - 2020-10-27.
 
-* TODO: Describe initial release.
+* Add Nav.clearAll method
+* Add support DialogWidget

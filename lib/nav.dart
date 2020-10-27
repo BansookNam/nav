@@ -10,6 +10,8 @@ import 'package:nav/route/r_ripple.dart';
 import 'package:nav/route/r_slide.dart';
 
 mixin Nav<T extends StatefulWidget> on State<T> {
+  static const int defaultDurationMs = 200;
+
   static const RESULT = "result";
   static const SUCCESS = "success";
   static const FAIL = "fail";
@@ -107,29 +109,38 @@ mixin Nav<T extends StatefulWidget> on State<T> {
   ///
   /// If you provide context, you can nest navigate in your specific context
   static Future<T> push<T>(Widget screen,
-      {NavAni navAni = NavAni.Right, BuildContext context}) {
-    return navigatorState(context)
-        .push(navAni.createRoute(screen, navigatorState(context).context));
+      {NavAni navAni = NavAni.Right,
+      BuildContext context,
+      int durationMs = defaultDurationMs}) {
+    return navigatorState(context).push(navAni.createRoute(
+        screen, navigatorState(context).context, durationMs));
   }
 
   /// Push Replacement screen
   ///
   /// If you provide context, you can nest navigate in your specific context
   static Future<T> pushReplacement<T, TO extends Object>(Widget screen,
-          {BuildContext context, NavAni navAni = NavAni.Fade, TO result}) =>
-      navigatorState(context)
-          .pushReplacement(navAni.createRoute(screen, context), result: result);
+          {BuildContext context,
+          NavAni navAni = NavAni.Fade,
+          TO result,
+          int durationMs = defaultDurationMs}) =>
+      navigatorState(context).pushReplacement(
+          navAni.createRoute(screen, context, durationMs),
+          result: result);
 
   /// Clear All screen on navigator state and push the new one.
   ///
   /// If you provide context, you can nest navigate in your specific context
   static Future<T> clearAllAndPush<T>(Widget screen,
-      {BuildContext context, NavAni navAni = NavAni.Fade}) {
+      {BuildContext context,
+      NavAni navAni = NavAni.Fade,
+      int durationMs = defaultDurationMs}) {
     if (screen == null) {
       return null;
     }
     return navigatorState(context).pushAndRemoveUntil(
-        navAni.createRoute(screen, context), (Route<dynamic> route) => false);
+        navAni.createRoute(screen, context, durationMs),
+        (Route<dynamic> route) => false);
   }
 
   /// Check result is success
@@ -194,5 +205,12 @@ mixin Nav<T extends StatefulWidget> on State<T> {
   /// Check if can pop
   static Future<bool> canPop({BuildContext context}) async {
     return navigatorState(context).canPop();
+  }
+
+  static void clearAll({BuildContext context}) {
+    final state = navigatorState(context);
+    while (state.canPop()) {
+      state.pop();
+    }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nav/nav.dart';
 import 'package:nav/route/CustomPageRouteBuilder.dart';
 import 'package:nav/route/clipper_circle.dart';
 
@@ -22,8 +23,11 @@ class RoundRevealRoute<T> extends CustomPageRouteBuilder<T> {
     @required this.maxRadius,
     this.centerAlignment,
     this.centerOffset,
+    int durationMs = Nav.defaultDurationMs,
   })  : assert(centerOffset != null || centerAlignment != null),
         super(
+          transitionDuration: Duration(milliseconds: durationMs),
+
           /// We could override pageBuilder but it's a required parameter of
           /// [PageRouteBuilder] and it won't build unless it's provided.
           pageBuilder: (
