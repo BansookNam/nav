@@ -1,3 +1,7 @@
+## [0.1.9] - 2020-10-28.
+
+* Fix dialog bug
+
 ## [0.1.8] - 2020-10-28.
 
 * Export dialog state

@@ -17,6 +17,7 @@ abstract class DialogWidget extends StatefulWidget {
   }
 
   Future<T> show<T>() async {
+    isShown = true;
     switch (ani) {
       case NavAni.Left:
       case NavAni.Right:
