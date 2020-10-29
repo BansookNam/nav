@@ -71,12 +71,12 @@ abstract class DialogWidget extends StatefulWidget {
 
   Widget get dialogWidget;
 
-  void hide() {
+  void hide([dynamic result]) {
     if (!isShown) {
       return;
     }
     onHide();
-    Nav.pop(context);
+    Nav.pop(context, result: result);
   }
 }
 

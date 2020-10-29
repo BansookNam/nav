@@ -1,3 +1,7 @@
+## [0.2.1] - 2020-10-29.
+
+* Add result param on hide method.
+
 ## [0.2.0] - 2020-10-29.
 
 * Support barrierDismissible, barrierColor

@@ -1,6 +1,6 @@
 name: nav
 description: Provide easy way to navigate. Includes lots of routers. You can use this library on Android & iOS.
-version: 0.2.0
+version: 0.2.1
 homepage: https://github.com/bansooknam/nav
 #dartfmt -w .
 
