@@ -10,6 +10,8 @@ abstract class DialogWidget extends StatefulWidget {
 
   BuildContext get context;
   NavAni get ani => NavAni.Fade;
+  bool get barrierDismissible => true;
+  Color get barrierColor => Colors.black54;
   bool isShown = false;
 
   void onHide() {
@@ -23,24 +25,42 @@ abstract class DialogWidget extends StatefulWidget {
       case NavAni.Right:
       case NavAni.Top:
       case NavAni.Bottom:
-        return showDialogWith(ani, context: context, builder: (context) {
-          return dialogWidget;
-        });
+        return showDialogWith(
+          ani,
+          barrierDismissible: barrierDismissible,
+          context: context,
+          builder: (context) {
+            return dialogWidget;
+          },
+        );
       case NavAni.Blink:
-        return showDialogWith(ani, context: context, builder: (context) {
-          return dialogWidget;
-        }, durationMs: 0);
+        return showDialogWith(
+          ani,
+          barrierDismissible: barrierDismissible,
+          context: context,
+          builder: (context) {
+            return dialogWidget;
+          },
+          durationMs: 0,
+        );
         break;
       case NavAni.Ripple:
-        return showDialogWith(ani, context: context, builder: (context) {
-          return dialogWidget;
-        });
+        return showDialogWith(
+          ani,
+          barrierDismissible: barrierDismissible,
+          context: context,
+          builder: (context) {
+            return dialogWidget;
+          },
+        );
         break;
 
       case NavAni.Fade:
       default:
         return showDialog(
           context: context,
+          barrierDismissible: barrierDismissible,
+          barrierColor: barrierColor,
           builder: (context) {
             return dialogWidget;
           },

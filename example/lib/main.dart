@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:after_layout/after_layout.dart';
 import 'package:example/enum_direction.dart';
+import 'package:example/message_dialog.dart';
 import 'package:example/util/u_color_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:nav/nav.dart';
@@ -76,6 +77,10 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
       backgroundColor: bgColor,
       floatingActionButton: Builder(
         builder: (context) => FloatingActionButton(
+          // onPressed: () async {
+          //   final result = await MessgaeDialog(context).show();
+          //   print(result);
+          // },
           onPressed: () async => onResult(
               context,
               await Nav.pushWithRippleEffect(MyHomePage(

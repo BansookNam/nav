@@ -1,3 +1,7 @@
+## [0.2.0] - 2020-10-29.
+
+* Support barrierDismissible, barrierColor
+
 ## [0.1.9] - 2020-10-28.
 
 * Fix dialog bug
