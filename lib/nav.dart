@@ -52,10 +52,18 @@ mixin Nav<T extends StatefulWidget> on State<T> {
     BuildContext context,
   }) {
     return navigatorState(context).push(
-      Platform.isIOS && !prohibitSwipeBack
-          ? CupertinoPageRoute(builder: (context) => screen)
-          : SlideFromRightRoute(widget: screen),
+      getPushRightRoute(screen,
+          prohibitSwipeBack: prohibitSwipeBack, context: context),
     );
+  }
+
+  static Route getPushRightRoute(Widget screen,
+      {bool prohibitSwipeBack = false,
+      BuildContext context,
+      int durationMs = Nav.defaultDurationMs}) {
+    return Platform.isIOS && !prohibitSwipeBack
+        ? CupertinoPageRoute(builder: (context) => screen)
+        : SlideFromRightRoute(widget: screen, durationMs: durationMs);
   }
 
   /// Push screen from left to right

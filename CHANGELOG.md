@@ -1,3 +1,24 @@
+
+## [0.2.6 - 2020-11-18.
+
+* Add MutableValue to avoid Lint Check
+
+## [0.2.5 - 2020-11-18.
+
+* Fix dialog hide bug (context reference))
+
+## [0.2.4] - 2020-11-09.
+
+* Add MutableValue to avoid Lint Check
+
+## [0.2.3] - 2020-11-06.
+
+* Add Default duration value
+
+## [0.2.2] - 2020-11-06.
+
+* Support Cupertino Route on NavAni.Right.
+
 ## [0.2.1] - 2020-10-29.
 
 * Add result param on hide method.

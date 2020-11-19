@@ -14,7 +14,8 @@ extension NavAniExt on NavAni {
       case NavAni.Left:
         return SlideFromLeftRoute(widget: screen, durationMs: durationMs);
       case NavAni.Right:
-        return SlideFromRightRoute(widget: screen, durationMs: durationMs);
+        return Nav.getPushRightRoute(screen,
+            context: context, prohibitSwipeBack: false, durationMs: durationMs);
       case NavAni.Top:
         return SlideFromTopRoute(widget: screen, durationMs: durationMs);
       case NavAni.Bottom:

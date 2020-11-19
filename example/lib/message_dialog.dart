@@ -5,7 +5,6 @@ import 'package:nav/dialog/dialog.dart';
 import 'package:nav/dialog/dialog_state.dart';
 import 'package:nav/enum/enum_nav_ani.dart';
 
-// ignore: must_be_immutable
 class MessgaeDialog extends DialogWidget {
   final BuildContext context;
   final NavAni ani = NavAni.Fade;

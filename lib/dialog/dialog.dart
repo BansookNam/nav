@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:nav/dialog/mutable_value.dart';
 import 'package:nav/enum/enum_nav_ani.dart';
 import 'package:nav/nav.dart';
 import 'package:nav/route/clipper_circle.dart';
 export 'package:nav/dialog/dialog_state.dart';
 
-// ignore: must_be_immutable
 abstract class DialogWidget extends StatefulWidget {
   DialogWidget({Key key}) : super(key: key);
 
@@ -12,14 +12,17 @@ abstract class DialogWidget extends StatefulWidget {
   NavAni get ani => NavAni.Fade;
   bool get barrierDismissible => true;
   Color get barrierColor => Colors.black54;
-  bool isShown = false;
+  final MutableValue<BuildContext> _context =
+      MutableValue(null); //context when dialog is actually use on navigator
+  final MutableValue<bool> isShown = MutableValue(
+      false); //use final reference wrapper to ingnore must_be_immutable lint
 
   void onHide() {
-    isShown = false;
+    isShown.value = false;
   }
 
   Future<T> show<T>() async {
-    isShown = true;
+    isShown.value = true;
     switch (ani) {
       case NavAni.Left:
       case NavAni.Right:
@@ -30,6 +33,7 @@ abstract class DialogWidget extends StatefulWidget {
           barrierDismissible: barrierDismissible,
           context: context,
           builder: (context) {
+            _context.value = context;
             return dialogWidget;
           },
         );
@@ -39,6 +43,7 @@ abstract class DialogWidget extends StatefulWidget {
           barrierDismissible: barrierDismissible,
           context: context,
           builder: (context) {
+            _context.value = context;
             return dialogWidget;
           },
           durationMs: 0,
@@ -50,6 +55,7 @@ abstract class DialogWidget extends StatefulWidget {
           barrierDismissible: barrierDismissible,
           context: context,
           builder: (context) {
+            _context.value = context;
             return dialogWidget;
           },
         );
@@ -62,6 +68,7 @@ abstract class DialogWidget extends StatefulWidget {
           barrierDismissible: barrierDismissible,
           barrierColor: barrierColor,
           builder: (context) {
+            _context.value = context;
             return dialogWidget;
           },
         );
@@ -72,11 +79,11 @@ abstract class DialogWidget extends StatefulWidget {
   Widget get dialogWidget;
 
   void hide([dynamic result]) {
-    if (!isShown) {
+    if (!isShown.value) {
       return;
     }
     onHide();
-    Nav.pop(context, result: result);
+    Nav.pop(_context.value ?? context, result: result);
   }
 }
 
