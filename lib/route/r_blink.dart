@@ -4,7 +4,7 @@ import 'package:nav/route/CustomPageRouteBuilder.dart';
 class BlinkRoute<T> extends CustomPageRouteBuilder<T> {
   final Widget widget;
 
-  BlinkRoute({this.widget})
+  BlinkRoute(this.widget)
       : super(
             pageBuilder: (BuildContext context, Animation<double> animation,
                 Animation<double> secondaryAnimation) {

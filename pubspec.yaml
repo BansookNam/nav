@@ -1,12 +1,12 @@
 name: nav
 description: Provide easy way to navigate. Includes lots of routers. You can use this library on Android & iOS.
-version: 0.2.6
+version: 1.0.7
 homepage: https://github.com/bansooknam/nav
 #dartfmt -w .
 
 environment:
-  sdk: ">=2.8.0 <3.0.0"
-  flutter: ">=1.20.0 <2.0.0"
+  sdk: '>=2.12.0 <3.0.0'
+  flutter: ">=1.20.0"
 
 dependencies:
   flutter:

@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:after_layout/after_layout.dart';
+import 'package:example/dialog/bottom_sheet_dialog.dart';
 import 'package:example/enum_direction.dart';
-import 'package:example/message_dialog.dart';
 import 'package:example/util/u_color_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:nav/nav.dart';
@@ -38,9 +38,9 @@ class _MyAppState extends State<MyApp> with Nav {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.navType}) : super(key: key);
+  MyHomePage({Key? key, this.navType}) : super(key: key);
 
-  final NavType navType;
+  final NavType? navType;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -48,7 +48,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
   bool showBackButton = false;
-  Color bgColor;
+  Color? bgColor;
 
   bool get isHome => !showBackButton;
 
@@ -77,15 +77,21 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
       backgroundColor: bgColor,
       floatingActionButton: Builder(
         builder: (context) => FloatingActionButton(
-          // onPressed: () async {
-          //   final result = await MessgaeDialog(context).show();
-          //   print(result);
-          // },
-          onPressed: () async => onResult(
-              context,
-              await Nav.pushWithRippleEffect(MyHomePage(
-                navType: NavType.Ripple,
-              ))),
+          onPressed: () async {
+            // final result = await MessgaeDialog(context).show();
+            // print(result);
+
+            final result = await BottomSheetDialog(context, [
+              BottomSheetItem("Share", Icon(Icons.share)),
+              BottomSheetItem("Download", Icon(Icons.download)),
+              BottomSheetItem("Close", Icon(Icons.close)),
+            ]).show();
+          },
+          // onPressed: () async => onResult(
+          //     context,
+          //     await Nav.pushWithRippleEffect(MyHomePage(
+          //       navType: NavType.Ripple,
+          //     ))),
           tooltip: 'Ripple',
           child: Icon(Icons.open_in_new),
         ),

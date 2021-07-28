@@ -5,7 +5,7 @@ import 'package:nav/route/CustomPageRouteBuilder.dart';
 class SlideFromLeftRoute<T> extends CustomPageRouteBuilder<T> {
   final Widget widget;
 
-  SlideFromLeftRoute({this.widget, int durationMs = Nav.defaultDurationMs})
+  SlideFromLeftRoute(this.widget, {int durationMs = Nav.defaultDurationMs})
       : super(
             pageBuilder: (BuildContext context, Animation<double> animation,
                 Animation<double> secondaryAnimation) {
@@ -29,7 +29,7 @@ class SlideFromLeftRoute<T> extends CustomPageRouteBuilder<T> {
 class SlideFromRightRoute<T> extends CustomPageRouteBuilder<T> {
   final Widget widget;
 
-  SlideFromRightRoute({this.widget, int durationMs = Nav.defaultDurationMs})
+  SlideFromRightRoute(this.widget, {int durationMs = Nav.defaultDurationMs})
       : super(
             pageBuilder: (BuildContext context, Animation<double> animation,
                 Animation<double> secondaryAnimation) {
@@ -53,7 +53,7 @@ class SlideFromRightRoute<T> extends CustomPageRouteBuilder<T> {
 class SlideFromBottomRoute<T> extends CustomPageRouteBuilder<T> {
   final Widget widget;
 
-  SlideFromBottomRoute({this.widget, int durationMs = Nav.defaultDurationMs})
+  SlideFromBottomRoute(this.widget, {int durationMs = Nav.defaultDurationMs})
       : super(
             pageBuilder: (BuildContext context, Animation<double> animation,
                 Animation<double> secondaryAnimation) {
@@ -77,7 +77,7 @@ class SlideFromBottomRoute<T> extends CustomPageRouteBuilder<T> {
 class SlideFromTopRoute<T> extends CustomPageRouteBuilder<T> {
   final Widget widget;
 
-  SlideFromTopRoute({this.widget, int durationMs = Nav.defaultDurationMs})
+  SlideFromTopRoute(this.widget, {int durationMs = Nav.defaultDurationMs})
       : super(
             pageBuilder: (BuildContext context, Animation<double> animation,
                 Animation<double> secondaryAnimation) {

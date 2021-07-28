@@ -6,13 +6,13 @@ import 'package:nav/route/clipper_circle.dart';
 export 'package:nav/dialog/dialog_state.dart';
 
 abstract class DialogWidget extends StatefulWidget {
-  DialogWidget({Key key}) : super(key: key);
+  DialogWidget(this.context, {Key? key}) : super(key: key);
 
-  BuildContext get context;
+  final BuildContext context;
   NavAni get ani => NavAni.Fade;
   bool get barrierDismissible => true;
   Color get barrierColor => Colors.black54;
-  final MutableValue<BuildContext> _context =
+  final MutableValue<BuildContext?> _context =
       MutableValue(null); //context when dialog is actually use on navigator
   final MutableValue<bool> isShown = MutableValue(
       false); //use final reference wrapper to ingnore must_be_immutable lint
@@ -21,7 +21,7 @@ abstract class DialogWidget extends StatefulWidget {
     isShown.value = false;
   }
 
-  Future<T> show<T>() async {
+  Future<T?> show<T>() async {
     isShown.value = true;
     switch (ani) {
       case NavAni.Left:
@@ -31,36 +31,36 @@ abstract class DialogWidget extends StatefulWidget {
         return showDialogWith(
           ani,
           barrierDismissible: barrierDismissible,
+          barrierColor: barrierColor,
           context: context,
           builder: (context) {
             _context.value = context;
-            return dialogWidget;
+            return this;
           },
         );
       case NavAni.Blink:
         return showDialogWith(
           ani,
           barrierDismissible: barrierDismissible,
+          barrierColor: barrierColor,
           context: context,
           builder: (context) {
             _context.value = context;
-            return dialogWidget;
+            return this;
           },
           durationMs: 0,
         );
-        break;
       case NavAni.Ripple:
         return showDialogWith(
           ani,
           barrierDismissible: barrierDismissible,
+          barrierColor: barrierColor,
           context: context,
           builder: (context) {
             _context.value = context;
-            return dialogWidget;
+            return this;
           },
         );
-        break;
-
       case NavAni.Fade:
       default:
         return showDialog(
@@ -69,14 +69,11 @@ abstract class DialogWidget extends StatefulWidget {
           barrierColor: barrierColor,
           builder: (context) {
             _context.value = context;
-            return dialogWidget;
+            return this;
           },
         );
-        break;
     }
   }
-
-  Widget get dialogWidget;
 
   void hide([dynamic result]) {
     if (!isShown.value) {
@@ -170,48 +167,46 @@ Widget _buildRippleTransition(BuildContext context, Animation<double> animation,
       fraction: animation.value,
       centerAlignment: Alignment.bottomRight,
       centerOffset: const Offset(10, 10),
-      minRadius: Nav.height + Nav.width / 2,
+      minRadius: Nav.height! + Nav.width / 2,
       maxRadius: 10,
     ),
     child: child,
   );
 }
 
-Future<T> showDialogWith<T>(
+Future<T?> showDialogWith<T>(
   NavAni ani, {
-  @required
-      BuildContext context,
+  required BuildContext context,
   bool barrierDismissible = true,
   @Deprecated(
       'Instead of using the "child" argument, return the child from a closure '
       'provided to the "builder" argument. This will ensure that the BuildContext '
       'is appropriate for widgets built in the dialog. '
       'This feature was deprecated after v0.2.3.')
-      Widget child,
-  WidgetBuilder builder,
+      Widget? child,
+  WidgetBuilder? builder,
+  Color? barrierColor,
   bool useRootNavigator = true,
   int durationMs = 500,
 }) {
   assert(child == null || builder == null);
-  assert(useRootNavigator != null);
   assert(debugCheckHasMaterialLocalizations(context));
 
-  final ThemeData theme = Theme.of(context, shadowThemeOnly: true);
+  final ThemeData theme = Theme.of(context);
   return showGeneralDialog(
     context: context,
     pageBuilder: (BuildContext buildContext, Animation<double> animation,
         Animation<double> secondaryAnimation) {
-      final Widget pageChild = child ?? Builder(builder: builder);
+      final Widget pageChild = child ?? Builder(builder: builder!);
       return Builder(builder: (BuildContext context) {
-        return theme != null ? Theme(data: theme, child: pageChild) : pageChild;
+        return Theme(data: theme, child: pageChild);
       });
     },
     barrierDismissible: barrierDismissible,
     barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-    barrierColor: Colors.black54,
+    barrierColor: barrierColor ?? Colors.black54,
     transitionDuration: Duration(milliseconds: durationMs),
     transitionBuilder: getTransition(ani),
-    //useRootNavigator: useRootNavigator,
   );
 }
 
@@ -235,6 +230,5 @@ Widget Function(
     case NavAni.Fade:
     default:
       return _buildFromFadeTransition;
-      break;
   }
 }

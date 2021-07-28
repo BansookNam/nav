@@ -14,8 +14,8 @@ class CustomPageRouteBuilder<T> extends PageRoute<T> {
   /// The [pageBuilder], [transitionsBuilder], [opaque], [barrierDismissible],
   /// and [maintainState] arguments must not be null.
   CustomPageRouteBuilder({
-    RouteSettings settings,
-    @required this.pageBuilder,
+    RouteSettings? settings,
+    required this.pageBuilder,
     this.transitionsBuilder = _defaultTransitionsBuilder,
     this.transitionDuration = const Duration(milliseconds: 300),
     this.opaque = true,
@@ -50,10 +50,10 @@ class CustomPageRouteBuilder<T> extends PageRoute<T> {
   final bool barrierDismissible;
 
   @override
-  final Color barrierColor;
+  final Color? barrierColor;
 
   @override
-  final String barrierLabel;
+  final String? barrierLabel;
 
   @override
   final bool maintainState;

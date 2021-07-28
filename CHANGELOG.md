@@ -1,4 +1,50 @@
+## [1.0.7 - 2021-07-29.
 
+* fix warnings
+
+## [1.0.6 - 2021-07-19.
+
+* fix build bug
+
+## [1.0.5 - 2021-07-19.
+
+* nullable for widget
+
+## [1.0.4 - 2021-07-16.
+
+* Support barrier color to other animations
+
+## [1.0.3 - 2021-07-12.
+
+* Change Sample code
+
+## [1.0.2 - 2021-07-09.
+
+* Dart format
+
+## [1.0.1 - 2021-07-09.
+
+* Add Bottom sheet dialog example
+## [1.0.0 - 2021-07-09.
+
+* Support Null Safety
+
+
+## [0.3.3 - 2020-12-27.
+
+* Add Support Web
+* remove dart:io dependency
+
+## [0.2.9 - 2020-12-26.
+
+* Remove unused param
+
+## [0.2.8 - 2020-12-26.
+
+* Add Context in abstract class.
+## [0.2.7 - 2020-12-26.
+
+* Remove needless code.
 ## [0.2.6 - 2020-11-18.
 
 * Add MutableValue to avoid Lint Check

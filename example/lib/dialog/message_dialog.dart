@@ -6,20 +6,17 @@ import 'package:nav/dialog/dialog_state.dart';
 import 'package:nav/enum/enum_nav_ani.dart';
 
 class MessgaeDialog extends DialogWidget {
-  final BuildContext context;
   final NavAni ani = NavAni.Fade;
   final Color barrierColor = Colors.white.withOpacity(0.3);
   final bool barrierDismissible = false;
   final bool isCancelOnBack = false;
 
-  MessgaeDialog(this.context);
+  MessgaeDialog(BuildContext context) : super(context);
 
   @override
   State<StatefulWidget> createState() {
     return _DialogState(onHide);
   }
-
-  Widget get dialogWidget => this;
 }
 
 class _DialogState extends DialogState<MessgaeDialog> {

@@ -27,7 +27,6 @@
 			"    return _DialogState(onHide);",
 			"  }",
 			"",
-			"  Widget get dialogWidget => this;",
 			"}",
 			"",
 			"class _DialogState extends DialogState<${1:name}Dialog> {",

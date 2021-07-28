@@ -5,7 +5,7 @@ import 'package:nav/route/CustomPageRouteBuilder.dart';
 class FadeRoute<T> extends CustomPageRouteBuilder<T> {
   final Widget widget;
 
-  FadeRoute({this.widget, int durationMs = Nav.defaultDurationMs})
+  FadeRoute(this.widget, {int durationMs = Nav.defaultDurationMs})
       : super(
             pageBuilder: (BuildContext context, Animation<double> animation,
                 Animation<double> secondaryAnimation) {
