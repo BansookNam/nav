@@ -37,7 +37,19 @@ mixin Nav<T extends StatefulWidget> on State<T> {
   }
 
   /// Get navigator state
-  static NavigatorState? navigatorState(BuildContext? context) => context != null ? Navigator.of(context) : _globalKey.currentState;
+  static NavigatorState? navigatorState(BuildContext? context) {
+    NavigatorState? state;
+    try {
+      if (context != null) {
+        state = Navigator.of(context);
+        return state;
+      } else {
+        return _globalKey.currentState;
+      }
+    } catch (e) {
+      return _globalKey.currentState;
+    }
+  }
 
   /// Push screen from right to left
   ///
