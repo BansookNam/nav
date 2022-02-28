@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget _defaultTransitionsBuilder(
-    BuildContext context,
-    Animation<double> animation,
-    Animation<double> secondaryAnimation,
-    Widget child) {
+Widget _defaultTransitionsBuilder(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
   return child;
 }
 
@@ -23,12 +19,7 @@ class CustomPageRouteBuilder<T> extends PageRoute<T> {
     this.barrierColor,
     this.barrierLabel,
     this.maintainState = true,
-  })  : assert(pageBuilder != null),
-        assert(transitionsBuilder != null),
-        assert(barrierDismissible != null),
-        assert(maintainState != null),
-        assert(opaque != null),
-        super(settings: settings, fullscreenDialog: false);
+  }) : super(settings: settings, fullscreenDialog: false);
 
   /// Used build the route's primary contents.
   ///
@@ -59,14 +50,12 @@ class CustomPageRouteBuilder<T> extends PageRoute<T> {
   final bool maintainState;
 
   @override
-  Widget buildPage(BuildContext context, Animation<double> animation,
-      Animation<double> secondaryAnimation) {
+  Widget buildPage(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
     return pageBuilder(context, animation, secondaryAnimation);
   }
 
   @override
-  Widget buildTransitions(BuildContext context, Animation<double> animation,
-      Animation<double> secondaryAnimation, Widget child) {
+  Widget buildTransitions(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
     return transitionsBuilder(context, animation, secondaryAnimation, child);
   }
 }

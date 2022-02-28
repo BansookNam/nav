@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:nav/dialog/dialog.dart';
-import 'package:nav/dialog/dialog_state.dart';
 import 'package:nav/enum/enum_nav_ani.dart';
 
 class MessgaeDialog extends DialogWidget {
@@ -47,11 +46,8 @@ class _DialogState extends DialogState<MessgaeDialog> {
                     child: Container(
                       height: 80,
                       width: 100,
-                      decoration: BoxDecoration(
-                          color: Colors.blueAccent,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Text("Test Dialog",
-                          style: TextStyle(color: Colors.white)),
+                      decoration: BoxDecoration(color: Colors.blueAccent, borderRadius: BorderRadius.circular(10)),
+                      child: Text("Test Dialog", style: TextStyle(color: Colors.white)),
                       alignment: Alignment.center,
                     ),
                   ),

@@ -1,3 +1,7 @@
+## [1.0.8 - 2022-02-28.
+
+* fix NPE
+* remove unused imports
 ## [1.0.7 - 2021-07-29.
 
 * fix warnings
