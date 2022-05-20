@@ -26,7 +26,7 @@ mixin Nav<T extends StatefulWidget> on State<T> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       _globalKey = navigatorKey;
     });
   }
@@ -69,8 +69,11 @@ mixin Nav<T extends StatefulWidget> on State<T> {
     );
   }
 
-  static Route getPushRightRoute(Widget screen, {bool prohibitSwipeBack = false, BuildContext? context, int durationMs = Nav.defaultDurationMs}) {
-    return TargetPlatform.iOS == defaultTargetPlatform && !prohibitSwipeBack ? CupertinoPageRoute(builder: (context) => screen) : SlideFromRightRoute(screen, durationMs: durationMs);
+  static Route getPushRightRoute(Widget screen,
+      {bool prohibitSwipeBack = false, BuildContext? context, int durationMs = Nav.defaultDurationMs}) {
+    return TargetPlatform.iOS == defaultTargetPlatform && !prohibitSwipeBack
+        ? CupertinoPageRoute(builder: (context) => screen)
+        : SlideFromRightRoute(screen, durationMs: durationMs);
   }
 
   /// Push screen from left to right
@@ -102,7 +105,10 @@ mixin Nav<T extends StatefulWidget> on State<T> {
   /// Push screen with Ripple Effect (Default: bottomRight to topLeft, You can change the alignment and offset)
   ///
   /// If you provide context, you can nest navigate in your specific context
-  static Future<T?> pushWithRippleEffect<T>(Widget? screen, {BuildContext? context, AlignmentGeometry centerAlignment = Alignment.bottomRight, Offset centerOffset = const Offset(10, 10)}) async {
+  static Future<T?> pushWithRippleEffect<T>(Widget? screen,
+      {BuildContext? context,
+      AlignmentGeometry centerAlignment = Alignment.bottomRight,
+      Offset centerOffset = const Offset(10, 10)}) async {
     if (screen == null) {
       return null;
     }
@@ -124,7 +130,8 @@ mixin Nav<T extends StatefulWidget> on State<T> {
   /// Push screen with NavAni param
   ///
   /// If you provide context, you can nest navigate in your specific context
-  static Future<T?> push<T>(Widget? screen, {NavAni navAni = NavAni.Right, BuildContext? context, int durationMs = defaultDurationMs}) async {
+  static Future<T?> push<T>(Widget? screen,
+      {NavAni navAni = NavAni.Right, BuildContext? context, int durationMs = defaultDurationMs}) async {
     if (screen == null) {
       return null;
     }
@@ -134,7 +141,8 @@ mixin Nav<T extends StatefulWidget> on State<T> {
   /// Push Replacement screen
   ///
   /// If you provide context, you can nest navigate in your specific context
-  static Future<T?> pushReplacement<T, TO extends Object>(Widget? screen, {BuildContext? context, NavAni navAni = NavAni.Fade, TO? result, int durationMs = defaultDurationMs}) async {
+  static Future<T?> pushReplacement<T, TO extends Object>(Widget? screen,
+      {BuildContext? context, NavAni navAni = NavAni.Fade, TO? result, int durationMs = defaultDurationMs}) async {
     if (screen == null) {
       return null;
     }
@@ -144,11 +152,13 @@ mixin Nav<T extends StatefulWidget> on State<T> {
   /// Clear All screen on navigator state and push the new one.
   ///
   /// If you provide context, you can nest navigate in your specific context
-  static Future<T?> clearAllAndPush<T>(Widget? screen, {BuildContext? context, NavAni navAni = NavAni.Fade, int durationMs = defaultDurationMs}) async {
+  static Future<T?> clearAllAndPush<T>(Widget? screen,
+      {BuildContext? context, NavAni navAni = NavAni.Fade, int durationMs = defaultDurationMs}) async {
     if (screen == null) {
       return null;
     }
-    return navigatorState(context)?.pushAndRemoveUntil(navAni.createRoute(screen, context, durationMs), (Route<dynamic> route) => false);
+    return navigatorState(context)
+        ?.pushAndRemoveUntil(navAni.createRoute(screen, context, durationMs), (Route<dynamic> route) => false);
   }
 
   /// Check result is success
