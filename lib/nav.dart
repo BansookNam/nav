@@ -187,7 +187,7 @@ mixin Nav<T extends StatefulWidget> on State<T> {
   }
 
   /// pop screen with result
-  static void pop<T extends Object>(BuildContext context, {T? result}) {
+  static void pop<T>(BuildContext context, {T? result}) {
     if (result == null) {
       Navigator.of(context).pop();
     } else {
