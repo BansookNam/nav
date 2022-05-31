@@ -1,3 +1,7 @@
+## [1.1.3 - 2022-05-20.
+
+* Generic type on show method
+
 ## [1.1.2 - 2022-05-20.
 
 * Add return type for dialog widget

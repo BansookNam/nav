@@ -20,14 +20,14 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
     isShown.value = false;
   }
 
-  Future<ResultType?> show<ResultType>() async {
+  Future<ResultType?> show() async {
     isShown.value = true;
     switch (ani) {
       case NavAni.Left:
       case NavAni.Right:
       case NavAni.Top:
       case NavAni.Bottom:
-        return showDialogWith(
+        return showDialogWith<ResultType>(
           ani,
           barrierDismissible: barrierDismissible,
           barrierColor: barrierColor,
@@ -38,7 +38,7 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
           },
         );
       case NavAni.Blink:
-        return showDialogWith(
+        return showDialogWith<ResultType>(
           ani,
           barrierDismissible: barrierDismissible,
           barrierColor: barrierColor,
@@ -50,7 +50,7 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
           durationMs: 0,
         );
       case NavAni.Ripple:
-        return showDialogWith(
+        return showDialogWith<ResultType>(
           ani,
           barrierDismissible: barrierDismissible,
           barrierColor: barrierColor,
@@ -62,7 +62,7 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
         );
       case NavAni.Fade:
       default:
-        return showDialog(
+        return showDialog<ResultType>(
           context: context,
           barrierDismissible: barrierDismissible,
           barrierColor: barrierColor,
