@@ -20,7 +20,7 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
     isShown.value = false;
   }
 
-  Future<T?> show<T>() async {
+  Future<ResultType?> show<ResultType>() async {
     isShown.value = true;
     switch (ani) {
       case NavAni.Left:
