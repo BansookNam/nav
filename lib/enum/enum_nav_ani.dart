@@ -8,36 +8,34 @@ import 'package:nav/route/r_slide.dart';
 enum NavAni { Left, Right, Top, Bottom, Fade, Ripple, Blink }
 
 extension NavAniExt on NavAni {
-  PageRoute<T> createRoute<T>(
+  Route<T> createRoute<T>(
       Widget screen, BuildContext? context, int durationMs) {
     switch (this) {
       case NavAni.Left:
-        return SlideFromLeftRoute(screen, durationMs: durationMs);
+        return SlideFromLeftRoute<T>(screen, durationMs: durationMs);
       case NavAni.Right:
-        return Nav.getPushRightRoute(screen,
-            context: context,
-            prohibitSwipeBack: false,
-            durationMs: durationMs) as PageRoute<T>;
+        return Nav.getPushRightRoute<T>(screen,
+            context: context, prohibitSwipeBack: false, durationMs: durationMs);
       case NavAni.Top:
-        return SlideFromTopRoute(screen, durationMs: durationMs);
+        return SlideFromTopRoute<T>(screen, durationMs: durationMs);
       case NavAni.Bottom:
-        return SlideFromBottomRoute(screen, durationMs: durationMs);
+        return SlideFromBottomRoute<T>(screen, durationMs: durationMs);
       case NavAni.Fade:
-        return FadeRoute(screen, durationMs: durationMs);
+        return FadeRoute<T>(screen, durationMs: durationMs);
       case NavAni.Blink:
-        return BlinkRoute(screen);
+        return BlinkRoute<T>(screen);
       case NavAni.Ripple:
         if (Nav.height == null) {
           Nav.initDeviceSize(context!);
         }
-        return RoundRevealRoute(screen,
+        return RoundRevealRoute<T>(screen,
             maxRadius: Nav.height! + Nav.width / 2,
             centerAlignment: Alignment.bottomRight,
             centerOffset: Offset(10, 10),
             minRadius: 10,
             durationMs: durationMs);
       default:
-        return SlideFromRightRoute(screen);
+        return SlideFromRightRoute<T>(screen);
     }
   }
 }
