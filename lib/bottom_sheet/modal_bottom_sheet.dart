@@ -46,7 +46,8 @@ abstract class ModalBottomSheet<T> extends StatelessWidget {
   Widget _buildSheet(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(verticalBorderRadius)),
+        borderRadius:
+            BorderRadius.vertical(top: Radius.circular(verticalBorderRadius)),
         color: backgroundColor,
       ),
       child: Column(
