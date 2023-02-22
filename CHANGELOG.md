@@ -1,3 +1,6 @@
+## [1.1.8] - 2023-02-22
+
+* hide bottom sheet handle if it is not enabled
 ## [1.1.7] - 2023-02-22
 
 * resource organize

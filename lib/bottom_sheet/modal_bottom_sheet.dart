@@ -55,7 +55,7 @@ abstract class ModalBottomSheet<T> extends StatelessWidget {
         children: [
           SizedBox(height: 10),
           // Drawer handler
-          if (handleColor != Colors.transparent)
+          if (!enableDrag || handleColor != Colors.transparent)
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
