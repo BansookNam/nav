@@ -1,6 +1,6 @@
 name: nav
 description: Provide easy way to navigate. Includes lots of routers. You can use this library on Android & iOS.
-version: 1.1.8
+version: 1.1.9
 homepage: https://github.com/bansooknam/nav
 #flutter format .
 

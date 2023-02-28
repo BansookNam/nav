@@ -1,3 +1,7 @@
+## [1.1.9] - 2023-02-28
+
+* add exception for unmounted statefulElement
+
 ## [1.1.8] - 2023-02-22
 
 * hide bottom sheet handle if it is not enabled

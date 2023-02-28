@@ -17,18 +17,23 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
   final MutableValue<bool> isShown = MutableValue(
       false); //use final reference wrapper to ingnore must_be_immutable lint
 
+  @protected
   void onHide() {
     isShown.value = false;
   }
 
   Future<ResultType?> show() async {
+    if (context is StatefulElement && !context.mounted) {
+      return null;
+    }
+
     isShown.value = true;
     switch (ani) {
       case NavAni.Left:
       case NavAni.Right:
       case NavAni.Top:
       case NavAni.Bottom:
-        return showDialogWith<ResultType>(
+        return _showDialogWith<ResultType>(
           ani,
           barrierDismissible: barrierDismissible,
           barrierColor: barrierColor,
@@ -39,7 +44,7 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
           },
         );
       case NavAni.Blink:
-        return showDialogWith<ResultType>(
+        return _showDialogWith<ResultType>(
           ani,
           barrierDismissible: barrierDismissible,
           barrierColor: barrierColor,
@@ -51,7 +56,7 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
           durationMs: 0,
         );
       case NavAni.Ripple:
-        return showDialogWith<ResultType>(
+        return _showDialogWith<ResultType>(
           ani,
           barrierDismissible: barrierDismissible,
           barrierColor: barrierColor,
@@ -174,7 +179,7 @@ Widget _buildRippleTransition(BuildContext context, Animation<double> animation,
   );
 }
 
-Future<T?> showDialogWith<T>(
+Future<T?> _showDialogWith<T>(
   NavAni ani, {
   required BuildContext context,
   bool barrierDismissible = true,
@@ -206,7 +211,7 @@ Future<T?> showDialogWith<T>(
     barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
     barrierColor: barrierColor ?? Colors.black54,
     transitionDuration: Duration(milliseconds: durationMs),
-    transitionBuilder: getTransition(ani),
+    transitionBuilder: _getTransition(ani),
   );
 }
 
@@ -214,7 +219,7 @@ Widget Function(
     BuildContext context,
     Animation<double> animation,
     Animation<double> secondaryAnimation,
-    Widget child) getTransition(NavAni ani) {
+    Widget child) _getTransition(NavAni ani) {
   switch (ani) {
     case NavAni.Left:
       return _buildFromLeftTransition;

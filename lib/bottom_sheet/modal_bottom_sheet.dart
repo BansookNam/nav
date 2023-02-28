@@ -76,7 +76,11 @@ abstract class ModalBottomSheet<T> extends StatelessWidget {
     );
   }
 
-  Future<T?> show() {
+  Future<T?> show() async {
+    if (context is StatefulElement && !context.mounted) {
+      return null;
+    }
+
     return showModalBottomSheet<T>(
       context: context,
       isScrollControlled: true,
