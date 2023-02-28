@@ -113,8 +113,10 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             IconButton(
-                              onPressed: () async =>
-                                  onResult(context, await Nav.pushFromTop(MyHomePage(navType: NavType.Top))),
+                              onPressed: () async => onResult(
+                                  context,
+                                  await Nav.pushFromTop(
+                                      MyHomePage(navType: NavType.Top))),
                               icon: icon(Icons.vertical_align_bottom),
                             )
                           ],
@@ -123,11 +125,15 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
                           child: Container(
                             child: Center(
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   IconButton(
                                     onPressed: () async {
-                                      onResult(context, await Nav.pushFromLeft(MyHomePage(navType: NavType.Left)));
+                                      onResult(
+                                          context,
+                                          await Nav.pushFromLeft(MyHomePage(
+                                              navType: NavType.Left)));
                                     },
                                     icon: icon(Icons.keyboard_arrow_right),
                                   ),
@@ -151,13 +157,17 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
                                       isHome
                                           ? Text("Click an Arrow",
                                               style: TextStyle(
-                                                  color: Colors.white, fontSize: 20, fontWeight: FontWeight.w700))
+                                                  color: Colors.white,
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w700))
                                           : Container(),
                                     ],
                                   ),
                                   IconButton(
-                                    onPressed: () async =>
-                                        onResult(context, await Nav.pushFromRight(MyHomePage(navType: NavType.Right))),
+                                    onPressed: () async => onResult(
+                                        context,
+                                        await Nav.pushFromRight(MyHomePage(
+                                            navType: NavType.Right))),
                                     icon: icon(Icons.keyboard_arrow_left),
                                   ),
                                 ],
@@ -169,8 +179,10 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             IconButton(
-                              onPressed: () async =>
-                                  onResult(context, await Nav.pushFromBottom(MyHomePage(navType: NavType.Bottom))),
+                              onPressed: () async => onResult(
+                                  context,
+                                  await Nav.pushFromBottom(
+                                      MyHomePage(navType: NavType.Bottom))),
                               icon: icon(Icons.vertical_align_top),
                             )
                           ],
@@ -181,7 +193,9 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
                         ? Container()
                         : IconButton(
                             onPressed: () => Nav.pop(context),
-                            icon: icon(Platform.isIOS ? Icons.arrow_back_ios : Icons.arrow_back),
+                            icon: icon(Platform.isIOS
+                                ? Icons.arrow_back_ios
+                                : Icons.arrow_back),
                           )
                   ],
                 ),
@@ -232,7 +246,8 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
               children: <Widget>[
                 Center(
                   child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 11),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 11),
                       child: Center(
                         child: Text(message,
                             style: TextStyle(
@@ -241,7 +256,9 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
                               fontStyle: FontStyle.normal,
                             )),
                       ),
-                      decoration: new BoxDecoration(color: Color(0xff5a8fee), borderRadius: BorderRadius.circular(5))),
+                      decoration: new BoxDecoration(
+                          color: Color(0xff5a8fee),
+                          borderRadius: BorderRadius.circular(5))),
                 ),
               ],
             ),
@@ -251,7 +268,8 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
 
   void onResult(BuildContext context, dynamic result) {
     if (Nav.isSuccess(result)) {
-      final snackbar = createSnackBar(context, "Result is Success: ${result.toString()}");
+      final snackbar =
+          createSnackBar(context, "Result is Success: ${result.toString()}");
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
     }
   }

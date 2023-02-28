@@ -13,9 +13,10 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
   NavAni get ani => NavAni.Fade;
   bool get barrierDismissible => true;
   Color get barrierColor => Colors.black54;
-  final MutableValue<BuildContext?> _context = MutableValue(null); //context when dialog is actually use on navigator
-  final MutableValue<bool> isShown =
-      MutableValue(false); //use final reference wrapper to ingnore must_be_immutable lint
+  final MutableValue<BuildContext?> _context =
+      MutableValue(null); //context when dialog is actually use on navigator
+  final MutableValue<bool> isShown = MutableValue(
+      false); //use final reference wrapper to ingnore must_be_immutable lint
 
   void onHide() {
     isShown.value = false;
@@ -89,7 +90,10 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
 
 ///build fade animation transition
 Widget _buildFromFadeTransition(
-    BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child) {
   return FadeTransition(
     opacity: Tween<double>(begin: 0.0, end: 1.0).animate(animation),
     child: child,
@@ -98,7 +102,10 @@ Widget _buildFromFadeTransition(
 
 ///build moving from top to bottom animation transition
 Widget _buildFromTopTransition(
-    BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child) {
   return SlideTransition(
     position: Tween<Offset>(
       begin: const Offset(0.0, -1.0),
@@ -110,7 +117,10 @@ Widget _buildFromTopTransition(
 
 ///build moving from bottom to top animation transition
 Widget _buildFromBottomTransition(
-    BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child) {
   return SlideTransition(
     position: Tween<Offset>(
       begin: const Offset(0.0, 1.0),
@@ -122,7 +132,10 @@ Widget _buildFromBottomTransition(
 
 ///build moving from right to left animation transition
 Widget _buildFromRightTransition(
-    BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child) {
   return SlideTransition(
     position: Tween<Offset>(
       begin: const Offset(1.0, 0.0),
@@ -134,7 +147,10 @@ Widget _buildFromRightTransition(
 
 ///build moving from left to right animation transition
 Widget _buildFromLeftTransition(
-    BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child) {
   return SlideTransition(
     position: Tween<Offset>(
       begin: const Offset(-1.0, 0.0),
@@ -145,8 +161,8 @@ Widget _buildFromLeftTransition(
 }
 
 ///build ripple animation transition from right bottom
-Widget _buildRippleTransition(
-    BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+Widget _buildRippleTransition(BuildContext context, Animation<double> animation,
+    Animation<double> secondaryAnimation, Widget child) {
   if (Nav.height == null) {
     Nav.initDeviceSize(context);
   }
@@ -166,7 +182,8 @@ Future<T?> _showDialogWith<T>(
   NavAni ani, {
   required BuildContext context,
   bool barrierDismissible = true,
-  @Deprecated('Instead of using the "child" argument, return the child from a closure '
+  @Deprecated(
+      'Instead of using the "child" argument, return the child from a closure '
       'provided to the "builder" argument. This will ensure that the BuildContext '
       'is appropriate for widgets built in the dialog. '
       'This feature was deprecated after v0.2.3.')
@@ -182,7 +199,8 @@ Future<T?> _showDialogWith<T>(
   final ThemeData theme = Theme.of(context);
   return showGeneralDialog(
     context: context,
-    pageBuilder: (BuildContext buildContext, Animation<double> animation, Animation<double> secondaryAnimation) {
+    pageBuilder: (BuildContext buildContext, Animation<double> animation,
+        Animation<double> secondaryAnimation) {
       final Widget pageChild = child ?? Builder(builder: builder!);
       return Builder(builder: (BuildContext context) {
         return Theme(data: theme, child: pageChild);
@@ -196,8 +214,11 @@ Future<T?> _showDialogWith<T>(
   );
 }
 
-Widget Function(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child)
-    _getTransition(NavAni ani) {
+Widget Function(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child) _getTransition(NavAni ani) {
   switch (ani) {
     case NavAni.Left:
       return _buildFromLeftTransition;

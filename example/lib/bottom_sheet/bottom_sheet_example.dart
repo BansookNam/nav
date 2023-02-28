@@ -8,7 +8,8 @@ import '../dialog/bottom_sheet_dialog.dart';
 class BottomSheetExample extends ModalBottomSheet {
   final List<BottomSheetItem> bottomSheetItemList;
 
-  BottomSheetExample(BuildContext context, this.bottomSheetItemList) : super(context);
+  BottomSheetExample(BuildContext context, this.bottomSheetItemList)
+      : super(context);
 
   @override
   Widget build(BuildContext context) {
@@ -27,18 +28,23 @@ class BottomSheetExample extends ModalBottomSheet {
               padding: EdgeInsets.only(bottom: viewPaddingBottom + 10, top: 10),
               width: width,
               decoration: new BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.only(topLeft: radius, topRight: radius)),
+                  color: Colors.white,
+                  borderRadius:
+                      BorderRadius.only(topLeft: radius, topRight: radius)),
               child: Column(
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 14.0),
                     child: Text("This is modal bottom sheet",
-                        style: TextStyle(color: Color(0xff777777), fontWeight: FontWeight.bold)),
+                        style: TextStyle(
+                            color: Color(0xff777777),
+                            fontWeight: FontWeight.bold)),
                   ),
                   ...getItemList(context),
                   PressedChangeButton(
                     onTap: () {
-                      Nav.pop(context, result: {Nav.RESULT: Nav.SUCCESS, "data": "Cancel"});
+                      Nav.pop(context,
+                          result: {Nav.RESULT: Nav.SUCCESS, "data": "Cancel"});
                     },
                     forcePressedColor: false,
                     child: Row(
@@ -46,7 +52,9 @@ class BottomSheetExample extends ModalBottomSheet {
                       children: <Widget>[
                         Padding(
                           padding: const EdgeInsets.all(20.0),
-                          child: Text("Cancel", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                          child: Text("Cancel",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16)),
                         )
                       ],
                     ),
@@ -65,7 +73,8 @@ class BottomSheetExample extends ModalBottomSheet {
     bottomSheetItemList.forEach((item) {
       list.add(PressedChangeButton(
         onTap: () {
-          Nav.pop(context, result: {Nav.RESULT: Nav.SUCCESS, "data": item.title});
+          Nav.pop(context,
+              result: {Nav.RESULT: Nav.SUCCESS, "data": item.title});
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
