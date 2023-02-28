@@ -14,13 +14,11 @@ class MessgaeDialog extends DialogWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _DialogState(onHide);
+    return _DialogState();
   }
 }
 
 class _DialogState extends DialogState<MessgaeDialog> {
-  _DialogState(Function() onHide) : super(onHide);
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -46,11 +44,8 @@ class _DialogState extends DialogState<MessgaeDialog> {
                     child: Container(
                       height: 80,
                       width: 100,
-                      decoration: BoxDecoration(
-                          color: Colors.blueAccent,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Text("Test Dialog",
-                          style: TextStyle(color: Colors.white)),
+                      decoration: BoxDecoration(color: Colors.blueAccent, borderRadius: BorderRadius.circular(10)),
+                      child: Text("Test Dialog", style: TextStyle(color: Colors.white)),
                       alignment: Alignment.center,
                     ),
                   ),

@@ -1,3 +1,8 @@
+## [1.2.0] - 2023-02-28
+
+* remove onHide dependency for dialog
+* support android v2
+
 ## [1.1.9] - 2023-02-28
 
 * add exception for unmounted statefulElement

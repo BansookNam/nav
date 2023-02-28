@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:nav/dialog/dialog.dart';
 
-abstract class DialogState<T extends StatefulWidget> extends State<T> {
-  final Function() onHide;
+abstract class DialogState<T extends DialogWidget> extends State<T> {
+  Function()? onHide;
 
-  DialogState(this.onHide);
+  @mustCallSuper
+  @override
+  void initState() {
+    super.initState();
+    onHide = widget.onHide;
+  }
 
   @override
   void dispose() {
-    onHide();
+    if (onHide != null) {
+      onHide!();
+    }
     super.dispose();
   }
 }
