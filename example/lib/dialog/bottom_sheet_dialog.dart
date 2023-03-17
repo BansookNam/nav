@@ -16,7 +16,7 @@ class BottomSheetDialog extends DialogWidget {
   final List<BottomSheetItem> bottomSheetItemList;
   final String? title;
   final bool showCancel;
-  final NavAni ani = NavAni.Bottom;
+  final NavAni animation = NavAni.Bottom;
   final MainAxisAlignment mainAxisAlignment;
   final bool barrierDismissible = true;
 

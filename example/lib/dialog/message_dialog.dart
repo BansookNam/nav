@@ -4,13 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:nav/dialog/dialog.dart';
 import 'package:nav/enum/enum_nav_ani.dart';
 
-class MessgaeDialog extends DialogWidget {
-  final NavAni ani = NavAni.Fade;
-  final Color barrierColor = Colors.white.withOpacity(0.3);
-  final bool barrierDismissible = false;
+class MessageDialog extends DialogWidget {
   final bool isCancelOnBack = false;
 
-  MessgaeDialog(BuildContext context) : super(context);
+  MessageDialog(BuildContext context)
+      : super(
+          context,
+          animation: NavAni.Fade,
+          barrierColor: Colors.white.withOpacity(0.3),
+          barrierDismissible: false,
+        );
 
   @override
   State<StatefulWidget> createState() {
@@ -18,7 +21,7 @@ class MessgaeDialog extends DialogWidget {
   }
 }
 
-class _DialogState extends DialogState<MessgaeDialog> {
+class _DialogState extends DialogState<MessageDialog> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(

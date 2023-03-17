@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:after_layout/after_layout.dart';
-import 'package:example/bottom_sheet/bottom_sheet_example.dart';
 import 'package:example/dialog/bottom_sheet_dialog.dart';
 import 'package:example/enum_direction.dart';
 import 'package:example/util/u_color_generator.dart';

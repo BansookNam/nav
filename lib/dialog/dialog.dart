@@ -7,12 +7,19 @@ import 'package:nav/route/clipper_circle.dart';
 export 'package:nav/dialog/dialog_state.dart';
 
 abstract class DialogWidget<ResultType> extends StatefulWidget {
-  DialogWidget(this.context, {Key? key}) : super(key: key);
+  DialogWidget(
+    this.context, {
+    Key? key,
+    this.animation = NavAni.Fade,
+    this.barrierColor = Colors.black54,
+    this.barrierDismissible = true,
+  }) : super(key: key);
 
   final BuildContext context;
-  NavAni get ani => NavAni.Fade;
-  bool get barrierDismissible => true;
-  Color get barrierColor => Colors.black54;
+  final NavAni animation;
+  final bool barrierDismissible;
+  final Color barrierColor;
+
   final MutableValue<BuildContext?> _context =
       MutableValue(null); //context when dialog is actually use on navigator
   final MutableValue<bool> isShown = MutableValue(
@@ -28,13 +35,13 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
     }
 
     isShown.value = true;
-    switch (ani) {
+    switch (animation) {
       case NavAni.Left:
       case NavAni.Right:
       case NavAni.Top:
       case NavAni.Bottom:
         return _showDialogWith<ResultType>(
-          ani,
+          animation,
           barrierDismissible: barrierDismissible,
           barrierColor: barrierColor,
           context: context,
@@ -45,7 +52,7 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
         );
       case NavAni.Blink:
         return _showDialogWith<ResultType>(
-          ani,
+          animation,
           barrierDismissible: barrierDismissible,
           barrierColor: barrierColor,
           context: context,
@@ -57,7 +64,7 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
         );
       case NavAni.Ripple:
         return _showDialogWith<ResultType>(
-          ani,
+          animation,
           barrierDismissible: barrierDismissible,
           barrierColor: barrierColor,
           context: context,

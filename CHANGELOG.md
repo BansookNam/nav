@@ -1,3 +1,9 @@
+## [1.3.0] - 2023-0
+
+* add key on stateless widget
+* move dialog parameter to constructor
+* dart 2.17
+
 ## [1.2.0] - 2023-02-28
 
 * remove onHide dependency for dialog

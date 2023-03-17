@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 abstract class ModalBottomSheet<T> extends StatelessWidget {
   ModalBottomSheet(
     this.context, {
+    super.key,
     this.enableDrag = true,
     this.isDismissible = true,
     this.useSafeArea = false,
