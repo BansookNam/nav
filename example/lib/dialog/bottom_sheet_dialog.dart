@@ -16,15 +16,19 @@ class BottomSheetDialog extends DialogWidget {
   final List<BottomSheetItem> bottomSheetItemList;
   final String? title;
   final bool showCancel;
-  final NavAni animation = NavAni.Bottom;
   final MainAxisAlignment mainAxisAlignment;
-  final bool barrierDismissible = true;
 
-  BottomSheetDialog(BuildContext context, this.bottomSheetItemList,
-      {this.showCancel = false,
-      this.title,
-      this.mainAxisAlignment = MainAxisAlignment.start})
-      : super(context);
+  BottomSheetDialog(
+    this.bottomSheetItemList, {
+    BuildContext? context,
+    this.showCancel = false,
+    this.title,
+    this.mainAxisAlignment = MainAxisAlignment.start,
+  }) : super(
+          context: context,
+          barrierDismissible: false,
+          animation: NavAni.Bottom,
+        );
 
   @override
   State<StatefulWidget> createState() {
@@ -47,65 +51,57 @@ class _DialogState extends DialogState<BottomSheetDialog> {
     final mediaQuery = MediaQuery.of(context);
     final viewPaddingBottom = mediaQuery.viewPadding.bottom;
     final width = mediaQuery.size.width;
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: () {
-          if (widget.barrierDismissible) {
-            widget.hide();
-          }
-        },
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.only(bottom: viewPaddingBottom + 10, top: 10),
-              width: width,
-              decoration: new BoxDecoration(
-                  color: Colors.white,
-                  borderRadius:
-                      BorderRadius.only(topLeft: radius, topRight: radius)),
-              child: Column(
-                children: <Widget>[
-                  if (widget.title != null)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 14.0),
-                      child: Text(widget.title ?? "",
-                          style: TextStyle(
-                              color: Color(0xff777777),
-                              fontWeight: FontWeight.bold)),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        Material(
+          child: Container(
+            padding: EdgeInsets.only(bottom: viewPaddingBottom + 10, top: 10),
+            width: width,
+            decoration: new BoxDecoration(
+                color: Colors.white,
+                borderRadius:
+                    BorderRadius.only(topLeft: radius, topRight: radius)),
+            child: Column(
+              children: <Widget>[
+                if (widget.title != null)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 14.0),
+                    child: Text(widget.title ?? "",
+                        style: TextStyle(
+                            color: Color(0xff777777),
+                            fontWeight: FontWeight.bold)),
+                  ),
+                ...getItemList(context),
+                if (widget.showCancel)
+                  PressedChangeButton(
+                    onTap: () {
+                      setState(() {
+                        selectedTitle = "Cancel";
+                      });
+                      Nav.pop(context, result: {
+                        Nav.RESULT: Nav.SUCCESS,
+                        BottomSheetDialog.DATA: "Cancel"
+                      });
+                    },
+                    forcePressedColor: selectedTitle == "Cancel",
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Text("Cancel",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16)),
+                        )
+                      ],
                     ),
-                  ...getItemList(context),
-                  if (widget.showCancel)
-                    PressedChangeButton(
-                      onTap: () {
-                        setState(() {
-                          selectedTitle = "Cancel";
-                        });
-                        Nav.pop(context, result: {
-                          Nav.RESULT: Nav.SUCCESS,
-                          BottomSheetDialog.DATA: "Cancel"
-                        });
-                      },
-                      forcePressedColor: selectedTitle == "Cancel",
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Text("Cancel",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 16)),
-                          )
-                        ],
-                      ),
-                    )
-                ],
-              ),
+                  )
+              ],
             ),
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 

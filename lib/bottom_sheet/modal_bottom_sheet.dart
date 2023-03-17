@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
-abstract class ModalBottomSheet<T> extends StatelessWidget {
-  ModalBottomSheet(
-    this.context, {
+import '../nav.dart';
+
+abstract class ModalBottomSheet<ResultType> extends StatelessWidget {
+  ModalBottomSheet({
+    BuildContext? context,
     super.key,
     this.enableDrag = true,
     this.isDismissible = true,
@@ -22,7 +24,7 @@ abstract class ModalBottomSheet<T> extends StatelessWidget {
     this.anchorPoint,
     this.isScrollControlled = false,
     this.useRootNavigator = false,
-  });
+  }) : context = context ?? Nav.globalContext;
 
   final BuildContext context;
   final bool enableDrag;
@@ -77,12 +79,16 @@ abstract class ModalBottomSheet<T> extends StatelessWidget {
     );
   }
 
-  Future<T?> show() async {
+  void hide([ResultType? result]) {
+    Nav.pop<ResultType>(context, result: result);
+  }
+
+  Future<ResultType?> show() async {
     if (context is StatefulElement && !context.mounted) {
       return null;
     }
 
-    return showModalBottomSheet<T>(
+    return showModalBottomSheet<ResultType>(
       context: context,
       isScrollControlled: true,
       enableDrag: enableDrag,

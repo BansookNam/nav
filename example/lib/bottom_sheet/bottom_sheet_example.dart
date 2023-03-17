@@ -8,8 +8,10 @@ import '../dialog/bottom_sheet_dialog.dart';
 class BottomSheetExample extends ModalBottomSheet {
   final List<BottomSheetItem> bottomSheetItemList;
 
-  BottomSheetExample(BuildContext context, this.bottomSheetItemList)
-      : super(context);
+  BottomSheetExample(
+    this.bottomSheetItemList, {
+    BuildContext? context,
+  }) : super(context: context);
 
   @override
   Widget build(BuildContext context) {

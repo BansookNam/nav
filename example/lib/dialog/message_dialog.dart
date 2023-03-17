@@ -7,11 +7,11 @@ import 'package:nav/enum/enum_nav_ani.dart';
 class MessageDialog extends DialogWidget {
   final bool isCancelOnBack = false;
 
-  MessageDialog(BuildContext context)
+  MessageDialog({BuildContext? context})
       : super(
-          context,
+          context: context,
           animation: NavAni.Fade,
-          barrierColor: Colors.white.withOpacity(0.3),
+          barrierColor: Colors.black.withOpacity(0.5),
           barrierDismissible: false,
         );
 
@@ -34,9 +34,14 @@ class _DialogState extends DialogState<MessageDialog> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Material(
+            color: Colors.transparent,
             child: Center(
               child: Container(
-                color: Colors.white,
+                margin: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 width: 300,
                 height: 300,
                 child: Center(

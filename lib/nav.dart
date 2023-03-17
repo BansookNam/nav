@@ -51,6 +51,8 @@ mixin Nav<T extends StatefulWidget> on State<T> {
     }
   }
 
+  static BuildContext get globalContext => _globalKey.currentContext!;
+
   /// Push screen from right to left
   ///
   /// On ios "Swipe back gesture" is default

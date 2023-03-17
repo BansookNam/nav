@@ -7,12 +7,15 @@ import 'package:example/util/u_color_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:nav/nav.dart';
 
+import 'dialog/message_dialog.dart';
+
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey();
+
   // This widget is the root of your application.
 
   @override
@@ -25,14 +28,23 @@ class _MyAppState extends State<MyApp> with Nav {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      navigatorKey: navigatorKey,
-      title: 'Nav Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return Material(
+      textStyle: const TextStyle(color: Colors.black),
+      child: MaterialApp(
+        navigatorKey: navigatorKey,
+        title: 'Nav Demo',
+        theme: ThemeData(
+            // Define the default font family.
+            fontFamily: 'DMSans',
+            scaffoldBackgroundColor: Colors.white,
+            iconTheme: const IconThemeData(color: Colors.blue),
+            // Define the default TextTheme. Use this to specify the default
+            // text styling for headlines, titles, bodies of text, and more.
+            textTheme: const TextTheme(),
+            bottomSheetTheme: const BottomSheetThemeData(
+                backgroundColor: Colors.transparent)),
+        home: MyHomePage(),
       ),
-      home: MyHomePage(),
     );
   }
 }
@@ -78,15 +90,17 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
       floatingActionButton: Builder(
         builder: (context) => FloatingActionButton(
           onPressed: () async {
-            // final result = await MessgaeDialog(context).show();
-            // print(result);
+            final result = await MessageDialog().show();
+            print(result);
 
             // ignore: unused_local_variable
-            final result = await BottomSheetDialog(context, [
-              BottomSheetItem("Share", Icon(Icons.share)),
-              BottomSheetItem("Download", Icon(Icons.download)),
-              BottomSheetItem("Close", Icon(Icons.close)),
-            ]).show();
+            // final result = await BottomSheetDialog(
+            //   [
+            //     BottomSheetItem("Share", Icon(Icons.share)),
+            //     BottomSheetItem("Download", Icon(Icons.download)),
+            //     BottomSheetItem("Close", Icon(Icons.close)),
+            //   ],
+            // ).show();
             // final result = await BottomSheetExample(context, [
             //   BottomSheetItem("Share", Icon(Icons.share)),
             //   BottomSheetItem("Download", Icon(Icons.download)),

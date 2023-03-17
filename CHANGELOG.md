@@ -1,4 +1,8 @@
-## [1.3.0] - 2023-0
+## [1.3.1] - 2023-03-18
+
+* remove context from dialog
+
+## [1.3.0] - 2023-03-17
 
 * add key on stateless widget
 * move dialog parameter to constructor

@@ -7,13 +7,14 @@ import 'package:nav/route/clipper_circle.dart';
 export 'package:nav/dialog/dialog_state.dart';
 
 abstract class DialogWidget<ResultType> extends StatefulWidget {
-  DialogWidget(
-    this.context, {
+  DialogWidget({
     Key? key,
+    BuildContext? context,
     this.animation = NavAni.Fade,
     this.barrierColor = Colors.black54,
     this.barrierDismissible = true,
-  }) : super(key: key);
+  })  : this.context = context ?? Nav.globalContext,
+        super(key: key);
 
   final BuildContext context;
   final NavAni animation;
