@@ -1,3 +1,7 @@
+## [1.3.2] - 2023-05-10
+
+* support useRootNavigator option for Dialog
+
 ## [1.3.1] - 2023-03-18
 
 * remove context from dialog

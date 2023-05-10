@@ -13,6 +13,11 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
     this.animation = NavAni.Fade,
     this.barrierColor = Colors.black54,
     this.barrierDismissible = true,
+    this.barrierLabel,
+    this.useSafeArea = true,
+    this.useRootNavigator = true,
+    this.anchorPoint,
+    this.routeSettings,
   })  : this.context = context ?? Nav.globalContext,
         super(key: key);
 
@@ -20,6 +25,11 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
   final NavAni animation;
   final bool barrierDismissible;
   final Color barrierColor;
+  final String? barrierLabel;
+  final Offset? anchorPoint;
+  final RouteSettings? routeSettings;
+  final bool useSafeArea;
+  final bool useRootNavigator;
 
   final MutableValue<BuildContext?> _context =
       MutableValue(null); //context when dialog is actually use on navigator
@@ -30,7 +40,7 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
     isShown.value = false;
   }
 
-  Future<ResultType?> show() async {
+  Future<ResultType?> show({bool? useRootNavigator}) async {
     if (context is StatefulElement && !context.mounted) {
       return null;
     }
@@ -45,6 +55,10 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
           animation,
           barrierDismissible: barrierDismissible,
           barrierColor: barrierColor,
+          barrierLabel: barrierLabel,
+          useRootNavigator: useRootNavigator ?? this.useRootNavigator,
+          routeSettings: routeSettings,
+          anchorPoint: anchorPoint,
           context: context,
           builder: (context) {
             _context.value = context;
@@ -56,6 +70,10 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
           animation,
           barrierDismissible: barrierDismissible,
           barrierColor: barrierColor,
+          barrierLabel: barrierLabel,
+          useRootNavigator: useRootNavigator ?? this.useRootNavigator,
+          routeSettings: routeSettings,
+          anchorPoint: anchorPoint,
           context: context,
           builder: (context) {
             _context.value = context;
@@ -68,6 +86,10 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
           animation,
           barrierDismissible: barrierDismissible,
           barrierColor: barrierColor,
+          barrierLabel: barrierLabel,
+          useRootNavigator: useRootNavigator ?? this.useRootNavigator,
+          routeSettings: routeSettings,
+          anchorPoint: anchorPoint,
           context: context,
           builder: (context) {
             _context.value = context;
@@ -80,6 +102,11 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
           context: context,
           barrierDismissible: barrierDismissible,
           barrierColor: barrierColor,
+          barrierLabel: barrierLabel,
+          useSafeArea: useSafeArea,
+          useRootNavigator: useRootNavigator ?? this.useRootNavigator,
+          routeSettings: routeSettings,
+          anchorPoint: anchorPoint,
           builder: (context) {
             _context.value = context;
             return this;
@@ -197,6 +224,9 @@ Future<T?> _showDialogWith<T>(
       'This feature was deprecated after v0.2.3.')
       Widget? child,
   WidgetBuilder? builder,
+  String? barrierLabel,
+  RouteSettings? routeSettings,
+  Offset? anchorPoint,
   Color? barrierColor,
   bool useRootNavigator = true,
   int durationMs = 500,
@@ -215,7 +245,11 @@ Future<T?> _showDialogWith<T>(
       });
     },
     barrierDismissible: barrierDismissible,
-    barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+    barrierLabel: barrierLabel ??
+        MaterialLocalizations.of(context).modalBarrierDismissLabel,
+    useRootNavigator: useRootNavigator,
+    routeSettings: routeSettings,
+    anchorPoint: anchorPoint,
     barrierColor: barrierColor ?? Colors.black54,
     transitionDuration: Duration(milliseconds: durationMs),
     transitionBuilder: _getTransition(ani),
