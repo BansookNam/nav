@@ -1,3 +1,7 @@
+## [1.3.3] - 2023-05-10
+
+* open globalKey setter
+
 ## [1.3.2] - 2023-05-10
 
 * support useRootNavigator option for Dialog
