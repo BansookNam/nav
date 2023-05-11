@@ -15,6 +15,7 @@ class _NavAppForTestingState extends State<NavAppForTesting> with Nav {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      home: widget.child,
       navigatorKey: navigatorKey,
     );
   }

@@ -9,7 +9,6 @@ export 'package:nav/dialog/dialog_state.dart';
 abstract class DialogWidget<ResultType> extends StatefulWidget {
   DialogWidget({
     Key? key,
-    BuildContext? context,
     this.animation = NavAni.Fade,
     this.barrierColor = Colors.black54,
     this.barrierDismissible = true,
@@ -18,10 +17,10 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
     this.useRootNavigator = true,
     this.anchorPoint,
     this.routeSettings,
-  })  : this.context = context ?? Nav.globalContext,
-        super(key: key);
+    this.context,
+  }) : super(key: key);
 
-  final BuildContext context;
+  final BuildContext? context;
   final NavAni animation;
   final bool barrierDismissible;
   final Color barrierColor;
@@ -31,7 +30,7 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
   final bool useSafeArea;
   final bool useRootNavigator;
 
-  final MutableValue<BuildContext?> _context =
+  final MutableValue<BuildContext?> _builderContext =
       MutableValue(null); //context when dialog is actually use on navigator
   final MutableValue<bool> isShown = MutableValue(
       false); //use final reference wrapper to ingnore must_be_immutable lint
@@ -41,6 +40,7 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
   }
 
   Future<ResultType?> show({bool? useRootNavigator}) async {
+    final context = this.context ?? Nav.globalContext;
     if (context is StatefulElement && !context.mounted) {
       return null;
     }
@@ -61,7 +61,7 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
           anchorPoint: anchorPoint,
           context: context,
           builder: (context) {
-            _context.value = context;
+            _builderContext.value = context;
             return this;
           },
         );
@@ -76,7 +76,7 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
           anchorPoint: anchorPoint,
           context: context,
           builder: (context) {
-            _context.value = context;
+            _builderContext.value = context;
             return this;
           },
           durationMs: 0,
@@ -92,7 +92,7 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
           anchorPoint: anchorPoint,
           context: context,
           builder: (context) {
-            _context.value = context;
+            _builderContext.value = context;
             return this;
           },
         );
@@ -108,7 +108,7 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
           routeSettings: routeSettings,
           anchorPoint: anchorPoint,
           builder: (context) {
-            _context.value = context;
+            _builderContext.value = context;
             return this;
           },
         );
@@ -119,7 +119,8 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
     if (!isShown.value) {
       return;
     }
-    Nav.pop<ResultType>(_context.value ?? context, result: result);
+    final context = _builderContext.value ?? this.context ?? Nav.globalContext;
+    Nav.pop<ResultType>(context, result: result);
   }
 }
 
