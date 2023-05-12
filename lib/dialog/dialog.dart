@@ -18,7 +18,8 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
     this.anchorPoint,
     this.routeSettings,
     this.context,
-  })  : this.useRootNavigator = Nav.navSetting?.useRootNavigator ?? true,
+  })  : this.useRootNavigator =
+            useRootNavigator ?? Nav.navSetting?.useRootNavigator ?? true,
         super(key: key);
 
   final BuildContext? context;

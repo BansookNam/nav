@@ -1,3 +1,7 @@
+## [1.3.8] - 2023-05-12
+
+* fix useRootNavigator bug
+
 ## [1.3.7] - 2023-05-12
 
 * add nav setting to manage app global setting
