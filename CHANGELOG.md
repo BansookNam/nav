@@ -1,3 +1,7 @@
+## [1.3.7] - 2023-05-12
+
+* add nav setting to manage app global setting
+
 ## [1.3.6] - 2023-05-11
 
 * change to dialog context nullable.

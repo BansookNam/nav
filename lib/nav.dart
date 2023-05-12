@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:nav/enum/enum_nav_ani.dart';
 import 'package:nav/route/r_ripple.dart';
 import 'package:nav/route/r_slide.dart';
+import 'package:nav/setting/nav_setting.dart';
 
 mixin Nav<T extends StatefulWidget> on State<T> {
   static const int defaultDurationMs = 200;
@@ -21,6 +22,7 @@ mixin Nav<T extends StatefulWidget> on State<T> {
   GlobalKey<NavigatorState> get navigatorKey;
   static late GlobalKey<NavigatorState> _globalKey;
   static double? height;
+  static NavSetting? navSetting;
   static late double width;
 
   @override
@@ -33,6 +35,10 @@ mixin Nav<T extends StatefulWidget> on State<T> {
   ///It is not recommended to change globalKey because it will reset all the navigation states.
   void setGlobalKey(GlobalKey<NavigatorState> key) {
     _globalKey = key;
+  }
+
+  static void initialize(NavSetting navSetting) {
+    Nav.navSetting = navSetting;
   }
 
   static void initDeviceSize(BuildContext context) {

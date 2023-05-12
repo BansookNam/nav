@@ -14,11 +14,12 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
     this.barrierDismissible = true,
     this.barrierLabel,
     this.useSafeArea = true,
-    this.useRootNavigator = true,
+    bool? useRootNavigator,
     this.anchorPoint,
     this.routeSettings,
     this.context,
-  }) : super(key: key);
+  })  : this.useRootNavigator = Nav.navSetting?.useRootNavigator ?? true,
+        super(key: key);
 
   final BuildContext? context;
   final NavAni animation;
