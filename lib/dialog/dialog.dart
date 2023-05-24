@@ -13,13 +13,15 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
     this.barrierColor = Colors.black54,
     this.barrierDismissible = true,
     this.barrierLabel,
-    this.useSafeArea = true,
     bool? useRootNavigator,
+    bool? useSafeArea,
     this.anchorPoint,
     this.routeSettings,
     this.context,
   })  : this.useRootNavigator =
             useRootNavigator ?? Nav.navSetting?.useRootNavigator ?? true,
+        this.useSafeArea =
+            useRootNavigator ?? Nav.navSetting?.useSafeArea ?? false,
         super(key: key);
 
   final BuildContext? context;
@@ -225,7 +227,7 @@ Future<T?> _showDialogWith<T>(
       'provided to the "builder" argument. This will ensure that the BuildContext '
       'is appropriate for widgets built in the dialog. '
       'This feature was deprecated after v0.2.3.')
-      Widget? child,
+  Widget? child,
   WidgetBuilder? builder,
   String? barrierLabel,
   RouteSettings? routeSettings,

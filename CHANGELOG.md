@@ -1,3 +1,7 @@
+## [1.3.9] - 2023-05-24
+
+* make useSafeArea default value false
+
 ## [1.3.8] - 2023-05-12
 
 * fix useRootNavigator bug
