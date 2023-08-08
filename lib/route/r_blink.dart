@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nav/route/CustomPageRouteBuilder.dart';
+import 'package:nav/route/custom_page_route_builder.dart';
 
 class BlinkRoute<T> extends CustomPageRouteBuilder<T> {
   final Widget widget;
@@ -10,14 +10,14 @@ class BlinkRoute<T> extends CustomPageRouteBuilder<T> {
                 Animation<double> secondaryAnimation) {
               return widget;
             },
-            transitionDuration: Duration(microseconds: 0),
+            transitionDuration: const Duration(microseconds: 0),
             transitionsBuilder: (BuildContext context,
                 Animation<double> animation,
                 Animation<double> secondaryAnimation,
                 Widget child) {
-              return new FadeTransition(
+              return FadeTransition(
                 opacity:
-                    new Tween<double>(begin: 0.0, end: 1.0).animate(animation),
+                    Tween<double>(begin: 0.0, end: 1.0).animate(animation),
                 child: child,
               );
             });

@@ -56,7 +56,7 @@ abstract class ModalBottomSheet<ResultType> extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           // Drawer handler
           if (!enableDrag || handleColor != Colors.transparent)
             Row(
@@ -72,8 +72,8 @@ abstract class ModalBottomSheet<ResultType> extends StatelessWidget {
                 ),
               ],
             ),
-          SizedBox(height: 25),
-          this.build(context),
+          const SizedBox(height: 25),
+          build(context),
         ],
       ),
     );

@@ -5,6 +5,7 @@ import 'package:nav/route/r_fade.dart';
 import 'package:nav/route/r_ripple.dart';
 import 'package:nav/route/r_slide.dart';
 
+// ignore: constant_identifier_names
 enum NavAni { Left, Right, Top, Bottom, Fade, Ripple, Blink }
 
 extension NavAniExt on NavAni {
@@ -31,7 +32,7 @@ extension NavAniExt on NavAni {
         return RoundRevealRoute<T>(screen,
             maxRadius: Nav.height! + Nav.width / 2,
             centerAlignment: Alignment.bottomRight,
-            centerOffset: Offset(10, 10),
+            centerOffset: const Offset(10, 10),
             minRadius: 10,
             durationMs: durationMs);
       default:

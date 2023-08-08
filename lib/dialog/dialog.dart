@@ -18,9 +18,9 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
     this.anchorPoint,
     this.routeSettings,
     this.context,
-  })  : this.useRootNavigator =
+  })  : useRootNavigator =
             useRootNavigator ?? Nav.navSetting?.useRootNavigator ?? true,
-        this.useSafeArea =
+        useSafeArea =
             useRootNavigator ?? Nav.navSetting?.useSafeArea ?? false,
         super(key: key);
 
@@ -150,7 +150,7 @@ Widget _buildFromTopTransition(
     position: Tween<Offset>(
       begin: const Offset(0.0, -1.0),
       end: Offset.zero,
-    ).chain(CurveTween(curve: Cubic(0.4, 0, 0.2, 1))).animate(animation),
+    ).chain(CurveTween(curve: const Cubic(0.4, 0, 0.2, 1))).animate(animation),
     child: child,
   );
 }
@@ -165,7 +165,7 @@ Widget _buildFromBottomTransition(
     position: Tween<Offset>(
       begin: const Offset(0.0, 1.0),
       end: Offset.zero,
-    ).chain(CurveTween(curve: Cubic(0.4, 0, 0.2, 1))).animate(animation),
+    ).chain(CurveTween(curve: const Cubic(0.4, 0, 0.2, 1))).animate(animation),
     child: child,
   );
 }
@@ -180,7 +180,7 @@ Widget _buildFromRightTransition(
     position: Tween<Offset>(
       begin: const Offset(1.0, 0.0),
       end: Offset.zero,
-    ).chain(CurveTween(curve: Cubic(0.4, 0, 0.2, 1))).animate(animation),
+    ).chain(CurveTween(curve: const Cubic(0.4, 0, 0.2, 1))).animate(animation),
     child: child,
   );
 }
@@ -195,7 +195,7 @@ Widget _buildFromLeftTransition(
     position: Tween<Offset>(
       begin: const Offset(-1.0, 0.0),
       end: Offset.zero,
-    ).chain(CurveTween(curve: Cubic(0.4, 0, 0.2, 1))).animate(animation),
+    ).chain(CurveTween(curve: const Cubic(0.4, 0, 0.2, 1))).animate(animation),
     child: child,
   );
 }

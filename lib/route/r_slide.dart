@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nav/nav.dart';
-import 'package:nav/route/CustomPageRouteBuilder.dart';
+import 'package:nav/route/custom_page_route_builder.dart';
 
 class SlideFromLeftRoute<T> extends CustomPageRouteBuilder<T> {
   final Widget widget;
@@ -16,8 +16,8 @@ class SlideFromLeftRoute<T> extends CustomPageRouteBuilder<T> {
                 Animation<double> animation,
                 Animation<double> secondaryAnimation,
                 Widget child) {
-              return new SlideTransition(
-                position: new Tween<Offset>(
+              return SlideTransition(
+                position: Tween<Offset>(
                   begin: const Offset(-1.0, 0.0),
                   end: Offset.zero,
                 ).animate(animation),
@@ -40,8 +40,8 @@ class SlideFromRightRoute<T> extends CustomPageRouteBuilder<T> {
                 Animation<double> animation,
                 Animation<double> secondaryAnimation,
                 Widget child) {
-              return new SlideTransition(
-                position: new Tween<Offset>(
+              return SlideTransition(
+                position: Tween<Offset>(
                   begin: const Offset(1.0, 0.0),
                   end: Offset.zero,
                 ).animate(animation),
@@ -64,8 +64,8 @@ class SlideFromBottomRoute<T> extends CustomPageRouteBuilder<T> {
                 Animation<double> animation,
                 Animation<double> secondaryAnimation,
                 Widget child) {
-              return new SlideTransition(
-                position: new Tween<Offset>(
+              return SlideTransition(
+                position: Tween<Offset>(
                   begin: const Offset(0.0, 1.0),
                   end: Offset.zero,
                 ).animate(animation),
@@ -88,8 +88,8 @@ class SlideFromTopRoute<T> extends CustomPageRouteBuilder<T> {
                 Animation<double> animation,
                 Animation<double> secondaryAnimation,
                 Widget child) {
-              return new SlideTransition(
-                position: new Tween<Offset>(
+              return SlideTransition(
+                position: Tween<Offset>(
                   begin: const Offset(0.0, -1.0),
                   end: Offset.zero,
                 ).animate(animation),
