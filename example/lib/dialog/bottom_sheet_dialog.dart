@@ -1,9 +1,7 @@
 import 'package:example/widget/w_pressed_change_button.dart';
 import 'package:flutter/material.dart';
 import 'package:nav_hooks/dialog/dialog.dart';
-import 'package:nav_hooks/dialog/dialog_state.dart';
 import 'package:nav_hooks/enum/enum_nav_ani.dart';
-import 'package:nav_hooks/nav.dart';
 
 class BottomSheetItem {
   final String title;
@@ -12,7 +10,7 @@ class BottomSheetItem {
   BottomSheetItem(this.title, this.icon);
 }
 
-class BottomSheetDialog extends DialogWidget {
+class BottomSheetDialog extends DialogWidget<String> {
   static const DATA = "data";
   final List<BottomSheetItem> bottomSheetItemList;
   final String? title;
@@ -80,10 +78,7 @@ class _DialogState extends DialogState<BottomSheetDialog> {
                       setState(() {
                         selectedTitle = "Cancel";
                       });
-                      Nav.pop(context, result: {
-                        Nav.RESULT: Nav.SUCCESS,
-                        BottomSheetDialog.DATA: "Cancel"
-                      });
+                      widget.hide("Cancel");
                     },
                     forcePressedColor: selectedTitle == "Cancel",
                     child: Row(
@@ -114,10 +109,7 @@ class _DialogState extends DialogState<BottomSheetDialog> {
           setState(() {
             selectedTitle = item.title;
           });
-          Nav.pop(context, result: {
-            Nav.RESULT: Nav.SUCCESS,
-            BottomSheetDialog.DATA: item.title
-          });
+          widget.hide(item.title);
         },
         forcePressedColor: selectedTitle == item.title,
         child: Row(

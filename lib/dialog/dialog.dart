@@ -5,6 +5,7 @@ import '../enum/enum_nav_ani.dart';
 import '../nav.dart';
 import '../route/clipper_circle.dart';
 import 'mutable_value.dart';
+export 'dialog_state.dart';
 
 abstract class DialogWidget<ResultType> extends StatefulHookWidget {
   DialogWidget({

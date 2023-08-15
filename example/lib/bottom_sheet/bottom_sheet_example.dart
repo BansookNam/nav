@@ -1,11 +1,10 @@
 import 'package:example/widget/w_pressed_change_button.dart';
 import 'package:flutter/material.dart';
 import 'package:nav_hooks/bottom_sheet/modal_bottom_sheet.dart';
-import 'package:nav_hooks/nav.dart';
 
 import '../dialog/bottom_sheet_dialog.dart';
 
-class BottomSheetExample extends ModalBottomSheet {
+class BottomSheetExample extends ModalBottomSheet<String> {
   final List<BottomSheetItem> bottomSheetItemList;
 
   BottomSheetExample(
@@ -45,8 +44,7 @@ class BottomSheetExample extends ModalBottomSheet {
                   ...getItemList(context),
                   PressedChangeButton(
                     onTap: () {
-                      Nav.pop(context,
-                          result: {Nav.RESULT: Nav.SUCCESS, "data": "Cancel"});
+                      hide("Cancel");
                     },
                     forcePressedColor: false,
                     child: Row(
@@ -75,8 +73,7 @@ class BottomSheetExample extends ModalBottomSheet {
     bottomSheetItemList.forEach((item) {
       list.add(PressedChangeButton(
         onTap: () {
-          Nav.pop(context,
-              result: {Nav.RESULT: Nav.SUCCESS, "data": item.title});
+          hide(item.title);
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,

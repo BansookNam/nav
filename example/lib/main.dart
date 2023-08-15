@@ -89,10 +89,8 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
       floatingActionButton: Builder(
         builder: (context) => FloatingActionButton(
           onPressed: () async {
-            final result = await MessageDialog().show();
-            print(result);
+            await MessageDialog().show();
 
-            // ignore: unused_local_variable
             // final result = await BottomSheetDialog(
             //   [
             //     BottomSheetItem("Share", Icon(Icons.share)),
@@ -100,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
             //     BottomSheetItem("Close", Icon(Icons.close)),
             //   ],
             // ).show();
-            // final result = await BottomSheetExample(context, [
+            // final result2 = await BottomSheetExample([
             //   BottomSheetItem("Share", Icon(Icons.share)),
             //   BottomSheetItem("Download", Icon(Icons.download)),
             //   BottomSheetItem("Close", Icon(Icons.close)),

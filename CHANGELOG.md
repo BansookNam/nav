@@ -1,3 +1,8 @@
+## [1.4.0] - 2023-08-15
+
+* add export dialog_state
+* fix dialog example with result
+
 ## [1.3.9] - 2023-05-24
 
 * make useSafeArea default value false
