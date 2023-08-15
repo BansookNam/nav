@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:nav/nav.dart';
-import 'package:nav/route/r_blink.dart';
-import 'package:nav/route/r_fade.dart';
-import 'package:nav/route/r_ripple.dart';
-import 'package:nav/route/r_slide.dart';
+
+import '../nav.dart';
+import '../route/r_blink.dart';
+import '../route/r_fade.dart';
+import '../route/r_ripple.dart';
+import '../route/r_slide.dart';
 
 // ignore: constant_identifier_names
 enum NavAni { Left, Right, Top, Bottom, Fade, Ripple, Blink }

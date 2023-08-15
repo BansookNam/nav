@@ -4,7 +4,7 @@ import 'package:after_layout/after_layout.dart';
 import 'package:example/enum_direction.dart';
 import 'package:example/util/u_color_generator.dart';
 import 'package:flutter/material.dart';
-import 'package:nav/nav.dart';
+import 'package:nav_hooks/nav.dart';
 
 import 'dialog/message_dialog.dart';
 

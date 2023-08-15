@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nav/nav.dart';
-import 'package:nav/route/custom_page_route_builder.dart';
-import 'package:nav/route/clipper_circle.dart';
+import '../nav.dart';
+import 'custom_page_route_builder.dart';
+import 'clipper_circle.dart';
 
 class RoundRevealRoute<T> extends CustomPageRouteBuilder<T> {
   final Widget widget;

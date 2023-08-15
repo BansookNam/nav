@@ -23,13 +23,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  nav:
+  nav_hooks:
     path: ..
 
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.3
   after_layout: ^1.1.0
 
 dev_dependencies:

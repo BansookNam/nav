@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:nav/dialog/mutable_value.dart';
-import 'package:nav/enum/enum_nav_ani.dart';
-import 'package:nav/nav.dart';
-import 'package:nav/route/clipper_circle.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-export 'package:nav/dialog/dialog_state.dart';
+import '../enum/enum_nav_ani.dart';
+import '../nav.dart';
+import '../route/clipper_circle.dart';
+import 'mutable_value.dart';
 
-abstract class DialogWidget<ResultType> extends StatefulWidget {
+abstract class DialogWidget<ResultType> extends StatefulHookWidget {
   DialogWidget({
     Key? key,
     this.animation = NavAni.Fade,
@@ -20,8 +20,7 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
     this.context,
   })  : useRootNavigator =
             useRootNavigator ?? Nav.navSetting?.useRootNavigator ?? true,
-        useSafeArea =
-            useRootNavigator ?? Nav.navSetting?.useSafeArea ?? false,
+        useSafeArea = useRootNavigator ?? Nav.navSetting?.useSafeArea ?? false,
         super(key: key);
 
   final BuildContext? context;

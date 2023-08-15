@@ -1,4 +1,4 @@
-name: nav
+name: nav_hooks
 description: Provide easy way to navigate. Includes lots of routers. You can use this library on Android & iOS.
 version: 1.3.9
 homepage: https://github.com/bansooknam/nav
@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  flutter_hooks: ^0.20.0
   meta: ^1.3.0
 
 dev_dependencies:

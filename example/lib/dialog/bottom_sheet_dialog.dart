@@ -1,8 +1,9 @@
 import 'package:example/widget/w_pressed_change_button.dart';
 import 'package:flutter/material.dart';
-import 'package:nav/dialog/dialog.dart';
-import 'package:nav/enum/enum_nav_ani.dart';
-import 'package:nav/nav.dart';
+import 'package:nav_hooks/dialog/dialog.dart';
+import 'package:nav_hooks/dialog/dialog_state.dart';
+import 'package:nav_hooks/enum/enum_nav_ani.dart';
+import 'package:nav_hooks/nav.dart';
 
 class BottomSheetItem {
   final String title;

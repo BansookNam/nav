@@ -6,10 +6,11 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:nav/enum/enum_nav_ani.dart';
-import 'package:nav/route/r_ripple.dart';
-import 'package:nav/route/r_slide.dart';
-import 'package:nav/setting/nav_setting.dart';
+
+import 'enum/enum_nav_ani.dart';
+import 'route/r_ripple.dart';
+import 'route/r_slide.dart';
+import 'setting/nav_setting.dart';
 
 mixin Nav<T extends StatefulWidget> on State<T> {
   static const int defaultDurationMs = 200;

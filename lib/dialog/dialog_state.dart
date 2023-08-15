@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nav/dialog/dialog.dart';
+
+import 'dialog.dart';
 
 abstract class DialogState<T extends DialogWidget> extends State<T> {
   Function()? onHide;

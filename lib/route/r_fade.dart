@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nav/nav.dart';
-import 'package:nav/route/custom_page_route_builder.dart';
+import '../nav.dart';
+import 'custom_page_route_builder.dart';
 
 class FadeRoute<T> extends CustomPageRouteBuilder<T> {
   final Widget widget;

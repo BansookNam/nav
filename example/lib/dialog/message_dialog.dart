@@ -1,8 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:nav/dialog/dialog.dart';
-import 'package:nav/enum/enum_nav_ani.dart';
+import 'package:nav_hooks/dialog/dialog.dart';
+import 'package:nav_hooks/dialog/dialog_state.dart';
+import 'package:nav_hooks/enum/enum_nav_ani.dart';
 
 class MessageDialog extends DialogWidget {
   final bool isCancelOnBack = false;
