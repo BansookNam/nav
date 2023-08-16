@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nav_hooks/dialog/dialog_mixin.dart';
 
 import '../enum/enum_nav_ani.dart';
 import '../nav.dart';
 
 export 'package:flutter_hooks/flutter_hooks.dart';
+export 'package:flutter_riverpod/flutter_riverpod.dart';
 
 export 'dialog_state.dart';
 
-abstract class HookDialogWidget<ResultType> extends HookWidget
+abstract class ConsumerHookDialogWidget<ResultType> extends HookConsumerWidget
     with DialogMixin<ResultType> {
-  HookDialogWidget({
+  ConsumerHookDialogWidget({
     Key? key,
     this.animation = NavAni.Fade,
     this.barrierColor = Colors.black54,

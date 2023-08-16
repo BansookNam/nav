@@ -1,3 +1,11 @@
+## [1.4.3] - 2023-08-17
+
+* add exports for hook & riverpod
+
+## [1.4.2] - 2023-08-17
+
+* add consumer hook dialog for riverpod
+
 ## [1.4.1] - 2023-08-17
 
 * add hook_dialog
