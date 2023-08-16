@@ -1,3 +1,7 @@
+## [1.4.1] - 2023-08-17
+
+* add hook_dialog
+
 ## [1.4.0] - 2023-08-15
 
 * add export dialog_state

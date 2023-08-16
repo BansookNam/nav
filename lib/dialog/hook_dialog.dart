@@ -4,11 +4,12 @@ import 'package:nav_hooks/dialog/dialog_mixin.dart';
 
 import '../enum/enum_nav_ani.dart';
 import '../nav.dart';
+
 export 'dialog_state.dart';
 
-abstract class DialogWidget<ResultType> extends StatefulHookWidget
+abstract class HookDialogWidget<ResultType> extends HookWidget
     with DialogMixin<ResultType> {
-  DialogWidget({
+  HookDialogWidget({
     Key? key,
     this.animation = NavAni.Fade,
     this.barrierColor = Colors.black54,
