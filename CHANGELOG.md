@@ -1,3 +1,7 @@
+## [1.4.4] - 2023-08-17
+
+* rename hook consumer dialog widget
+
 ## [1.4.3] - 2023-08-17
 
 * add exports for hook & riverpod

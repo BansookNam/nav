@@ -1,6 +1,6 @@
 name: nav_hooks
 description: Provide easy way to navigate. Includes lots of routers. You can use this library on Android & iOS.
-version: 1.4.3
+version: 1.4.4
 homepage: https://github.com/bansooknam/nav
 #dart format .
 

@@ -10,9 +10,9 @@ export 'package:flutter_riverpod/flutter_riverpod.dart';
 
 export 'dialog_state.dart';
 
-abstract class ConsumerHookDialogWidget<ResultType> extends HookConsumerWidget
+abstract class HookConsumerDialogWidget<ResultType> extends HookConsumerWidget
     with DialogMixin<ResultType> {
-  ConsumerHookDialogWidget({
+  HookConsumerDialogWidget({
     Key? key,
     this.animation = NavAni.Fade,
     this.barrierColor = Colors.black54,
