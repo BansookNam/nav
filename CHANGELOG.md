@@ -1,3 +1,16 @@
+## [1.4.2] - 2023-09-10
+
+* export NavAni enum
+
+## [1.4.1] - 2023-09-10
+
+* allow to change offset with dx, dy
+
+## [1.4.0] - 2023-09-10
+
+* change param name of pushWithRippleEffect
+* add durationMs
+
 ## [1.3.9] - 2023-05-24
 
 * make useSafeArea default value false

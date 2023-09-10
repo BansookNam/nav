@@ -20,8 +20,7 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
     this.context,
   })  : useRootNavigator =
             useRootNavigator ?? Nav.navSetting?.useRootNavigator ?? true,
-        useSafeArea =
-            useRootNavigator ?? Nav.navSetting?.useSafeArea ?? false,
+        useSafeArea = useRootNavigator ?? Nav.navSetting?.useSafeArea ?? false,
         super(key: key);
 
   final BuildContext? context;
@@ -203,15 +202,15 @@ Widget _buildFromLeftTransition(
 ///build ripple animation transition from right bottom
 Widget _buildRippleTransition(BuildContext context, Animation<double> animation,
     Animation<double> secondaryAnimation, Widget child) {
-  if (Nav.height == null) {
-    Nav.initDeviceSize(context);
-  }
+  final height = MediaQuery.of(context).size.height;
+  final width = MediaQuery.of(context).size.width;
+
   return ClipPath(
     clipper: CircularRevealClipper(
       fraction: animation.value,
       centerAlignment: Alignment.bottomRight,
       centerOffset: const Offset(10, 10),
-      minRadius: Nav.height! + Nav.width / 2,
+      minRadius: height + width / 2,
       maxRadius: 10,
     ),
     child: child,
