@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:nav_hooks/dialog/dialog_mixin.dart';
 
-import '../enum/enum_nav_ani.dart';
 import '../nav.dart';
 
 export 'package:flutter_hooks/flutter_hooks.dart';

@@ -258,15 +258,15 @@ mixin DialogMixin<ResultType> on Widget {
       Animation<double> animation,
       Animation<double> secondaryAnimation,
       Widget child) {
-    if (Nav.height == null) {
-      Nav.initDeviceSize(context);
-    }
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+
     return ClipPath(
       clipper: CircularRevealClipper(
         fraction: animation.value,
         centerAlignment: Alignment.bottomRight,
         centerOffset: const Offset(10, 10),
-        minRadius: Nav.height! + Nav.width / 2,
+        minRadius: height + width / 2,
         maxRadius: 10,
       ),
       child: child,

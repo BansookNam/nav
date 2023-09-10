@@ -12,6 +12,8 @@ import 'route/r_ripple.dart';
 import 'route/r_slide.dart';
 import 'setting/nav_setting.dart';
 
+export 'enum/enum_nav_ani.dart';
+
 mixin Nav<T extends StatefulWidget> on State<T> {
   static const int defaultDurationMs = 200;
 
@@ -23,10 +25,9 @@ mixin Nav<T extends StatefulWidget> on State<T> {
   static const REFRESH = "refresh";
 
   GlobalKey<NavigatorState> get navigatorKey;
+
   static late GlobalKey<NavigatorState> _globalKey;
-  static double? height;
   static NavSetting? navSetting;
-  static late double width;
 
   @override
   void initState() {
@@ -42,11 +43,6 @@ mixin Nav<T extends StatefulWidget> on State<T> {
 
   static void initialize(NavSetting navSetting) {
     Nav.navSetting = navSetting;
-  }
-
-  static void initDeviceSize(BuildContext context) {
-    height = MediaQuery.of(context).size.height;
-    width = MediaQuery.of(context).size.width;
   }
 
   /// Get navigator state
@@ -128,25 +124,29 @@ mixin Nav<T extends StatefulWidget> on State<T> {
   /// Push screen with Ripple Effect (Default: bottomRight to topLeft, You can change the alignment and offset)
   ///
   /// If you provide context, you can nest navigate in your specific context
-  static Future<T?> pushWithRippleEffect<T>(Widget? screen,
-      {BuildContext? context,
-      AlignmentGeometry centerAlignment = Alignment.bottomRight,
-      Offset centerOffset = const Offset(10, 10)}) async {
+  static Future<T?> pushWithRippleEffect<T>(
+    Widget? screen, {
+    BuildContext? context,
+    AlignmentGeometry? alignment,
+    Offset offset = const Offset(0, 0),
+    int durationMs = Nav.defaultDurationMs,
+  }) async {
     if (screen == null) {
       return null;
     }
-    if (height == null && navigatorState(context) != null) {
-      initDeviceSize(navigatorState(context)!.context);
-    }
+
+    final height = MediaQuery.of(navigatorState(context)!.context).size.height;
+    final width = MediaQuery.of(navigatorState(context)!.context).size.width;
 
     return navigatorState(context)?.push(
-      RoundRevealRoute(
-        screen,
-        maxRadius: height! + width / 2,
-        centerAlignment: centerAlignment,
-        centerOffset: centerOffset,
-        minRadius: 10,
-      ),
+      RoundRevealRoute(screen,
+          maxRadius: height + width / 2,
+          centerAlignment: (alignment == null && offset == const Offset(0, 0))
+              ? Alignment.bottomRight
+              : alignment,
+          centerOffset: offset,
+          minRadius: 10,
+          durationMs: durationMs),
     );
   }
 
@@ -161,7 +161,7 @@ mixin Nav<T extends StatefulWidget> on State<T> {
       return null;
     }
     return navigatorState(context)?.push(navAni.createRoute(
-        screen, navigatorState(context)?.context, durationMs));
+        screen, navigatorState(context)!.context, durationMs));
   }
 
   /// Push Replacement screen
@@ -176,7 +176,8 @@ mixin Nav<T extends StatefulWidget> on State<T> {
       return null;
     }
     return navigatorState(context)?.pushReplacement(
-        navAni.createRoute(screen, context, durationMs),
+        navAni.createRoute(
+            screen, navigatorState(context)!.context, durationMs),
         result: result);
   }
 
@@ -191,7 +192,8 @@ mixin Nav<T extends StatefulWidget> on State<T> {
       return null;
     }
     return navigatorState(context)?.pushAndRemoveUntil(
-        navAni.createRoute(screen, context, durationMs),
+        navAni.createRoute(
+            screen, navigatorState(context)!.context, durationMs),
         (Route<dynamic> route) => false);
   }
 

@@ -10,8 +10,7 @@ import '../route/r_slide.dart';
 enum NavAni { Left, Right, Top, Bottom, Fade, Ripple, Blink }
 
 extension NavAniExt on NavAni {
-  Route<T> createRoute<T>(
-      Widget screen, BuildContext? context, int durationMs) {
+  Route<T> createRoute<T>(Widget screen, BuildContext context, int durationMs) {
     switch (this) {
       case NavAni.Left:
         return SlideFromLeftRoute<T>(screen, durationMs: durationMs);
@@ -27,11 +26,11 @@ extension NavAniExt on NavAni {
       case NavAni.Blink:
         return BlinkRoute<T>(screen);
       case NavAni.Ripple:
-        if (Nav.height == null) {
-          Nav.initDeviceSize(context!);
-        }
+        final height = MediaQuery.of(context).size.height;
+        final width = MediaQuery.of(context).size.width;
+
         return RoundRevealRoute<T>(screen,
-            maxRadius: Nav.height! + Nav.width / 2,
+            maxRadius: height + width / 2,
             centerAlignment: Alignment.bottomRight,
             centerOffset: const Offset(10, 10),
             minRadius: 10,

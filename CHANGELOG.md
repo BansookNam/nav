@@ -1,3 +1,10 @@
+## [1.4.5] - 2023-09-10
+
+* change param name of pushWithRippleEffect
+* add durationMs
+* allow to change offset with dx, dy
+* export NavAni enum
+
 ## [1.4.4] - 2023-08-17
 
 * rename hook consumer dialog widget
