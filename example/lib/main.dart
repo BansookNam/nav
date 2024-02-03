@@ -89,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
       floatingActionButton: Builder(
         builder: (context) => FloatingActionButton(
           onPressed: () async {
-            final result = await MessageDialog().show();
+            final result = await MessageDialog('Test String').show();
             print(result);
 
             // ignore: unused_local_variable

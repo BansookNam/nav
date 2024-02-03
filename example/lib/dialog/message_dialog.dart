@@ -6,8 +6,9 @@ import 'package:nav/enum/enum_nav_ani.dart';
 
 class MessageDialog extends DialogWidget {
   final bool isCancelOnBack = false;
+  final String text;
 
-  MessageDialog({BuildContext? context})
+  MessageDialog(this.text, {BuildContext? context})
       : super(
           context: context,
           animation: NavAni.Fade,
@@ -24,12 +25,8 @@ class MessageDialog extends DialogWidget {
 class _DialogState extends DialogState<MessageDialog> {
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: Platform.isIOS
-          ? null
-          : () async {
-              return widget.isCancelOnBack;
-            },
+    return PopScope(
+      canPop: Platform.isIOS ? true:  widget.isCancelOnBack,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -55,7 +52,7 @@ class _DialogState extends DialogState<MessageDialog> {
                       decoration: BoxDecoration(
                           color: Colors.blueAccent,
                           borderRadius: BorderRadius.circular(10)),
-                      child: Text("Test Dialog",
+                      child: Text(widget.text,
                           style: TextStyle(color: Colors.white)),
                       alignment: Alignment.center,
                     ),
