@@ -16,11 +16,24 @@ export 'package:nav/enum/enum_nav_ani.dart';
 mixin Nav<T extends StatefulWidget> on State<T> {
   static const int defaultDurationMs = 200;
 
+  @Deprecated(
+      'It will be removed on Nav 2025 - 3.0. Please use pushWithResult Method with Generic instead of comparing string and dynamic')
   static const RESULT = "result";
+
+  @Deprecated(
+      'It will be removed on Nav 2025 - 3.0. Please use pushWithResult Method with Generic instead of comparing string and dynamic')
   static const SUCCESS = "success";
+  @Deprecated(
+      'It will be removed on Nav 2025 - 3.0. Please use pushWithResult Method with Generic instead of comparing string and dynamic')
   static const FAIL = "fail";
+  @Deprecated(
+      'It will be removed on Nav 2025 - 3.0. Please use pushWithResult Method with Generic instead of comparing string and dynamic')
   static const CANCEL = "cancel";
+  @Deprecated(
+      'It will be removed on Nav 2025 - 3.0. Please use pushWithResult Method with Generic instead of comparing string and dynamic')
   static const DELETED = "deleted";
+  @Deprecated(
+      'It will be removed on Nav 2025 - 3.0. Please use pushWithResult Method with Generic instead of comparing string and dynamic')
   static const REFRESH = "refresh";
 
   GlobalKey<NavigatorState> get navigatorKey;
@@ -75,8 +88,7 @@ mixin Nav<T extends StatefulWidget> on State<T> {
       return null;
     }
     return navigatorState(context)?.push(
-      getPushRightRoute(screen,
-          prohibitSwipeBack: prohibitSwipeBack, context: context) as Route<T>,
+      getPushRightRoute(screen, prohibitSwipeBack: prohibitSwipeBack, context: context) as Route<T>,
     );
   }
 
@@ -92,8 +104,7 @@ mixin Nav<T extends StatefulWidget> on State<T> {
   /// Push screen from left to right
   ///
   /// If you provide context, you can nest navigate in your specific context
-  static Future<T?> pushFromLeft<T>(Widget? screen,
-      {BuildContext? context}) async {
+  static Future<T?> pushFromLeft<T>(Widget? screen, {BuildContext? context}) async {
     if (screen == null) {
       return null;
     }
@@ -105,8 +116,7 @@ mixin Nav<T extends StatefulWidget> on State<T> {
   /// Push screen from bottom to top
   ///
   /// If you provide context, you can nest navigate in your specific context
-  static Future<T?> pushFromBottom<T>(Widget screen,
-          {BuildContext? context}) async =>
+  static Future<T?> pushFromBottom<T>(Widget screen, {BuildContext? context}) async =>
       navigatorState(context)?.push(
         SlideFromBottomRoute(screen),
       );
@@ -114,8 +124,7 @@ mixin Nav<T extends StatefulWidget> on State<T> {
   /// Push screen from top to bottom
   ///
   /// If you provide context, you can nest navigate in your specific context
-  static Future<T?> pushFromTop<T>(Widget screen,
-          {BuildContext? context}) async =>
+  static Future<T?> pushFromTop<T>(Widget screen, {BuildContext? context}) async =>
       navigatorState(context)?.push(
         SlideFromTopRoute(screen),
       );
@@ -159,8 +168,8 @@ mixin Nav<T extends StatefulWidget> on State<T> {
     if (screen == null) {
       return null;
     }
-    return navigatorState(context)?.push(navAni.createRoute(
-        screen, navigatorState(context)!.context, durationMs));
+    return navigatorState(context)
+        ?.push(navAni.createRoute(screen, navigatorState(context)!.context, durationMs));
   }
 
   /// Push Replacement screen
@@ -175,8 +184,7 @@ mixin Nav<T extends StatefulWidget> on State<T> {
       return null;
     }
     return navigatorState(context)?.pushReplacement(
-        navAni.createRoute(
-            screen, navigatorState(context)!.context, durationMs),
+        navAni.createRoute(screen, navigatorState(context)!.context, durationMs),
         result: result);
   }
 
@@ -191,32 +199,41 @@ mixin Nav<T extends StatefulWidget> on State<T> {
       return null;
     }
     return navigatorState(context)?.pushAndRemoveUntil(
-        navAni.createRoute(
-            screen, navigatorState(context)!.context, durationMs),
+        navAni.createRoute(screen, navigatorState(context)!.context, durationMs),
         (Route<dynamic> route) => false);
   }
 
   /// Check result is success
+  @Deprecated(
+      'It will be removed on Nav 2025 - 3.0. Please use pushWithResult Method with Generic instead of comparing string and dynamic')
   static bool isSuccess(result) {
     return result != null && result[RESULT] == SUCCESS;
   }
 
   /// Check result is fail
+  @Deprecated(
+      'It will be removed on Nav 2025 - 3.0. Please use pushWithResult Method with Generic instead of comparing string and dynamic')
   static bool isFail(result) {
     return result != null && result[RESULT] == FAIL;
   }
 
   /// Check result is cancel
+  @Deprecated(
+      'It will be removed on Nav 2025 - 3.0. Please use pushWithResult Method with Generic instead of comparing string and dynamic')
   static bool isCancel(result) {
     return result != null && result[RESULT] == CANCEL;
   }
 
   /// Check result is deleted
+  @Deprecated(
+      'It will be removed on Nav 2025 - 3.0. Please use pushWithResult Method with Generic instead of comparing string and dynamic')
   static bool isDeleted(result) {
     return result != null && result[RESULT] == DELETED;
   }
 
   /// Check result is refresh
+  @Deprecated(
+      'It will be removed on Nav 2025 - 3.0. Please use pushWithResult Method with Generic instead of comparing string and dynamic')
   static bool isRefresh(result) {
     return result != null && result[RESULT] == REFRESH;
   }
@@ -231,26 +248,36 @@ mixin Nav<T extends StatefulWidget> on State<T> {
   }
 
   /// simple pop with success result
+  @Deprecated(
+      'It will be removed on Nav 2025 - 3.0. Please use pushWithResult Method with Generic instead of comparing string and dynamic')
   static void popResultSuccess(BuildContext context) {
     pop(context, result: {RESULT: SUCCESS});
   }
 
   /// simple pop with fail result
+  @Deprecated(
+      'It will be removed on Nav 2025 - 3.0. Please use pushWithResult Method with Generic instead of comparing string and dynamic')
   static void popResultFail(BuildContext context) {
     pop(context, result: {RESULT: FAIL});
   }
 
   /// simple pop with cancel result
+  @Deprecated(
+      'It will be removed on Nav 2025 - 3.0. Please use pushWithResult Method with Generic instead of comparing string and dynamic')
   static void popResultCancel(BuildContext context) {
     pop(context, result: {RESULT: CANCEL});
   }
 
   /// simple pop with delete result
+  @Deprecated(
+      'It will be removed on Nav 2025 - 3.0. Please use pushWithResult Method with Generic instead of comparing string and dynamic')
   static void popResultDelete(BuildContext context) {
     pop(context, result: {RESULT: DELETED});
   }
 
   /// simple pop with refresh result
+  @Deprecated(
+      'It will be removed on Nav 2025 - 3.0. Please use pushWithResult Method with Generic instead of comparing string and dynamic')
   static void popResultRefresh(BuildContext context) {
     pop(context, result: {RESULT: REFRESH});
   }
