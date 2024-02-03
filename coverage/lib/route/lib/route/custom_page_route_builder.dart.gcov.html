@@ -31,13 +31,13 @@
             <td class="headerValue">lcov.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryMed">85.7&nbsp;%</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
             <td class="headerCovTableEntry">7</td>
-            <td class="headerCovTableEntry">6</td>
+            <td class="headerCovTableEntry">7</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2024-02-03 11:06:34</td>
+            <td class="headerValue">2024-02-04 00:17:18</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -62,7 +62,7 @@
 <pre class="source">
 <span id="L1"><span class="lineNum">       1</span>              : import 'package:flutter/material.dart';</span>
 <span id="L2"><span class="lineNum">       2</span>              : </span>
-<span id="L3"><span class="lineNum">       3</span> <span class="tlaUNC tlaBgUNC">           0 : Widget _defaultTransitionsBuilder(</span></span>
+<span id="L3"><span class="lineNum">       3</span> <span class="tlaGNC tlaBgGNC">           1 : Widget _defaultTransitionsBuilder(</span></span>
 <span id="L4"><span class="lineNum">       4</span>              :     BuildContext context,</span>
 <span id="L5"><span class="lineNum">       5</span>              :     Animation&lt;double&gt; animation,</span>
 <span id="L6"><span class="lineNum">       6</span>              :     Animation&lt;double&gt; secondaryAnimation,</span>
@@ -75,8 +75,8 @@
 <span id="L13"><span class="lineNum">      13</span>              :   ///</span>
 <span id="L14"><span class="lineNum">      14</span>              :   /// The [pageBuilder], [transitionsBuilder], [opaque], [barrierDismissible],</span>
 <span id="L15"><span class="lineNum">      15</span>              :   /// and [maintainState] arguments must not be null.</span>
-<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC tlaBgGNC">           1 :   CustomPageRouteBuilder({</span></span>
-<span id="L17"><span class="lineNum">      17</span>              :     RouteSettings? settings,</span>
+<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">           1 :   CustomPageRouteBuilder({</span></span>
+<span id="L17"><span class="lineNum">      17</span>              :     super.settings,</span>
 <span id="L18"><span class="lineNum">      18</span>              :     required this.pageBuilder,</span>
 <span id="L19"><span class="lineNum">      19</span>              :     this.transitionsBuilder = _defaultTransitionsBuilder,</span>
 <span id="L20"><span class="lineNum">      20</span>              :     this.transitionDuration = const Duration(milliseconds: 300),</span>
@@ -85,7 +85,7 @@
 <span id="L23"><span class="lineNum">      23</span>              :     this.barrierColor,</span>
 <span id="L24"><span class="lineNum">      24</span>              :     this.barrierLabel,</span>
 <span id="L25"><span class="lineNum">      25</span>              :     this.maintainState = true,</span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           1 :   }) : super(settings: settings, fullscreenDialog: false);</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           1 :   }) : super(fullscreenDialog: false);</span></span>
 <span id="L27"><span class="lineNum">      27</span>              : </span>
 <span id="L28"><span class="lineNum">      28</span>              :   /// Used build the route's primary contents.</span>
 <span id="L29"><span class="lineNum">      29</span>              :   ///</span>

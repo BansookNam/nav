@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:nav/nav.dart';
 import 'package:nav/route/custom_page_route_builder.dart';
 
-class FadeRoute<T> extends CustomPageRouteBuilder<T> {
+class FadeRouteBuilder<T> extends CustomPageRouteBuilder<T> {
   final Widget widget;
 
-  FadeRoute(this.widget, {int durationMs = Nav.defaultDurationMs})
+  FadeRouteBuilder(this.widget, {int durationMs = Nav.defaultDurationMs})
       : super(
             pageBuilder: (BuildContext context, Animation<double> animation,
                 Animation<double> secondaryAnimation) {

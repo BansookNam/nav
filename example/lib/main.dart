@@ -129,8 +129,8 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
                             IconButton(
                               onPressed: () async => onResult(
                                   context,
-                                  await Nav.pushFromTop(
-                                      MyHomePage(navType: NavType.Top))),
+                                  await Nav.push(
+                                      MyHomePage(navType: NavType.Top), navAni: NavAni.Top)),
                               icon: icon(Icons.vertical_align_bottom),
                             )
                           ],
@@ -146,8 +146,8 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
                                     onPressed: () async {
                                       onResult(
                                           context,
-                                          await Nav.pushFromLeft(MyHomePage(
-                                              navType: NavType.Left)));
+                                          await Nav.push(MyHomePage(
+                                              navType: NavType.Left), navAni: NavAni.Left));
                                     },
                                     icon: icon(Icons.keyboard_arrow_right),
                                   ),
@@ -195,8 +195,8 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
                             IconButton(
                               onPressed: () async => onResult(
                                   context,
-                                  await Nav.pushFromBottom(
-                                      MyHomePage(navType: NavType.Bottom))),
+                                  await Nav.push(
+                                      MyHomePage(navType: NavType.Bottom), navAni: NavAni.Bottom)),
                               icon: icon(Icons.vertical_align_top),
                             )
                           ],

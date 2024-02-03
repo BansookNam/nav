@@ -8,12 +8,16 @@ class MessageDialog extends DialogWidget {
   final bool isCancelOnBack = false;
   final String text;
 
-  MessageDialog(this.text, {super.key, super.context})
-      : super(
-          animation: NavAni.Fade,
-          barrierColor: Colors.black.withOpacity(0.5),
-          barrierDismissible: false,
-        );
+  MessageDialog(
+    this.text, {
+    super.key,
+    super.context,
+    super.useRootNavigator,
+    super.useSafeArea,
+    super.animation = NavAni.Fade,
+    super.barrierColor = const Color(0x80000000),
+    super.barrierDismissible = false,
+  });
 
   @override
   State<StatefulWidget> createState() {
@@ -25,7 +29,7 @@ class _DialogState extends DialogState<MessageDialog> {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: Platform.isIOS ? true:  widget.isCancelOnBack,
+      canPop: Platform.isIOS ? true : widget.isCancelOnBack,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -49,11 +53,9 @@ class _DialogState extends DialogState<MessageDialog> {
                       height: 80,
                       width: 100,
                       decoration: BoxDecoration(
-                          color: Colors.blueAccent,
-                          borderRadius: BorderRadius.circular(10)),
+                          color: Colors.blueAccent, borderRadius: BorderRadius.circular(10)),
                       alignment: Alignment.center,
-                      child: Text(widget.text,
-                          style: const TextStyle(color: Colors.white)),
+                      child: Text(widget.text, style: const TextStyle(color: Colors.white)),
                     ),
                   ),
                 ),

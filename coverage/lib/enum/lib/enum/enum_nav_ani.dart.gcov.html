@@ -31,13 +31,13 @@
             <td class="headerValue">lcov.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryHi">94.7&nbsp;%</td>
-            <td class="headerCovTableEntry">19</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">18</td>
             <td class="headerCovTableEntry">18</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2024-02-03 11:06:34</td>
+            <td class="headerValue">2024-02-04 00:17:18</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -62,10 +62,10 @@
 <pre class="source">
 <span id="L1"><span class="lineNum">       1</span>              : import 'package:flutter/material.dart';</span>
 <span id="L2"><span class="lineNum">       2</span>              : import 'package:nav/nav.dart';</span>
-<span id="L3"><span class="lineNum">       3</span>              : import 'package:nav/route/r_blink.dart';</span>
-<span id="L4"><span class="lineNum">       4</span>              : import 'package:nav/route/r_fade.dart';</span>
-<span id="L5"><span class="lineNum">       5</span>              : import 'package:nav/route/r_ripple.dart';</span>
-<span id="L6"><span class="lineNum">       6</span>              : import 'package:nav/route/r_slide.dart';</span>
+<span id="L3"><span class="lineNum">       3</span>              : import 'package:nav/route/blink_route_builder.dart';</span>
+<span id="L4"><span class="lineNum">       4</span>              : import 'package:nav/route/fade_route_builder.dart';</span>
+<span id="L5"><span class="lineNum">       5</span>              : import 'package:nav/route/ripple_route_builder.dart';</span>
+<span id="L6"><span class="lineNum">       6</span>              : import 'package:nav/route/slide_route_builder.dart';</span>
 <span id="L7"><span class="lineNum">       7</span>              : </span>
 <span id="L8"><span class="lineNum">       8</span>              : // ignore: constant_identifier_names</span>
 <span id="L9"><span class="lineNum">       9</span>              : enum NavAni { Left, Right, Top, Bottom, Fade, Ripple, Blink }</span>
@@ -74,7 +74,7 @@
 <span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC tlaBgGNC">           1 :   Route&lt;T&gt; createRoute&lt;T&gt;(Widget screen, BuildContext context, int durationMs) {</span></span>
 <span id="L13"><span class="lineNum">      13</span>              :     switch (this) {</span>
 <span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">           1 :       case NavAni.Left:</span></span>
-<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">           1 :         return SlideFromLeftRoute&lt;T&gt;(screen, durationMs: durationMs);</span></span>
+<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">           1 :         return SlideFromLeftRouteBuilder&lt;T&gt;(screen, durationMs: durationMs);</span></span>
 <span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">           1 :       case NavAni.Right:</span></span>
 <span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">           1 :         return Nav.getPushRightRoute&lt;T&gt;(screen,</span></span>
 <span id="L18"><span class="lineNum">      18</span>              :             context: context, prohibitSwipeBack: false, durationMs: durationMs);</span>
@@ -83,24 +83,22 @@
 <span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">           1 :       case NavAni.Bottom:</span></span>
 <span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">           1 :         return SlideFromBottomRoute&lt;T&gt;(screen, durationMs: durationMs);</span></span>
 <span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">           1 :       case NavAni.Fade:</span></span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">           1 :         return FadeRoute&lt;T&gt;(screen, durationMs: durationMs);</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">           1 :         return FadeRouteBuilder&lt;T&gt;(screen, durationMs: durationMs);</span></span>
 <span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">           1 :       case NavAni.Blink:</span></span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           1 :         return BlinkRoute&lt;T&gt;(screen);</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           1 :         return BlinkRouteBuilder&lt;T&gt;(screen);</span></span>
 <span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">           1 :       case NavAni.Ripple:</span></span>
 <span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">           3 :         final height = MediaQuery.of(context).size.height;</span></span>
 <span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">           3 :         final width = MediaQuery.of(context).size.width;</span></span>
 <span id="L30"><span class="lineNum">      30</span>              : </span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">           1 :         return RoundRevealRoute&lt;T&gt;(screen,</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">           1 :         return RippleRouteBuilder&lt;T&gt;(screen,</span></span>
 <span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">           2 :             maxRadius: height + width / 2,</span></span>
 <span id="L33"><span class="lineNum">      33</span>              :             centerAlignment: Alignment.bottomRight,</span>
-<span id="L34"><span class="lineNum">      34</span>              :             centerOffset: const Offset(10, 10),</span>
+<span id="L34"><span class="lineNum">      34</span>              :             centerOffset: const Offset(0, 0),</span>
 <span id="L35"><span class="lineNum">      35</span>              :             minRadius: 10,</span>
 <span id="L36"><span class="lineNum">      36</span>              :             durationMs: durationMs);</span>
-<span id="L37"><span class="lineNum">      37</span>              :       default:</span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaUNC tlaBgUNC">           0 :         return SlideFromRightRoute&lt;T&gt;(screen);</span></span>
-<span id="L39"><span class="lineNum">      39</span>              :     }</span>
-<span id="L40"><span class="lineNum">      40</span>              :   }</span>
-<span id="L41"><span class="lineNum">      41</span>              : }</span>
+<span id="L37"><span class="lineNum">      37</span>              :     }</span>
+<span id="L38"><span class="lineNum">      38</span>              :   }</span>
+<span id="L39"><span class="lineNum">      39</span>              : }</span>
         </pre>
               </td>
             </tr>

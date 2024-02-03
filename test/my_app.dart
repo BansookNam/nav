@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nav/nav.dart';
 
 import 'dialog/message_dialog.dart';
+import 'screen/result_screen.dart';
 
 class MyApp extends StatefulWidget {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey();
@@ -27,15 +28,14 @@ class MyAppState extends State<MyApp> with Nav {
         navigatorKey: navigatorKey,
         title: 'Nav Demo',
         theme: ThemeData(
-          // Define the default font family.
+            // Define the default font family.
             fontFamily: 'DMSans',
             scaffoldBackgroundColor: Colors.white,
             iconTheme: const IconThemeData(color: Colors.blue),
             // Define the default TextTheme. Use this to specify the default
             // text styling for headlines, titles, bodies of text, and more.
             textTheme: const TextTheme(),
-            bottomSheetTheme: const BottomSheetThemeData(
-                backgroundColor: Colors.transparent)),
+            bottomSheetTheme: const BottomSheetThemeData(backgroundColor: Colors.transparent)),
         home: const MyHomePage(),
       ),
     );
@@ -44,7 +44,6 @@ class MyAppState extends State<MyApp> with Nav {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
-
 
   @override
   MyHomePageState createState() => MyHomePageState();
@@ -55,7 +54,6 @@ class MyHomePageState extends State<MyHomePage> {
   Color? bgColor;
 
   bool get isHome => !showBackButton;
-
 
   @override
   Widget build(BuildContext context) {
@@ -94,8 +92,19 @@ class MyHomePageState extends State<MyHomePage> {
       ),
       body: Builder(
           builder: (context) => SafeArea(
-            child: Container(),
-          )), // This trailing comma makes auto-formatting nicer for build methods.
+                child: Column(
+                  children: [
+                    GestureDetector(
+                      child: const Text('Open Result Screen'),
+                      onTap: () async {
+                        final result = await Nav.pushForResult(const ResultScreen());
+                        result?.runIfSuccess((data) => debugPrint(data));
+                        result?.runIfFailure((data) => debugPrint('fail'));
+                      },
+                    )
+                  ],
+                ),
+              )), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 

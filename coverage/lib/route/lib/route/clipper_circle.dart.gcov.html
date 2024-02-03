@@ -31,13 +31,13 @@
             <td class="headerValue">lcov.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">62.5&nbsp;%</td>
-            <td class="headerCovTableEntry">16</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">10</td>
             <td class="headerCovTableEntry">10</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2024-02-03 11:06:34</td>
+            <td class="headerValue">2024-02-04 00:17:18</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -60,53 +60,45 @@
               <td>
 <pre class="sourceHeading">            Line data    Source code</pre>
 <pre class="source">
-<span id="L1"><span class="lineNum">       1</span>              : import 'dart:math';</span>
-<span id="L2"><span class="lineNum">       2</span>              : import 'dart:ui';</span>
-<span id="L3"><span class="lineNum">       3</span>              : </span>
-<span id="L4"><span class="lineNum">       4</span>              : import 'package:flutter/material.dart';</span>
-<span id="L5"><span class="lineNum">       5</span>              : </span>
-<span id="L6"><span class="lineNum">       6</span>              : @immutable</span>
-<span id="L7"><span class="lineNum">       7</span>              : class CircularRevealClipper extends CustomClipper&lt;Path&gt; {</span>
-<span id="L8"><span class="lineNum">       8</span>              :   final double fraction;</span>
-<span id="L9"><span class="lineNum">       9</span>              :   final Alignment? centerAlignment;</span>
-<span id="L10"><span class="lineNum">      10</span>              :   final Offset? centerOffset;</span>
-<span id="L11"><span class="lineNum">      11</span>              :   final double? minRadius;</span>
-<span id="L12"><span class="lineNum">      12</span>              :   final double? maxRadius;</span>
-<span id="L13"><span class="lineNum">      13</span>              : </span>
-<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC tlaBgGNC">           1 :   const CircularRevealClipper({</span></span>
-<span id="L15"><span class="lineNum">      15</span>              :     required this.fraction,</span>
+<span id="L1"><span class="lineNum">       1</span>              : import 'dart:ui';</span>
+<span id="L2"><span class="lineNum">       2</span>              : </span>
+<span id="L3"><span class="lineNum">       3</span>              : import 'package:flutter/material.dart';</span>
+<span id="L4"><span class="lineNum">       4</span>              : </span>
+<span id="L5"><span class="lineNum">       5</span>              : @immutable</span>
+<span id="L6"><span class="lineNum">       6</span>              : class CircularRevealClipper extends CustomClipper&lt;Path&gt; {</span>
+<span id="L7"><span class="lineNum">       7</span>              :   final double fraction;</span>
+<span id="L8"><span class="lineNum">       8</span>              :   final Alignment? centerAlignment;</span>
+<span id="L9"><span class="lineNum">       9</span>              :   final Offset centerOffset;</span>
+<span id="L10"><span class="lineNum">      10</span>              :   final double? minRadius;</span>
+<span id="L11"><span class="lineNum">      11</span>              :   final double maxRadius;</span>
+<span id="L12"><span class="lineNum">      12</span>              : </span>
+<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC tlaBgGNC">           2 :   const CircularRevealClipper({</span></span>
+<span id="L14"><span class="lineNum">      14</span>              :     required this.fraction,</span>
+<span id="L15"><span class="lineNum">      15</span>              :     required this.centerOffset,</span>
 <span id="L16"><span class="lineNum">      16</span>              :     this.centerAlignment,</span>
-<span id="L17"><span class="lineNum">      17</span>              :     this.centerOffset,</span>
-<span id="L18"><span class="lineNum">      18</span>              :     this.minRadius,</span>
-<span id="L19"><span class="lineNum">      19</span>              :     this.maxRadius,</span>
-<span id="L20"><span class="lineNum">      20</span>              :   });</span>
-<span id="L21"><span class="lineNum">      21</span>              : </span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">           1 :   @override</span></span>
-<span id="L23"><span class="lineNum">      23</span>              :   Path getClip(Size size) {</span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">           2 :     final Offset center = centerAlignment?.alongSize(size) ??</span></span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaUNC tlaBgUNC">           0 :         centerOffset ??</span></span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaUNC">           0 :         Offset(size.width / 2, size.height / 2);</span></span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC tlaBgGNC">           1 :     final minRadius = this.minRadius ?? 0;</span></span>
-<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">           1 :     final maxRadius = this.maxRadius ?? calcMaxRadius(size, center);</span></span>
-<span id="L29"><span class="lineNum">      29</span>              : </span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">           1 :     return Path()</span></span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">           1 :       ..addOval(</span></span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">           1 :         Rect.fromCircle(</span></span>
-<span id="L33"><span class="lineNum">      33</span>              :           center: center,</span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">           2 :           radius: lerpDouble(minRadius, maxRadius, fraction)!,</span></span>
-<span id="L35"><span class="lineNum">      35</span>              :         ),</span>
-<span id="L36"><span class="lineNum">      36</span>              :       );</span>
-<span id="L37"><span class="lineNum">      37</span>              :   }</span>
-<span id="L38"><span class="lineNum">      38</span>              : </span>
-<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">           1 :   @override</span></span>
-<span id="L40"><span class="lineNum">      40</span>              :   bool shouldReclip(CustomClipper&lt;Path&gt; oldClipper) =&gt; true;</span>
-<span id="L41"><span class="lineNum">      41</span>              : </span>
-<span id="L42"><span class="lineNum">      42</span> <span class="tlaUNC tlaBgUNC">           0 :   static double calcMaxRadius(Size size, Offset center) {</span></span>
-<span id="L43"><span class="lineNum">      43</span> <span class="tlaUNC">           0 :     final w = max(center.dx, size.width - center.dx);</span></span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaUNC">           0 :     final h = max(center.dy, size.height - center.dy);</span></span>
-<span id="L45"><span class="lineNum">      45</span> <span class="tlaUNC">           0 :     return sqrt(w * w + h * h);</span></span>
-<span id="L46"><span class="lineNum">      46</span>              :   }</span>
-<span id="L47"><span class="lineNum">      47</span>              : }</span>
+<span id="L17"><span class="lineNum">      17</span>              :     this.minRadius,</span>
+<span id="L18"><span class="lineNum">      18</span>              :     required this.maxRadius,</span>
+<span id="L19"><span class="lineNum">      19</span>              :   });</span>
+<span id="L20"><span class="lineNum">      20</span>              : </span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">           2 :   @override</span></span>
+<span id="L22"><span class="lineNum">      22</span>              :   Path getClip(Size size) {</span>
+<span id="L23"><span class="lineNum">      23</span>              :     final Offset center =</span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">           4 :         centerAlignment?.alongSize(size) ?? centerOffset;</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">           2 :     final minRadius = this.minRadius ?? 0;</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           2 :     final maxRadius = this.maxRadius;</span></span>
+<span id="L27"><span class="lineNum">      27</span>              : </span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">           2 :     return Path()</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">           2 :       ..addOval(</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">           2 :         Rect.fromCircle(</span></span>
+<span id="L31"><span class="lineNum">      31</span>              :           center: center,</span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">           4 :           radius: lerpDouble(minRadius, maxRadius, fraction)!,</span></span>
+<span id="L33"><span class="lineNum">      33</span>              :         ),</span>
+<span id="L34"><span class="lineNum">      34</span>              :       );</span>
+<span id="L35"><span class="lineNum">      35</span>              :   }</span>
+<span id="L36"><span class="lineNum">      36</span>              : </span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">           2 :   @override</span></span>
+<span id="L38"><span class="lineNum">      38</span>              :   bool shouldReclip(CustomClipper&lt;Path&gt; oldClipper) =&gt; true;</span>
+<span id="L39"><span class="lineNum">      39</span>              : }</span>
         </pre>
               </td>
             </tr>
