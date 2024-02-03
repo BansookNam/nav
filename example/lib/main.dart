@@ -5,8 +5,10 @@ import 'package:example/enum_direction.dart';
 import 'package:example/util/get_random_color.dart';
 import 'package:flutter/material.dart';
 import 'package:nav/nav.dart';
+import 'package:nav/screen/nav_screen.dart';
 
 import 'dialog/message_dialog.dart';
+import 'screen/simple_result.dart';
 
 void main() {
   runApp(MyApp());
@@ -48,7 +50,7 @@ class _MyAppState extends State<MyApp> with Nav {
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends StatefulWidget with NavScreen<SimpleResult> {
   MyHomePage({Key? key, this.navType}) : super(key: key);
 
   final NavType? navType;
@@ -160,9 +162,9 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
                                               navType: NavType.ClearAll,
                                             ));
                                           } else {
-                                            //Nav.pop(context, result: {Nav.RESULT: Nav.SUCCESS, "extraParam": 123});
+                                            //widget.popWithResult(context, SimpleResult.success("data"));
                                             //If there is no extra param you want, just call simple method below.
-                                            Nav.popResultSuccess(context);
+                                            widget.popWithResult(context, SimpleResult.failure());
                                           }
                                         },
                                       ),
@@ -278,8 +280,8 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
         ));
   }
 
-  void onResult(BuildContext context, dynamic result) {
-    if (Nav.isSuccess(result)) {
+  void onResult(BuildContext context, SimpleResult result) {
+    if (result.isSuccess) {
       final snackbar =
           createSnackBar(context, "Result is Success: ${result.toString()}");
       ScaffoldMessenger.of(context).showSnackBar(snackbar);

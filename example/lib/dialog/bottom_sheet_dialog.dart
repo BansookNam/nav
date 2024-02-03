@@ -1,8 +1,11 @@
-import 'package:example/widget/pressed_change_button.dart';
 import 'package:flutter/material.dart';
 import 'package:nav/dialog/dialog.dart';
 import 'package:nav/enum/enum_nav_ani.dart';
 import 'package:nav/nav.dart';
+import 'package:nav/screen/nav_screen.dart';
+
+import '../screen/simple_result.dart';
+import '../widget/pressed_change_button.dart';
 
 class BottomSheetItem {
   final String title;
@@ -11,24 +14,22 @@ class BottomSheetItem {
   BottomSheetItem(this.title, this.icon);
 }
 
-class BottomSheetDialog extends DialogWidget {
-  static const DATA = "data";
+class BottomSheetDialog extends DialogWidget with NavScreen<SimpleResult<String,void>> {
   final List<BottomSheetItem> bottomSheetItemList;
   final String? title;
   final bool showCancel;
   final MainAxisAlignment mainAxisAlignment;
 
   BottomSheetDialog(
-    this.bottomSheetItemList, {
-    BuildContext? context,
-    this.showCancel = false,
-    this.title,
-    this.mainAxisAlignment = MainAxisAlignment.start,
-  }) : super(
-          context: context,
-          barrierDismissible: false,
-          animation: NavAni.Bottom,
-        );
+      this.bottomSheetItemList, {super.key,
+        super.context,
+        this.showCancel = false,
+        this.title,
+        this.mainAxisAlignment = MainAxisAlignment.start,
+      }) : super(
+    barrierDismissible: false,
+    animation: NavAni.Bottom,
+  );
 
   @override
   State<StatefulWidget> createState() {
@@ -41,13 +42,8 @@ class _DialogState extends DialogState<BottomSheetDialog> {
   String? selectedTitle;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final radius = Radius.circular(10);
+    const radius = Radius.circular(10);
     final mediaQuery = MediaQuery.of(context);
     final viewPaddingBottom = mediaQuery.viewPadding.bottom;
     final width = mediaQuery.size.width;
@@ -58,17 +54,17 @@ class _DialogState extends DialogState<BottomSheetDialog> {
           child: Container(
             padding: EdgeInsets.only(bottom: viewPaddingBottom + 10, top: 10),
             width: width,
-            decoration: new BoxDecoration(
+            decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius:
-                    BorderRadius.only(topLeft: radius, topRight: radius)),
+                BorderRadius.only(topLeft: radius, topRight: radius)),
             child: Column(
               children: <Widget>[
                 if (widget.title != null)
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 14.0),
                     child: Text(widget.title ?? "",
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Color(0xff777777),
                             fontWeight: FontWeight.bold)),
                   ),
@@ -79,17 +75,14 @@ class _DialogState extends DialogState<BottomSheetDialog> {
                       setState(() {
                         selectedTitle = "Cancel";
                       });
-                      Nav.pop(context, result: {
-                        Nav.RESULT: Nav.SUCCESS,
-                        BottomSheetDialog.DATA: "Cancel"
-                      });
+                      widget.popWithResult(context, SimpleResult.failure());
                     },
                     forcePressedColor: selectedTitle == "Cancel",
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.all(20.0),
+                          padding: EdgeInsets.all(20.0),
                           child: Text("Cancel",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 16)),
@@ -107,16 +100,13 @@ class _DialogState extends DialogState<BottomSheetDialog> {
 
   getItemList(BuildContext context) {
     List<Widget> list = [];
-    widget.bottomSheetItemList.forEach((item) {
+    for (var item in widget.bottomSheetItemList) {
       list.add(PressedChangeButton(
         onTap: () {
           setState(() {
             selectedTitle = item.title;
           });
-          Nav.pop(context, result: {
-            Nav.RESULT: Nav.SUCCESS,
-            BottomSheetDialog.DATA: item.title
-          });
+          widget.popWithResult(context, SimpleResult.success(item.title));
         },
         forcePressedColor: selectedTitle == item.title,
         child: Row(
@@ -133,7 +123,7 @@ class _DialogState extends DialogState<BottomSheetDialog> {
           ],
         ),
       ));
-    });
+    }
     return list;
   }
 }

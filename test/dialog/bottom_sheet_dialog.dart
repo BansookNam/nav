@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:nav/dialog/dialog.dart';
+import 'package:nav/enum/enum_nav_ani.dart';
 import 'package:nav/nav.dart';
+import 'package:nav/screen/nav_screen.dart';
 
+import '../screen/simple_result.dart';
 import '../widget/pressed_change_button.dart';
 
 class BottomSheetItem {
@@ -11,9 +14,7 @@ class BottomSheetItem {
   BottomSheetItem(this.title, this.icon);
 }
 
-class BottomSheetDialog extends DialogWidget {
-  // ignore: constant_identifier_names
-  static const DATA = "data";
+class BottomSheetDialog extends DialogWidget with NavScreen<SimpleResult<String,void>> {
   final List<BottomSheetItem> bottomSheetItemList;
   final String? title;
   final bool showCancel;
@@ -39,7 +40,6 @@ class BottomSheetDialog extends DialogWidget {
 class _DialogState extends DialogState<BottomSheetDialog> {
   var isChecked = false;
   String? selectedTitle;
-
 
   @override
   Widget build(BuildContext context) {
@@ -75,10 +75,7 @@ class _DialogState extends DialogState<BottomSheetDialog> {
                       setState(() {
                         selectedTitle = "Cancel";
                       });
-                      Nav.pop(context, result: {
-                        Nav.RESULT: Nav.SUCCESS,
-                        BottomSheetDialog.DATA: "Cancel"
-                      });
+                      widget.popWithResult(context, SimpleResult.failure());
                     },
                     forcePressedColor: selectedTitle == "Cancel",
                     child: const Row(
@@ -109,10 +106,7 @@ class _DialogState extends DialogState<BottomSheetDialog> {
           setState(() {
             selectedTitle = item.title;
           });
-          Nav.pop(context, result: {
-            Nav.RESULT: Nav.SUCCESS,
-            BottomSheetDialog.DATA: item.title
-          });
+          widget.popWithResult(context, SimpleResult.success(item.title));
         },
         forcePressedColor: selectedTitle == item.title,
         child: Row(

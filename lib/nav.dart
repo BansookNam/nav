@@ -9,6 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:nav/enum/enum_nav_ani.dart';
 import 'package:nav/route/r_ripple.dart';
 import 'package:nav/route/r_slide.dart';
+import 'package:nav/screen/nav_screen.dart';
 import 'package:nav/setting/nav_setting.dart';
 
 export 'package:nav/enum/enum_nav_ani.dart';
@@ -17,23 +18,23 @@ mixin Nav<T extends StatefulWidget> on State<T> {
   static const int defaultDurationMs = 200;
 
   @Deprecated(
-      'It will be removed on Nav 2025 - 3.0. Please use pushWithResult Method with Generic instead of comparing string and dynamic')
+      'It will be removed on Nav 2025 - 3.0. Please use pushForResult Method with Generic instead of comparing string and dynamic')
   static const RESULT = "result";
 
   @Deprecated(
-      'It will be removed on Nav 2025 - 3.0. Please use pushWithResult Method with Generic instead of comparing string and dynamic')
+      'It will be removed on Nav 2025 - 3.0. Please use pushForResult Method with Generic instead of comparing string and dynamic')
   static const SUCCESS = "success";
   @Deprecated(
-      'It will be removed on Nav 2025 - 3.0. Please use pushWithResult Method with Generic instead of comparing string and dynamic')
+      'It will be removed on Nav 2025 - 3.0. Please use pushForResult Method with Generic instead of comparing string and dynamic')
   static const FAIL = "fail";
   @Deprecated(
-      'It will be removed on Nav 2025 - 3.0. Please use pushWithResult Method with Generic instead of comparing string and dynamic')
+      'It will be removed on Nav 2025 - 3.0. Please use pushForResult Method with Generic instead of comparing string and dynamic')
   static const CANCEL = "cancel";
   @Deprecated(
-      'It will be removed on Nav 2025 - 3.0. Please use pushWithResult Method with Generic instead of comparing string and dynamic')
+      'It will be removed on Nav 2025 - 3.0. Please use pushForResult Method with Generic instead of comparing string and dynamic')
   static const DELETED = "deleted";
   @Deprecated(
-      'It will be removed on Nav 2025 - 3.0. Please use pushWithResult Method with Generic instead of comparing string and dynamic')
+      'It will be removed on Nav 2025 - 3.0. Please use pushForResult Method with Generic instead of comparing string and dynamic')
   static const REFRESH = "refresh";
 
   GlobalKey<NavigatorState> get navigatorKey;
@@ -203,37 +204,44 @@ mixin Nav<T extends StatefulWidget> on State<T> {
         (Route<dynamic> route) => false);
   }
 
+  static Future<Result?> pushForResult<Result>(NavScreen<Result> screen,
+      {NavAni navAni = NavAni.Right,
+      BuildContext? context,
+      int durationMs = defaultDurationMs}) async {
+    return push<Result>(screen, navAni: navAni, context: context, durationMs: durationMs);
+  }
+
   /// Check result is success
   @Deprecated(
-      'It will be removed on Nav 2025 - 3.0. Please use pushWithResult Method with Generic instead of comparing string and dynamic')
+      'It will be removed on Nav 2025 - 3.0. Please use pushForResult Method with Generic instead of comparing string and dynamic')
   static bool isSuccess(result) {
     return result != null && result[RESULT] == SUCCESS;
   }
 
   /// Check result is fail
   @Deprecated(
-      'It will be removed on Nav 2025 - 3.0. Please use pushWithResult Method with Generic instead of comparing string and dynamic')
+      'It will be removed on Nav 2025 - 3.0. Please use pushForResult Method with Generic instead of comparing string and dynamic')
   static bool isFail(result) {
     return result != null && result[RESULT] == FAIL;
   }
 
   /// Check result is cancel
   @Deprecated(
-      'It will be removed on Nav 2025 - 3.0. Please use pushWithResult Method with Generic instead of comparing string and dynamic')
+      'It will be removed on Nav 2025 - 3.0. Please use pushForResult Method with Generic instead of comparing string and dynamic')
   static bool isCancel(result) {
     return result != null && result[RESULT] == CANCEL;
   }
 
   /// Check result is deleted
   @Deprecated(
-      'It will be removed on Nav 2025 - 3.0. Please use pushWithResult Method with Generic instead of comparing string and dynamic')
+      'It will be removed on Nav 2025 - 3.0. Please use pushForResult Method with Generic instead of comparing string and dynamic')
   static bool isDeleted(result) {
     return result != null && result[RESULT] == DELETED;
   }
 
   /// Check result is refresh
   @Deprecated(
-      'It will be removed on Nav 2025 - 3.0. Please use pushWithResult Method with Generic instead of comparing string and dynamic')
+      'It will be removed on Nav 2025 - 3.0. Please use pushForResult Method with Generic instead of comparing string and dynamic')
   static bool isRefresh(result) {
     return result != null && result[RESULT] == REFRESH;
   }
@@ -249,35 +257,35 @@ mixin Nav<T extends StatefulWidget> on State<T> {
 
   /// simple pop with success result
   @Deprecated(
-      'It will be removed on Nav 2025 - 3.0. Please use pushWithResult Method with Generic instead of comparing string and dynamic')
+      'It will be removed on Nav 2025 - 3.0. Please use pushForResult Method with Generic instead of comparing string and dynamic')
   static void popResultSuccess(BuildContext context) {
     pop(context, result: {RESULT: SUCCESS});
   }
 
   /// simple pop with fail result
   @Deprecated(
-      'It will be removed on Nav 2025 - 3.0. Please use pushWithResult Method with Generic instead of comparing string and dynamic')
+      'It will be removed on Nav 2025 - 3.0. Please use pushForResult Method with Generic instead of comparing string and dynamic')
   static void popResultFail(BuildContext context) {
     pop(context, result: {RESULT: FAIL});
   }
 
   /// simple pop with cancel result
   @Deprecated(
-      'It will be removed on Nav 2025 - 3.0. Please use pushWithResult Method with Generic instead of comparing string and dynamic')
+      'It will be removed on Nav 2025 - 3.0. Please use pushForResult Method with Generic instead of comparing string and dynamic')
   static void popResultCancel(BuildContext context) {
     pop(context, result: {RESULT: CANCEL});
   }
 
   /// simple pop with delete result
   @Deprecated(
-      'It will be removed on Nav 2025 - 3.0. Please use pushWithResult Method with Generic instead of comparing string and dynamic')
+      'It will be removed on Nav 2025 - 3.0. Please use pushForResult Method with Generic instead of comparing string and dynamic')
   static void popResultDelete(BuildContext context) {
     pop(context, result: {RESULT: DELETED});
   }
 
   /// simple pop with refresh result
   @Deprecated(
-      'It will be removed on Nav 2025 - 3.0. Please use pushWithResult Method with Generic instead of comparing string and dynamic')
+      'It will be removed on Nav 2025 - 3.0. Please use pushForResult Method with Generic instead of comparing string and dynamic')
   static void popResultRefresh(BuildContext context) {
     pop(context, result: {RESULT: REFRESH});
   }
