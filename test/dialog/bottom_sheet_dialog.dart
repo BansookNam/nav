@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nav/dialog/dialog.dart';
-import 'package:nav/enum/enum_nav_ani.dart';
 import 'package:nav/nav.dart';
 
 import '../widget/pressed_change_button.dart';
@@ -13,6 +12,7 @@ class BottomSheetItem {
 }
 
 class BottomSheetDialog extends DialogWidget {
+  // ignore: constant_identifier_names
   static const DATA = "data";
   final List<BottomSheetItem> bottomSheetItemList;
   final String? title;
@@ -20,13 +20,12 @@ class BottomSheetDialog extends DialogWidget {
   final MainAxisAlignment mainAxisAlignment;
 
   BottomSheetDialog(
-    this.bottomSheetItemList, {
-    BuildContext? context,
+    this.bottomSheetItemList, {super.key,
+    super.context,
     this.showCancel = false,
     this.title,
     this.mainAxisAlignment = MainAxisAlignment.start,
   }) : super(
-          context: context,
           barrierDismissible: false,
           animation: NavAni.Bottom,
         );
@@ -41,14 +40,10 @@ class _DialogState extends DialogState<BottomSheetDialog> {
   var isChecked = false;
   String? selectedTitle;
 
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
-    final radius = Radius.circular(10);
+    const radius = Radius.circular(10);
     final mediaQuery = MediaQuery.of(context);
     final viewPaddingBottom = mediaQuery.viewPadding.bottom;
     final width = mediaQuery.size.width;
@@ -59,7 +54,7 @@ class _DialogState extends DialogState<BottomSheetDialog> {
           child: Container(
             padding: EdgeInsets.only(bottom: viewPaddingBottom + 10, top: 10),
             width: width,
-            decoration: new BoxDecoration(
+            decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius:
                     BorderRadius.only(topLeft: radius, topRight: radius)),
@@ -69,7 +64,7 @@ class _DialogState extends DialogState<BottomSheetDialog> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 14.0),
                     child: Text(widget.title ?? "",
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Color(0xff777777),
                             fontWeight: FontWeight.bold)),
                   ),
@@ -86,11 +81,11 @@ class _DialogState extends DialogState<BottomSheetDialog> {
                       });
                     },
                     forcePressedColor: selectedTitle == "Cancel",
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.all(20.0),
+                          padding: EdgeInsets.all(20.0),
                           child: Text("Cancel",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 16)),
@@ -108,7 +103,7 @@ class _DialogState extends DialogState<BottomSheetDialog> {
 
   getItemList(BuildContext context) {
     List<Widget> list = [];
-    widget.bottomSheetItemList.forEach((item) {
+    for (var item in widget.bottomSheetItemList) {
       list.add(PressedChangeButton(
         onTap: () {
           setState(() {
@@ -134,7 +129,7 @@ class _DialogState extends DialogState<BottomSheetDialog> {
           ],
         ),
       ));
-    });
+    }
     return list;
   }
 }

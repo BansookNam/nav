@@ -34,8 +34,6 @@ extension NavAniExt on NavAni {
             centerOffset: const Offset(10, 10),
             minRadius: 10,
             durationMs: durationMs);
-      default:
-        return SlideFromRightRoute<T>(screen);
     }
   }
 }

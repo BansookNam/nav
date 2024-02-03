@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:nav/nav.dart';
 
@@ -8,13 +7,15 @@ import 'dialog/message_dialog.dart';
 class MyApp extends StatefulWidget {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
+  const MyApp({super.key});
+
   // This widget is the root of your application.
 
   @override
-  _MyAppState createState() => _MyAppState();
+  MyAppState createState() => MyAppState();
 }
 
-class _MyAppState extends State<MyApp> with Nav {
+class MyAppState extends State<MyApp> with Nav {
   @override
   GlobalKey<NavigatorState> get navigatorKey => MyApp.navigatorKey;
 
@@ -35,21 +36,21 @@ class _MyAppState extends State<MyApp> with Nav {
             textTheme: const TextTheme(),
             bottomSheetTheme: const BottomSheetThemeData(
                 backgroundColor: Colors.transparent)),
-        home: MyHomePage(),
+        home: const MyHomePage(),
       ),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({super.key});
 
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  MyHomePageState createState() => MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class MyHomePageState extends State<MyHomePage> {
   bool showBackButton = false;
   Color? bgColor;
 
@@ -64,7 +65,9 @@ class _MyHomePageState extends State<MyHomePage> {
         builder: (context) => FloatingActionButton(
           onPressed: () async {
             final result = await MessageDialog('Test String').show();
-            print(result);
+            if (kDebugMode) {
+              print(result);
+            }
 
             // ignore: unused_local_variable
             // final result = await BottomSheetDialog(
@@ -86,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
           //       navType: NavType.Ripple,
           //     ))),
           tooltip: 'Ripple',
-          child: Icon(Icons.open_in_new),
+          child: const Icon(Icons.open_in_new),
         ),
       ),
       body: Builder(

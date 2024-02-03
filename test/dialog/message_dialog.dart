@@ -8,9 +8,8 @@ class MessageDialog extends DialogWidget {
   final bool isCancelOnBack = false;
   final String text;
 
-  MessageDialog(this.text, {BuildContext? context})
+  MessageDialog(this.text, {super.key, super.context})
       : super(
-          context: context,
           animation: NavAni.Fade,
           barrierColor: Colors.black.withOpacity(0.5),
           barrierDismissible: false,
@@ -52,9 +51,9 @@ class _DialogState extends DialogState<MessageDialog> {
                       decoration: BoxDecoration(
                           color: Colors.blueAccent,
                           borderRadius: BorderRadius.circular(10)),
-                      child: Text(widget.text,
-                          style: TextStyle(color: Colors.white)),
                       alignment: Alignment.center,
+                      child: Text(widget.text,
+                          style: const TextStyle(color: Colors.white)),
                     ),
                   ),
                 ),

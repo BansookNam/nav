@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nav/dialog/mutable_value.dart';
-import 'package:nav/enum/enum_nav_ani.dart';
 import 'package:nav/nav.dart';
 import 'package:nav/route/clipper_circle.dart';
 
@@ -8,7 +7,7 @@ export 'package:nav/dialog/dialog_state.dart';
 
 abstract class DialogWidget<ResultType> extends StatefulWidget {
   DialogWidget({
-    Key? key,
+    super.key,
     this.animation = NavAni.Fade,
     this.barrierColor = Colors.black54,
     this.barrierDismissible = true,
@@ -20,8 +19,7 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
     this.context,
   })  : useRootNavigator =
             useRootNavigator ?? Nav.navSetting?.useRootNavigator ?? true,
-        useSafeArea = useRootNavigator ?? Nav.navSetting?.useSafeArea ?? false,
-        super(key: key);
+        useSafeArea = useRootNavigator ?? Nav.navSetting?.useSafeArea ?? false;
 
   final BuildContext? context;
   final NavAni animation;

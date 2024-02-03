@@ -7,11 +7,11 @@ import 'bottom_sheet_dialog.dart';
 void main() {
   testWidgets('Message Showing test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    final String text = 'test string';
-    final IconData icon = Icons.check_circle;
+    const String text = 'test string';
+    const IconData icon = Icons.check_circle;
     await tester.pumpWidget(NavAppForTesting(child: Container()));
 
-    BottomSheetDialog([BottomSheetItem(text, Icon(icon))]).show();
+    BottomSheetDialog([BottomSheetItem(text, const Icon(icon))]).show();
     await tester.pump();
 
     expect(find.byType(BottomSheetDialog), findsOneWidget);

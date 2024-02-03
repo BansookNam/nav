@@ -7,7 +7,7 @@ import 'message_dialog.dart';
 void main() {
   testWidgets('Message Showing test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    final String text = 'test string';
+    const String text = 'test string';
     await tester.pumpWidget(NavAppForTesting(child: Container()));
     MessageDialog(text).show();
     await tester.pump();

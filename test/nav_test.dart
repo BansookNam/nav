@@ -8,37 +8,37 @@ import 'screen/sample_screen.dart';
 void main() {
   testWidgets('home exist', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+    await pumpApp(tester);
     expect(find.byType(MyHomePage), findsOneWidget);
   });
 
   testWidgets('Push', (WidgetTester tester) async {
-    await tester.pumpWidget(MyApp());
-    Nav.push(SampleScreen());
+    await pumpApp(tester);
+    Nav.push(const SampleScreen());
     await tester.pumpAndSettle();
     expect(find.byType(SampleScreen), findsOneWidget);
   });
 
   testWidgets('Push - Blink (No animation)', (WidgetTester tester) async {
-    await tester.pumpWidget(MyApp());
-    Nav.push(SampleScreen(), navAni: NavAni.Blink);
+    await pumpApp(tester);
+    Nav.push(const SampleScreen(), navAni: NavAni.Blink);
     await tester.pump();
     expect(find.byType(SampleScreen), findsOneWidget);
   });
 
   testWidgets('Push - Animations', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+    await pumpApp(tester);
     for (final navAni in NavAni.values) {
-      Nav.push(SampleScreen(), navAni: navAni);
+      Nav.push(const SampleScreen(), navAni: navAni);
       await tester.pumpAndSettle();
       expect(find.byType(SampleScreen), findsOneWidget);
     }
   });
 
   testWidgets('Push And Pop', (WidgetTester tester) async {
-    await tester.pumpWidget(MyApp());
-    Nav.push(SampleScreen());
+    await pumpApp(tester);
+    Nav.push(const SampleScreen());
     await tester.pumpAndSettle();
     expect(find.byType(SampleScreen), findsOneWidget);
     await popCurrentScreen(tester);
@@ -46,9 +46,9 @@ void main() {
   });
 
   testWidgets('Push 2 Screens and Clear all', (WidgetTester tester) async {
-    await tester.pumpWidget(MyApp());
-    Nav.push(SampleScreen());
-    Nav.push(SampleScreen());
+    await pumpApp(tester);
+    Nav.push(const SampleScreen());
+    Nav.push(const SampleScreen());
     Nav.clearAll();
     await tester.pumpAndSettle();
     expect(find.byType(SampleScreen), findsNothing);
@@ -56,24 +56,24 @@ void main() {
   });
 
   testWidgets('Push 7 Screens Clear all and push.', (WidgetTester tester) async {
-    await tester.pumpWidget(MyApp());
-    Nav.push(SampleScreen());
-    Nav.push(SampleScreen());
-    Nav.push(SampleScreen());
-    Nav.push(SampleScreen());
-    Nav.push(SampleScreen());
-    Nav.push(SampleScreen());
-    Nav.push(SampleScreen());
-    Nav.clearAllAndPush(ReplacedScreen());
+    await pumpApp(tester);
+    Nav.push(const SampleScreen());
+    Nav.push(const SampleScreen());
+    Nav.push(const SampleScreen());
+    Nav.push(const SampleScreen());
+    Nav.push(const SampleScreen());
+    Nav.push(const SampleScreen());
+    Nav.push(const SampleScreen());
+    Nav.clearAllAndPush(const ReplacedScreen());
     await tester.pumpAndSettle();
     expect(find.byType(SampleScreen), findsNothing);
     expect(find.byType(ReplacedScreen), findsOneWidget);
   });
 
   testWidgets('Push 2 screens and check both exist on the Stack', (WidgetTester tester) async {
-    await tester.pumpWidget(MyApp());
-    Nav.push(SampleScreen());
-    Nav.push(ReplacedScreen());
+    await pumpApp(tester);
+    Nav.push(const SampleScreen());
+    Nav.push(const ReplacedScreen());
     await tester.pumpAndSettle();
     expect(find.byType(ReplacedScreen), findsOneWidget);
     await popCurrentScreen(tester);
@@ -82,9 +82,9 @@ void main() {
   });
 
   testWidgets('Push Replaced', (WidgetTester tester) async {
-    await tester.pumpWidget(MyApp());
-    Nav.push(SampleScreen());
-    Nav.pushReplacement(ReplacedScreen());
+    await pumpApp(tester);
+    Nav.push(const SampleScreen());
+    Nav.pushReplacement(const ReplacedScreen());
     await tester.pumpAndSettle();
     expect(find.byType(ReplacedScreen), findsOneWidget);
     await popCurrentScreen(tester);
@@ -94,12 +94,11 @@ void main() {
 
   testWidgets('Can pop test', (WidgetTester tester) async {
     late bool canPop;
-    await tester.pumpWidget(MyApp());
-    Nav.push(SampleScreen());
+    await pumpApp(tester);
+    Nav.push(const SampleScreen());
     await tester.pumpAndSettle();
     canPop = await Nav.canPop();
     expect(canPop, true);
-
 
     await popCurrentScreen(tester);
     canPop = await Nav.canPop();
@@ -107,7 +106,11 @@ void main() {
   });
 }
 
+Future<void> pumpApp(WidgetTester tester) async {
+  await tester.pumpWidget(const MyApp());
+}
+
 Future<void> popCurrentScreen(WidgetTester tester) async {
-     await tester.tap(find.text('pop'));
+  await tester.tap(find.text('pop'));
   await tester.pumpAndSettle();
 }

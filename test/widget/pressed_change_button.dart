@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class PressedChangeButton extends StatefulWidget {
-  PressedChangeButton({
-    Key? key,
+  const PressedChangeButton({
+    super.key,
     this.child,
     this.pressedColor = const Color(0xffDCDEEA),
     this.bgColor = Colors.white,
@@ -11,7 +11,7 @@ class PressedChangeButton extends StatefulWidget {
     this.paddingBottom = 0,
     this.paddingTop = 0,
     this.forcePressedColor = false,
-  }) : super(key: key);
+  });
 
   final Widget? child;
   final Color pressedColor;
@@ -23,10 +23,10 @@ class PressedChangeButton extends StatefulWidget {
   final double paddingTop;
 
   @override
-  _PressedChangeButtonState createState() => _PressedChangeButtonState();
+  PressedChangeButtonState createState() => PressedChangeButtonState();
 }
 
-class _PressedChangeButtonState extends State<PressedChangeButton> {
+class PressedChangeButtonState extends State<PressedChangeButton> {
   bool isPressed = false;
   final duration = const Duration(milliseconds: 100);
   final radius = const Radius.circular(14);
@@ -66,7 +66,7 @@ class _PressedChangeButtonState extends State<PressedChangeButton> {
                 : widget.bgColor,
         decoration: !widget.roundTop
             ? null
-            : new BoxDecoration(
+            : BoxDecoration(
                 color: (isPressed || widget.forcePressedColor)
                     ? widget.pressedColor
                     : widget.bgColor,
