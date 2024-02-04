@@ -97,7 +97,7 @@ class MyHomePageState extends State<MyHomePage> {
                     GestureDetector(
                       child: const Text('Open Result Screen'),
                       onTap: () async {
-                        final result = await Nav.pushForResult(const ResultScreen());
+                        final result = await Nav.pushResult(const ResultScreen());
                         result?.runIfSuccess((data) => debugPrint(data));
                         result?.runIfFailure((data) => debugPrint('fail'));
                       },

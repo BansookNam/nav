@@ -15,7 +15,7 @@ class ResultScreen extends StatelessWidget with NavScreen<SimpleResult<String, v
           const Text('Result Screen'),
           GestureDetector(
             onTap: () {
-              popWithResult(context, SimpleResult.success('data value'));
+              popResult(context, SimpleResult.success('data value'));
             },
             child: const Text('pop'),
           )

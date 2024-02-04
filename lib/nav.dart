@@ -156,7 +156,7 @@ mixin Nav<T extends StatefulWidget> on State<T> {
         (Route<dynamic> route) => false);
   }
 
-  static Future<Result?> pushForResult<Result>(NavScreen<Result> screen,
+  static Future<Result?> pushResult<Result>(NavScreen<Result> screen,
       {NavAni navAni = NavAni.Right,
       BuildContext? context,
       int durationMs = defaultDurationMs}) async {
