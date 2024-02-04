@@ -105,6 +105,8 @@ mixin Nav<T extends StatefulWidget> on State<T> {
   /// Push screen from left to right
   ///
   /// If you provide context, you can nest navigate in your specific context
+  @Deprecated(
+      'It will be removed on Nav 2025 - 3.0. Please use [push(navAni: NavAni.Left)]')
   static Future<T?> pushFromLeft<T>(Widget? screen, {BuildContext? context}) async {
     if (screen == null) {
       return null;
@@ -117,6 +119,8 @@ mixin Nav<T extends StatefulWidget> on State<T> {
   /// Push screen from bottom to top
   ///
   /// If you provide context, you can nest navigate in your specific context
+  @Deprecated(
+      'It will be removed on Nav 2025 - 3.0. Please use [push(navAni: NavAni.Bottom)]')
   static Future<T?> pushFromBottom<T>(Widget screen, {BuildContext? context}) async =>
       navigatorState(context)?.push(
         SlideFromBottomRoute(screen),
@@ -125,6 +129,8 @@ mixin Nav<T extends StatefulWidget> on State<T> {
   /// Push screen from top to bottom
   ///
   /// If you provide context, you can nest navigate in your specific context
+  @Deprecated(
+      'It will be removed on Nav 2025 - 3.0. Please use [push(navAni: NavAni.Top)]')
   static Future<T?> pushFromTop<T>(Widget screen, {BuildContext? context}) async =>
       navigatorState(context)?.push(
         SlideFromTopRoute(screen),

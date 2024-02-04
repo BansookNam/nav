@@ -1,11 +1,15 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:nav/nav.dart';
+import 'package:nav/setting/nav_setting.dart';
 import 'package:nav/test/nav_app_for_testing.dart';
 
 import 'my_app.dart';
 import 'nav_test.mocks.dart';
+import 'screen/basic_test_screen.dart';
 import 'screen/replaced_screen.dart';
 import 'screen/result_request_screen.dart';
 import 'screen/result_screen.dart';
@@ -13,6 +17,10 @@ import 'screen/sample_screen.dart';
 
 @GenerateMocks([ResultController])
 void main() {
+  Future<void> pumpApp(WidgetTester tester) async {
+    await tester.pumpWidget(const MyApp());
+  }
+
   testWidgets('home exist', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await pumpApp(tester);
@@ -34,13 +42,35 @@ void main() {
   });
 
   testWidgets('Push - Animations', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
     await pumpApp(tester);
     for (final navAni in NavAni.values) {
       Nav.push(const SampleScreen(), navAni: navAni);
       await tester.pumpAndSettle();
       expect(find.byType(SampleScreen), findsOneWidget);
     }
+  });
+
+  testWidgets('Push - Ripple', (WidgetTester tester) async {
+    await pumpApp(tester);
+    Nav.pushWithRippleEffect(const SampleScreen());
+    await tester.pumpAndSettle();
+    expect(find.byType(SampleScreen), findsOneWidget);
+  });
+
+  testWidgets('Push - Right ', (WidgetTester tester) async {
+    await pumpApp(tester);
+    Nav.pushFromRight(const SampleScreen());
+    await tester.pumpAndSettle();
+    expect(find.byType(SampleScreen), findsOneWidget);
+  });
+
+  testWidgets('Push - Right - targetPlatform -iOS', (WidgetTester tester) async {
+    debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
+    await pumpApp(tester);
+    Nav.pushFromRight(const SampleScreen());
+    await tester.pumpAndSettle();
+    expect(find.byType(SampleScreen), findsOneWidget);
+    debugDefaultTargetPlatformOverride = null;
   });
 
   testWidgets('Push And Pop', (WidgetTester tester) async {
@@ -129,12 +159,49 @@ void main() {
     canPop = await Nav.canPop();
     expect(canPop, false);
   });
-}
 
-Future<void> pumpApp(WidgetTester tester) async {
-  await tester.pumpWidget(const MyApp());
-}
+  testWidgets('base test', (WidgetTester tester) async {
+    ///Test setGlobalKey has no error
+    await tester.pumpWidget(const MaterialApp(home: BasicTestScreen()));
 
+    ///initialize test
+    Nav.initialize(NavSetting(useRootNavigator: true));
+
+    expect(find.byType(BasicTestScreen), findsOneWidget);
+  });
+
+  testWidgets('navigatorState test - function returns global value When context is null',
+          (WidgetTester tester) async {
+        await pumpApp(tester);
+
+        final state = Nav.navigatorState(null);
+        expect(state!.context, Nav.globalContext);
+
+        ///
+      });
+
+  testWidgets('navigatorState test - function returns Navigator.of value',
+          (WidgetTester tester) async {
+        await pumpApp(tester);
+        await tester.pumpAndSettle();
+
+        final state = Nav.navigatorState(Nav.globalContext);
+        expect(state, Navigator.of(Nav.globalContext));
+      });
+
+  testWidgets('navigatorState Exception test', (WidgetTester tester) async {
+    await pumpApp(tester);
+    await tester.pumpWidget(Builder(
+      builder: (context) {
+        final state = Nav.navigatorState(context);
+
+        ///throw exception internally on Navigator.of
+        expect(state, isNotNull);
+        return const MyApp();
+      },
+    ));
+  });
+}
 
 Future<void> popCurrentScreen(WidgetTester tester) async {
   await tester.tap(find.text('pop'));
