@@ -4,6 +4,7 @@ import 'package:nav/screen/nav_screen.dart';
 import 'simple_result.dart';
 
 class ResultScreen extends StatelessWidget with NavScreen<SimpleResult<String, void>> {
+
   const ResultScreen({super.key});
 
   @override

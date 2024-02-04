@@ -1,15 +1,21 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 import 'package:nav/nav.dart';
 import 'package:nav/setting/nav_setting.dart';
+import 'package:nav/test/nav_app_for_testing.dart';
 
 import 'my_app.dart';
+import 'nav_test.mocks.dart';
 import 'screen/basic_test_screen.dart';
 import 'screen/replaced_screen.dart';
+import 'screen/result_request_screen.dart';
 import 'screen/result_screen.dart';
 import 'screen/sample_screen.dart';
 
+@GenerateMocks([ResultController])
 void main() {
   Future<void> pumpApp(WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
@@ -77,7 +83,12 @@ void main() {
   });
 
   testWidgets('Push get result from screen', (WidgetTester tester) async {
-    await pumpApp(tester);
+    final controller = MockResultController();
+
+    await tester.pumpWidget(NavAppForTesting(child: ResultRequestScreen(controller)));
+    await tester.pumpAndSettle();
+    expect(find.byType(ResultRequestScreen), findsOneWidget);
+
     await tester.tap(find.text('Open Result Screen'));
     await tester.pumpAndSettle();
     expect(find.byType(ResultScreen), findsOneWidget);
@@ -86,7 +97,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.byType(ResultScreen), findsNothing);
 
-    await tester.pumpAndSettle();
+    verify(controller.onSuccess('data value'));
   });
 
   testWidgets('Push 2 Screens and Clear all', (WidgetTester tester) async {
@@ -159,26 +170,33 @@ void main() {
     expect(find.byType(BasicTestScreen), findsOneWidget);
   });
 
-  testWidgets('navigatorState test', (WidgetTester tester) async {
-    ///Test setGlobalKey has no error
+  testWidgets('navigatorState test - function returns global value When context is null',
+      (WidgetTester tester) async {
     await pumpApp(tester);
 
     final state = Nav.navigatorState(null);
     expect(state!.context, Nav.globalContext);
 
-    final state2 = Nav.navigatorState(Nav.globalContext);
-    expect(state2, state);
+    ///
+  });
+
+  testWidgets('navigatorState test - function returns Navigator.of value',
+      (WidgetTester tester) async {
+    await pumpApp(tester);
+    await tester.pumpAndSettle();
+
+    final state = Nav.navigatorState(Nav.globalContext);
+    expect(state, Navigator.of(Nav.globalContext));
   });
 
   testWidgets('navigatorState Exception test', (WidgetTester tester) async {
-    ///Test setGlobalKey has no error
-
     await pumpApp(tester);
     await tester.pumpWidget(Builder(
       builder: (context) {
         final state = Nav.navigatorState(context);
-        expect(state, isNotNull);
 
+        ///throw exception internally on Navigator.of
+        expect(state, isNotNull);
         return const MyApp();
       },
     ));
