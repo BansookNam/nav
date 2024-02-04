@@ -89,7 +89,8 @@ mixin Nav<T extends StatefulWidget> on State<T> {
       return null;
     }
     return navigatorState(context)?.push(
-      getPushRightRoute(screen, prohibitSwipeBack: prohibitSwipeBack, context: context) as Route<T>,
+      getPushRightRoute(screen,
+          prohibitSwipeBack: prohibitSwipeBack, context: context) as Route<T>,
     );
   }
 
@@ -107,7 +108,8 @@ mixin Nav<T extends StatefulWidget> on State<T> {
   /// If you provide context, you can nest navigate in your specific context
   @Deprecated(
       'It will be removed on Nav 2025 - 3.0. Please use [push(navAni: NavAni.Left)]')
-  static Future<T?> pushFromLeft<T>(Widget? screen, {BuildContext? context}) async {
+  static Future<T?> pushFromLeft<T>(Widget? screen,
+      {BuildContext? context}) async {
     if (screen == null) {
       return null;
     }
@@ -121,7 +123,8 @@ mixin Nav<T extends StatefulWidget> on State<T> {
   /// If you provide context, you can nest navigate in your specific context
   @Deprecated(
       'It will be removed on Nav 2025 - 3.0. Please use [push(navAni: NavAni.Bottom)]')
-  static Future<T?> pushFromBottom<T>(Widget screen, {BuildContext? context}) async =>
+  static Future<T?> pushFromBottom<T>(Widget screen,
+          {BuildContext? context}) async =>
       navigatorState(context)?.push(
         SlideFromBottomRoute(screen),
       );
@@ -131,7 +134,8 @@ mixin Nav<T extends StatefulWidget> on State<T> {
   /// If you provide context, you can nest navigate in your specific context
   @Deprecated(
       'It will be removed on Nav 2025 - 3.0. Please use [push(navAni: NavAni.Top)]')
-  static Future<T?> pushFromTop<T>(Widget screen, {BuildContext? context}) async =>
+  static Future<T?> pushFromTop<T>(Widget screen,
+          {BuildContext? context}) async =>
       navigatorState(context)?.push(
         SlideFromTopRoute(screen),
       );
@@ -175,8 +179,8 @@ mixin Nav<T extends StatefulWidget> on State<T> {
     if (screen == null) {
       return null;
     }
-    return navigatorState(context)
-        ?.push(navAni.createRoute(screen, navigatorState(context)!.context, durationMs));
+    return navigatorState(context)?.push(navAni.createRoute(
+        screen, navigatorState(context)!.context, durationMs));
   }
 
   /// Push Replacement screen
@@ -191,7 +195,8 @@ mixin Nav<T extends StatefulWidget> on State<T> {
       return null;
     }
     return navigatorState(context)?.pushReplacement(
-        navAni.createRoute(screen, navigatorState(context)!.context, durationMs),
+        navAni.createRoute(
+            screen, navigatorState(context)!.context, durationMs),
         result: result);
   }
 
@@ -206,7 +211,8 @@ mixin Nav<T extends StatefulWidget> on State<T> {
       return null;
     }
     return navigatorState(context)?.pushAndRemoveUntil(
-        navAni.createRoute(screen, navigatorState(context)!.context, durationMs),
+        navAni.createRoute(
+            screen, navigatorState(context)!.context, durationMs),
         (Route<dynamic> route) => false);
   }
 
@@ -214,7 +220,8 @@ mixin Nav<T extends StatefulWidget> on State<T> {
       {NavAni navAni = NavAni.Right,
       BuildContext? context,
       int durationMs = defaultDurationMs}) async {
-    return push<Result>(screen, navAni: navAni, context: context, durationMs: durationMs);
+    return push<Result>(screen,
+        navAni: navAni, context: context, durationMs: durationMs);
   }
 
   /// Check result is success

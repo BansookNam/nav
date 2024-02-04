@@ -64,7 +64,8 @@ void main() {
     expect(find.byType(SampleScreen), findsOneWidget);
   });
 
-  testWidgets('Push - Right - targetPlatform -iOS', (WidgetTester tester) async {
+  testWidgets('Push - Right - targetPlatform -iOS',
+      (WidgetTester tester) async {
     debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
     await pumpApp(tester);
     Nav.pushFromRight(const SampleScreen());
@@ -85,7 +86,8 @@ void main() {
   testWidgets('Push get result from screen', (WidgetTester tester) async {
     final controller = MockResultController();
 
-    await tester.pumpWidget(NavAppForTesting(child: ResultRequestScreen(controller)));
+    await tester
+        .pumpWidget(NavAppForTesting(child: ResultRequestScreen(controller)));
     await tester.pumpAndSettle();
     expect(find.byType(ResultRequestScreen), findsOneWidget);
 
@@ -110,7 +112,8 @@ void main() {
     expect(find.byType(MyHomePage), findsOneWidget);
   });
 
-  testWidgets('Push 7 Screens Clear all and push.', (WidgetTester tester) async {
+  testWidgets('Push 7 Screens Clear all and push.',
+      (WidgetTester tester) async {
     await pumpApp(tester);
     Nav.push(const SampleScreen());
     Nav.push(const SampleScreen());
@@ -125,7 +128,8 @@ void main() {
     expect(find.byType(ReplacedScreen), findsOneWidget);
   });
 
-  testWidgets('Push 2 screens and check both exist on the Stack', (WidgetTester tester) async {
+  testWidgets('Push 2 screens and check both exist on the Stack',
+      (WidgetTester tester) async {
     await pumpApp(tester);
     Nav.push(const SampleScreen());
     Nav.push(const ReplacedScreen());
@@ -170,24 +174,25 @@ void main() {
     expect(find.byType(BasicTestScreen), findsOneWidget);
   });
 
-  testWidgets('navigatorState test - function returns global value When context is null',
-          (WidgetTester tester) async {
-        await pumpApp(tester);
+  testWidgets(
+      'navigatorState test - function returns global value When context is null',
+      (WidgetTester tester) async {
+    await pumpApp(tester);
 
-        final state = Nav.navigatorState(null);
-        expect(state!.context, Nav.globalContext);
+    final state = Nav.navigatorState(null);
+    expect(state!.context, Nav.globalContext);
 
-        ///
-      });
+    ///
+  });
 
   testWidgets('navigatorState test - function returns Navigator.of value',
-          (WidgetTester tester) async {
-        await pumpApp(tester);
-        await tester.pumpAndSettle();
+      (WidgetTester tester) async {
+    await pumpApp(tester);
+    await tester.pumpAndSettle();
 
-        final state = Nav.navigatorState(Nav.globalContext);
-        expect(state, Navigator.of(Nav.globalContext));
-      });
+    final state = Nav.navigatorState(Nav.globalContext);
+    expect(state, Navigator.of(Nav.globalContext));
+  });
 
   testWidgets('navigatorState Exception test', (WidgetTester tester) async {
     await pumpApp(tester);

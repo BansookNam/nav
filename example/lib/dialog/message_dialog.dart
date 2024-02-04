@@ -10,10 +10,10 @@ class MessageDialog extends DialogWidget {
 
   MessageDialog(this.text, {super.key, super.context})
       : super(
-    animation: NavAni.Fade,
-    barrierColor: Colors.black.withOpacity(0.5),
-    barrierDismissible: false,
-  );
+          animation: NavAni.Fade,
+          barrierColor: Colors.black.withOpacity(0.5),
+          barrierDismissible: false,
+        );
 
   @override
   State<StatefulWidget> createState() {
@@ -25,7 +25,7 @@ class _DialogState extends DialogState<MessageDialog> {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: Platform.isIOS ? true:  widget.isCancelOnBack,
+      canPop: Platform.isIOS ? true : widget.isCancelOnBack,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

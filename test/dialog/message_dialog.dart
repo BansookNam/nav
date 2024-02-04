@@ -25,7 +25,7 @@ class _DialogState extends DialogState<MessageDialog> {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: Platform.isIOS ? true:  widget.isCancelOnBack,
+      canPop: Platform.isIOS ? true : widget.isCancelOnBack,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

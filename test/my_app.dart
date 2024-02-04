@@ -27,7 +27,7 @@ class MyAppState extends State<MyApp> with Nav {
         navigatorKey: navigatorKey,
         title: 'Nav Demo',
         theme: ThemeData(
-          // Define the default font family.
+            // Define the default font family.
             fontFamily: 'DMSans',
             scaffoldBackgroundColor: Colors.white,
             iconTheme: const IconThemeData(color: Colors.blue),
@@ -45,7 +45,6 @@ class MyAppState extends State<MyApp> with Nav {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
-
   @override
   MyHomePageState createState() => MyHomePageState();
 }
@@ -55,7 +54,6 @@ class MyHomePageState extends State<MyHomePage> {
   Color? bgColor;
 
   bool get isHome => !showBackButton;
-
 
   @override
   Widget build(BuildContext context) {
@@ -94,8 +92,8 @@ class MyHomePageState extends State<MyHomePage> {
       ),
       body: Builder(
           builder: (context) => SafeArea(
-            child: Container(),
-          )), // This trailing comma makes auto-formatting nicer for build methods.
+                child: Container(),
+              )), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 

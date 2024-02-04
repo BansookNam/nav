@@ -14,22 +14,24 @@ class BottomSheetItem {
   BottomSheetItem(this.title, this.icon);
 }
 
-class BottomSheetDialog extends DialogWidget with NavScreen<SimpleResult<String,void>> {
+class BottomSheetDialog extends DialogWidget
+    with NavScreen<SimpleResult<String, void>> {
   final List<BottomSheetItem> bottomSheetItemList;
   final String? title;
   final bool showCancel;
   final MainAxisAlignment mainAxisAlignment;
 
   BottomSheetDialog(
-      this.bottomSheetItemList, {super.key,
-        super.context,
-        this.showCancel = false,
-        this.title,
-        this.mainAxisAlignment = MainAxisAlignment.start,
-      }) : super(
-    barrierDismissible: false,
-    animation: NavAni.Bottom,
-  );
+    this.bottomSheetItemList, {
+    super.key,
+    super.context,
+    this.showCancel = false,
+    this.title,
+    this.mainAxisAlignment = MainAxisAlignment.start,
+  }) : super(
+          barrierDismissible: false,
+          animation: NavAni.Bottom,
+        );
 
   @override
   State<StatefulWidget> createState() {
@@ -57,7 +59,7 @@ class _DialogState extends DialogState<BottomSheetDialog> {
             decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius:
-                BorderRadius.only(topLeft: radius, topRight: radius)),
+                    BorderRadius.only(topLeft: radius, topRight: radius)),
             child: Column(
               children: <Widget>[
                 if (widget.title != null)
