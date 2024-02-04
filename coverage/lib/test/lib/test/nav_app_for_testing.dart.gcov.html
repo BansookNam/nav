@@ -37,7 +37,11 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
+<<<<<<< HEAD
             <td class="headerValue">2024-02-03 11:06:34</td>
+=======
+            <td class="headerValue">2024-02-04 08:52:40</td>
+>>>>>>> 3fd2496 (add mock controller to test pushForResult, popWithResult)
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -65,26 +69,26 @@
 <span id="L3"><span class="lineNum">       3</span>              : </span>
 <span id="L4"><span class="lineNum">       4</span>              : class NavAppForTesting extends StatefulWidget {</span>
 <span id="L5"><span class="lineNum">       5</span>              :   final Widget child;</span>
-<span id="L6"><span class="lineNum">       6</span> <span class="tlaGNC tlaBgGNC">           6 :   static final globalNavigatorKey = GlobalKey&lt;NavigatorState&gt;();</span></span>
+<span id="L6"><span class="lineNum">       6</span> <span class="tlaGNC tlaBgGNC">           9 :   static final globalNavigatorKey = GlobalKey&lt;NavigatorState&gt;();</span></span>
 <span id="L7"><span class="lineNum">       7</span>              : </span>
-<span id="L8"><span class="lineNum">       8</span> <span class="tlaGNC">           2 :   const NavAppForTesting({super.key, required this.child});</span></span>
+<span id="L8"><span class="lineNum">       8</span> <span class="tlaGNC">           3 :   const NavAppForTesting({super.key, required this.child});</span></span>
 <span id="L9"><span class="lineNum">       9</span>              : </span>
-<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">           2 :   @override</span></span>
-<span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC">           2 :   State&lt;NavAppForTesting&gt; createState() =&gt; _NavAppForTestingState();</span></span>
+<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">           3 :   @override</span></span>
+<span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC">           3 :   State&lt;NavAppForTesting&gt; createState() =&gt; _NavAppForTestingState();</span></span>
 <span id="L12"><span class="lineNum">      12</span>              : }</span>
 <span id="L13"><span class="lineNum">      13</span>              : </span>
 <span id="L14"><span class="lineNum">      14</span>              : class _NavAppForTestingState extends State&lt;NavAppForTesting&gt; with Nav {</span>
-<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">           2 :   @override</span></span>
+<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">           3 :   @override</span></span>
 <span id="L16"><span class="lineNum">      16</span>              :   Widget build(BuildContext context) {</span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">           2 :     return MaterialApp(</span></span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">           4 :       home: widget.child,</span></span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">           2 :       navigatorKey: navigatorKey,</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">           3 :     return MaterialApp(</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">           6 :       home: widget.child,</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">           3 :       navigatorKey: navigatorKey,</span></span>
 <span id="L20"><span class="lineNum">      20</span>              :     );</span>
 <span id="L21"><span class="lineNum">      21</span>              :   }</span>
 <span id="L22"><span class="lineNum">      22</span>              : </span>
-<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">           2 :   @override</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">           3 :   @override</span></span>
 <span id="L24"><span class="lineNum">      24</span>              :   GlobalKey&lt;NavigatorState&gt; get navigatorKey =&gt;</span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">           2 :       NavAppForTesting.globalNavigatorKey;</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">           3 :       NavAppForTesting.globalNavigatorKey;</span></span>
 <span id="L26"><span class="lineNum">      26</span>              : }</span>
         </pre>
               </td>

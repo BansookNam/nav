@@ -54,16 +54,16 @@ class _MyAppState extends State<MyApp> with Nav {
 
 ```dart
 //dynamic
-Nav.push(Widget, navAni: NavAni.Blink)
+Nav.push(Widget, navAni: NavAni.Blink);
 
 //or
-Nav.pushFromRight(Widget)
-Nav.pushFromLeft(Widget)
-Nav.pushFromTop(Widget)
-Nav.pushFromBottom(Widget)
-Nav.pushReplacement(Widget)
-Nav.pushWithRippleEffect(Widget, centerAlignment : Alignment.bottomRight, centerOffset : Offset(10, 10))
-Nav.clearAllAndPush(Widget)
+Nav.pushFromRight(Widget);
+Nav.pushFromLeft(Widget);
+Nav.pushFromTop(Widget);
+Nav.pushFromBottom(Widget);
+Nav.pushReplacement(Widget);
+Nav.pushWithRippleEffect(Widget, centerAlignment : Alignment.bottomRight, centerOffset : Offset(10, 10));
+Nav.clearAllAndPush(Widget);
 
 enum NavAni { Left, Right, Top, Bottom, Fade, Ripple, Blink }
 ```
@@ -76,6 +76,27 @@ final result = await Nav.pushFromRight( TopScreen ) //you can get result from To
 
 //from top screen
 Nav.pop(context, result: {"key": "value", "key2": 2})
+```
+
+5. Can define Type with NavScreen & pushResult method
+
+```dart
+
+TopScreen extends StatelessWidget with NavScreen<String> 
+
+or
+
+TopScreen extends StatefulWidget with NavScreen<String>
+
+
+///from bottom screen
+final result = await Nav.pushResult( TopScreen()); ///result type will be String? 
+
+///from top screen
+///return Type will be fixed by Generic NavScreen<Result>
+popResult(context, result: 'Data to return'); ///from Widget
+
+widget.popResult(context, result: 'Data to return'); ///from State
 ```
 
 

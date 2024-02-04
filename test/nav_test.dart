@@ -1,10 +1,25 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 import 'package:nav/nav.dart';
+<<<<<<< HEAD
 
 import 'my_app.dart';
 import 'screen/replaced_screen.dart';
+=======
+import 'package:nav/setting/nav_setting.dart';
+import 'package:nav/test/nav_app_for_testing.dart';
+
+import 'my_app.dart';
+import 'nav_test.mocks.dart';
+import 'screen/basic_test_screen.dart';
+import 'screen/replaced_screen.dart';
+import 'screen/result_request_screen.dart';
+import 'screen/result_screen.dart';
+>>>>>>> 3fd2496 (add mock controller to test pushForResult, popWithResult)
 import 'screen/sample_screen.dart';
 
+@GenerateMocks([ResultController])
 void main() {
   testWidgets('home exist', (WidgetTester tester) async {
     // Build our app and trigger a frame.
@@ -45,6 +60,27 @@ void main() {
     expect(find.byType(SampleScreen), findsNothing);
   });
 
+<<<<<<< HEAD
+=======
+  testWidgets('Push get result from screen', (WidgetTester tester) async {
+    final controller = MockResultController();
+
+    await tester.pumpWidget(NavAppForTesting(child: ResultRequestScreen(controller)));
+    await tester.pumpAndSettle();
+    expect(find.byType(ResultRequestScreen), findsOneWidget);
+
+    await tester.tap(find.text('Open Result Screen'));
+    await tester.pumpAndSettle();
+    expect(find.byType(ResultScreen), findsOneWidget);
+
+    await tester.tap(find.text('pop'));
+    await tester.pumpAndSettle();
+    expect(find.byType(ResultScreen), findsNothing);
+
+    verify(controller.onSuccess('data value'));
+  });
+
+>>>>>>> 3fd2496 (add mock controller to test pushForResult, popWithResult)
   testWidgets('Push 2 Screens and Clear all', (WidgetTester tester) async {
     await pumpApp(tester);
     Nav.push(const SampleScreen());
@@ -106,8 +142,52 @@ void main() {
   });
 }
 
+<<<<<<< HEAD
 Future<void> pumpApp(WidgetTester tester) async {
   await tester.pumpWidget(const MyApp());
+=======
+  testWidgets('base test', (WidgetTester tester) async {
+    ///Test setGlobalKey has no error
+    await tester.pumpWidget(const MaterialApp(home: BasicTestScreen()));
+
+    ///initialize test
+    Nav.initialize(NavSetting(useRootNavigator: true));
+
+    expect(find.byType(BasicTestScreen), findsOneWidget);
+  });
+
+  testWidgets('navigatorState test - function returns global value When context is null',
+      (WidgetTester tester) async {
+    await pumpApp(tester);
+
+    final state = Nav.navigatorState(null);
+    expect(state!.context, Nav.globalContext);
+
+    ///
+  });
+
+  testWidgets('navigatorState test - function returns Navigator.of value',
+      (WidgetTester tester) async {
+    await pumpApp(tester);
+    await tester.pumpAndSettle();
+
+    final state = Nav.navigatorState(Nav.globalContext);
+    expect(state, Navigator.of(Nav.globalContext));
+  });
+
+  testWidgets('navigatorState Exception test', (WidgetTester tester) async {
+    await pumpApp(tester);
+    await tester.pumpWidget(Builder(
+      builder: (context) {
+        final state = Nav.navigatorState(context);
+
+        ///throw exception internally on Navigator.of
+        expect(state, isNotNull);
+        return const MyApp();
+      },
+    ));
+  });
+>>>>>>> 3fd2496 (add mock controller to test pushForResult, popWithResult)
 }
 
 Future<void> popCurrentScreen(WidgetTester tester) async {
