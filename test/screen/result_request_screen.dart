@@ -27,7 +27,7 @@ class ResultRequestScreen extends StatelessWidget with NavScreen<SimpleResult<St
           GestureDetector(
             child: const Text('Open Result Screen'),
             onTap: () async {
-              final result = await Nav.pushForResult(const ResultScreen());
+              final result = await Nav.pushResult(const ResultScreen());
               result?.runIfSuccess((data) {
                 controller.onSuccess(data);
               });

@@ -43,7 +43,7 @@ class BottomSheetExample extends ModalBottomSheet with NavScreen<SimpleResult<St
                   ...getItemList(context),
                   PressedChangeButton(
                     onTap: () {
-                      popWithResult(context, SimpleResult.failure());
+                      popResult(context, SimpleResult.failure());
                     },
                     forcePressedColor: false,
                     child: const Row(
@@ -71,7 +71,7 @@ class BottomSheetExample extends ModalBottomSheet with NavScreen<SimpleResult<St
     for (var item in bottomSheetItemList) {
       list.add(PressedChangeButton(
         onTap: () {
-          popWithResult(context, SimpleResult.success(item.title));
+          popResult(context, SimpleResult.success(item.title));
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,

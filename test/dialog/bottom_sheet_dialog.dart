@@ -75,7 +75,7 @@ class _DialogState extends DialogState<BottomSheetDialog> {
                       setState(() {
                         selectedTitle = "Cancel";
                       });
-                      widget.popWithResult(context, SimpleResult.failure());
+                      widget.popResult(context, SimpleResult.failure());
                     },
                     forcePressedColor: selectedTitle == "Cancel",
                     child: const Row(
@@ -106,7 +106,7 @@ class _DialogState extends DialogState<BottomSheetDialog> {
           setState(() {
             selectedTitle = item.title;
           });
-          widget.popWithResult(context, SimpleResult.success(item.title));
+          widget.popResult(context, SimpleResult.success(item.title));
         },
         forcePressedColor: selectedTitle == item.title,
         child: Row(

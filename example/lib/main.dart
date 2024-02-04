@@ -164,7 +164,7 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
                                           } else {
                                             //widget.popWithResult(context, SimpleResult.success("data"));
                                             //If there is no extra param you want, just call simple method below.
-                                            widget.popWithResult(context, SimpleResult.failure());
+                                            widget.popResult(context, SimpleResult.failure());
                                           }
                                         },
                                       ),
