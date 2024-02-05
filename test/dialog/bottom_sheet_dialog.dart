@@ -14,14 +14,16 @@ class BottomSheetItem {
   BottomSheetItem(this.title, this.icon);
 }
 
-class BottomSheetDialog extends DialogWidget with NavScreen<SimpleResult<String,void>> {
+class BottomSheetDialog extends DialogWidget
+    with NavScreen<SimpleResult<String, void>> {
   final List<BottomSheetItem> bottomSheetItemList;
   final String? title;
   final bool showCancel;
   final MainAxisAlignment mainAxisAlignment;
 
   BottomSheetDialog(
-    this.bottomSheetItemList, {super.key,
+    this.bottomSheetItemList, {
+    super.key,
     super.context,
     this.showCancel = false,
     this.title,

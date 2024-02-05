@@ -29,12 +29,14 @@ class SimpleResult<SuccessType, FailureType> {
     throw const FormatException('This is not Success type');
   }
 
-  SimpleResult runIfSuccess(FutureOr<void> Function(SuccessType data) function) {
+  SimpleResult runIfSuccess(
+      FutureOr<void> Function(SuccessType data) function) {
     _runSuccess(function);
     return this;
   }
 
-  SimpleResult runIfFailure(FutureOr<void> Function(FailureType error) function) {
+  SimpleResult runIfFailure(
+      FutureOr<void> Function(FailureType error) function) {
     _runFailure(function);
     return this;
   }
@@ -44,7 +46,6 @@ class SimpleResult<SuccessType, FailureType> {
     await _runSuccess(function);
     return this;
   }
-
 
   FutureOr<SimpleResult> runIfFailureAsync(
       FutureOr<void> Function(FailureType error) function) async {
@@ -66,7 +67,8 @@ class SimpleResult<SuccessType, FailureType> {
     return true;
   }
 
-  Future<void> _runSuccess(FutureOr<void> Function(SuccessType data) function) async {
+  Future<void> _runSuccess(
+      FutureOr<void> Function(SuccessType data) function) async {
     if (isSuccess) {
       if (!_isSuccessDataExist) {
         await function(null as SuccessType);
@@ -76,8 +78,8 @@ class SimpleResult<SuccessType, FailureType> {
     }
   }
 
-
-  Future<void> _runFailure(FutureOr<void> Function(FailureType error) function) async {
+  Future<void> _runFailure(
+      FutureOr<void> Function(FailureType error) function) async {
     if (isFailure) {
       if (!_isFailureDataExist) {
         await function(null as FailureType);
@@ -87,25 +89,28 @@ class SimpleResult<SuccessType, FailureType> {
     }
   }
 
-
   // ignore: library_private_types_in_public_api
-  static _Failure<SuccessType, FailureType> failure<SuccessType, FailureType>([FailureType? data]) {
+  static _Failure<SuccessType, FailureType> failure<SuccessType, FailureType>(
+      [FailureType? data]) {
     return _Failure<SuccessType, FailureType>(data);
   }
 
   // ignore: library_private_types_in_public_api
-  static _Success<SuccessType, FailureType> success<SuccessType, FailureType>([SuccessType? data]) {
+  static _Success<SuccessType, FailureType> success<SuccessType, FailureType>(
+      [SuccessType? data]) {
     return _Success<SuccessType, FailureType>(data);
   }
 }
 
-class _Success<SuccessType, FailureType> extends SimpleResult<SuccessType, FailureType> {
+class _Success<SuccessType, FailureType>
+    extends SimpleResult<SuccessType, FailureType> {
   final SuccessType? data;
 
   _Success(this.data);
 }
 
-class _Failure<SuccessType, FailureType> extends SimpleResult<SuccessType, FailureType> {
+class _Failure<SuccessType, FailureType>
+    extends SimpleResult<SuccessType, FailureType> {
   final FailureType? data;
 
   _Failure(this.data);

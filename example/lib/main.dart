@@ -130,7 +130,8 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
                               onPressed: () async => onResult(
                                   context,
                                   await Nav.push(
-                                      MyHomePage(navType: NavType.Top), navAni: NavAni.Top)),
+                                      MyHomePage(navType: NavType.Top),
+                                      navAni: NavAni.Top)),
                               icon: icon(Icons.vertical_align_bottom),
                             )
                           ],
@@ -146,8 +147,9 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
                                     onPressed: () async {
                                       onResult(
                                           context,
-                                          await Nav.push(MyHomePage(
-                                              navType: NavType.Left), navAni: NavAni.Left));
+                                          await Nav.push(
+                                              MyHomePage(navType: NavType.Left),
+                                              navAni: NavAni.Left));
                                     },
                                     icon: icon(Icons.keyboard_arrow_right),
                                   ),
@@ -164,7 +166,8 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
                                           } else {
                                             //widget.popWithResult(context, SimpleResult.success("data"));
                                             //If there is no extra param you want, just call simple method below.
-                                            widget.popResult(context, SimpleResult.failure());
+                                            widget.popResult(context,
+                                                SimpleResult.failure());
                                           }
                                         },
                                       ),
@@ -196,7 +199,8 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
                               onPressed: () async => onResult(
                                   context,
                                   await Nav.push(
-                                      MyHomePage(navType: NavType.Bottom), navAni: NavAni.Bottom)),
+                                      MyHomePage(navType: NavType.Bottom),
+                                      navAni: NavAni.Bottom)),
                               icon: icon(Icons.vertical_align_top),
                             )
                           ],

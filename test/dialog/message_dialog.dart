@@ -53,9 +53,11 @@ class _DialogState extends DialogState<MessageDialog> {
                       height: 80,
                       width: 100,
                       decoration: BoxDecoration(
-                          color: Colors.blueAccent, borderRadius: BorderRadius.circular(10)),
+                          color: Colors.blueAccent,
+                          borderRadius: BorderRadius.circular(10)),
                       alignment: Alignment.center,
-                      child: Text(widget.text, style: const TextStyle(color: Colors.white)),
+                      child: Text(widget.text,
+                          style: const TextStyle(color: Colors.white)),
                     ),
                   ),
                 ),

@@ -13,7 +13,8 @@ abstract class ResultController {
   ResultController();
 }
 
-class ResultRequestScreen extends StatelessWidget with NavScreen<SimpleResult<String, void>> {
+class ResultRequestScreen extends StatelessWidget
+    with NavScreen<SimpleResult<String, void>> {
   final ResultController controller;
 
   const ResultRequestScreen(this.controller, {super.key});

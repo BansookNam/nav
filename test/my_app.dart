@@ -35,7 +35,8 @@ class MyAppState extends State<MyApp> with Nav {
             // Define the default TextTheme. Use this to specify the default
             // text styling for headlines, titles, bodies of text, and more.
             textTheme: const TextTheme(),
-            bottomSheetTheme: const BottomSheetThemeData(backgroundColor: Colors.transparent)),
+            bottomSheetTheme: const BottomSheetThemeData(
+                backgroundColor: Colors.transparent)),
         home: const MyHomePage(),
       ),
     );
@@ -97,7 +98,8 @@ class MyHomePageState extends State<MyHomePage> {
                     GestureDetector(
                       child: const Text('Open Result Screen'),
                       onTap: () async {
-                        final result = await Nav.pushResult(const ResultScreen());
+                        final result =
+                            await Nav.pushResult(const ResultScreen());
                         result?.runIfSuccess((data) => debugPrint(data));
                         result?.runIfFailure((data) => debugPrint('fail'));
                       },

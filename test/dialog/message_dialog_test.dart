@@ -45,7 +45,8 @@ void main() {
     }
   });
 
-  testWidgets('Message Showing useRootNavigator test', (WidgetTester tester) async {
+  testWidgets('Message Showing useRootNavigator test',
+      (WidgetTester tester) async {
     // Build our app and trigger a frame.
     const String text = 'test string';
     await pumpNavApp(tester);
