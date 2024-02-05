@@ -58,9 +58,6 @@ Nav.push(Widget, navAni: NavAni.Blink);
 
 //or
 Nav.pushFromRight(Widget);
-Nav.pushFromLeft(Widget);
-Nav.pushFromTop(Widget);
-Nav.pushFromBottom(Widget);
 Nav.pushReplacement(Widget);
 Nav.pushWithRippleEffect(Widget, centerAlignment : Alignment.bottomRight, centerOffset : Offset(10, 10));
 Nav.clearAllAndPush(Widget);
