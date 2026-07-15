@@ -11,7 +11,7 @@ class MessageDialog extends DialogWidget {
   MessageDialog(this.text, {super.key, super.context})
       : super(
           animation: NavAni.Fade,
-          barrierColor: Colors.black.withOpacity(0.5),
+          barrierColor: Colors.black.withValues(alpha: 0.5),
           barrierDismissible: false,
         );
 

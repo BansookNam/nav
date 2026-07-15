@@ -98,7 +98,6 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
           },
         );
       case NavAni.Fade:
-      default:
         return showDialog<ResultType>(
           context: context,
           barrierDismissible: barrierDismissible,
@@ -276,7 +275,6 @@ Widget Function(
       return _buildRippleTransition;
     case NavAni.Blink:
     case NavAni.Fade:
-    default:
       return _buildFromFadeTransition;
   }
 }
