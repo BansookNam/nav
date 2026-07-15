@@ -153,6 +153,14 @@ Nav.push(const NextScreen()); // works immediately
 
 
 
+## Test Coverage
+
+The library is tested at **100% line coverage**, verified on every push by
+[Codecov](https://app.codecov.io/gh/BansookNam/nav). Each slice of the graph
+below is a source file — click it to explore the full interactive report.
+
+[<img src="https://codecov.io/gh/BansookNam/nav/branch/master/graphs/sunburst.svg" width="180" alt="Coverage sunburst graph" />](https://app.codecov.io/gh/BansookNam/nav)
+
 ## Author
 
 👤 **Bansook Nam**
