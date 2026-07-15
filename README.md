@@ -1,5 +1,6 @@
 # Welcome to Nav 👋
 [![Version](https://img.shields.io/pub/v/nav.svg?style=flat-square)](https://pub.dev/packages/nav)
+[![codecov](https://codecov.io/gh/BansookNam/nav/branch/master/graph/badge.svg)](https://codecov.io/gh/BansookNam/nav)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache2.0-yellow.svg)](https://github.com/BansookNam/nav/blob/master/LICENSE)
 
 <img src="https://raw.githubusercontent.com/BansookNam/nav/master/img/nav-tag.png" align="left" width="500">
