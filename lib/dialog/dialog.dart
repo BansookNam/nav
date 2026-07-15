@@ -217,14 +217,8 @@ Widget _buildRippleTransition(BuildContext context, Animation<double> animation,
 Future<T?> _showDialogWith<T>(
   NavAni ani, {
   required BuildContext context,
+  required WidgetBuilder builder,
   bool barrierDismissible = true,
-  @Deprecated(
-      'Instead of using the "child" argument, return the child from a closure '
-      'provided to the "builder" argument. This will ensure that the BuildContext '
-      'is appropriate for widgets built in the dialog. '
-      'This feature was deprecated after v0.2.3.')
-  Widget? child,
-  WidgetBuilder? builder,
   String? barrierLabel,
   RouteSettings? routeSettings,
   Offset? anchorPoint,
@@ -232,7 +226,6 @@ Future<T?> _showDialogWith<T>(
   bool useRootNavigator = true,
   int durationMs = 500,
 }) {
-  assert(child == null || builder == null);
   assert(debugCheckHasMaterialLocalizations(context));
 
   final ThemeData theme = Theme.of(context);
@@ -240,7 +233,7 @@ Future<T?> _showDialogWith<T>(
     context: context,
     pageBuilder: (BuildContext buildContext, Animation<double> animation,
         Animation<double> secondaryAnimation) {
-      final Widget pageChild = child ?? Builder(builder: builder!);
+      final Widget pageChild = Builder(builder: builder);
       return Builder(builder: (BuildContext context) {
         return Theme(data: theme, child: pageChild);
       });

@@ -1,8 +1,10 @@
 ## [2.0.0-release-candidate-1] - 2024-02-05
 
 * Remove deprecated functions & constants
+* Remove the deprecated `child` argument from the internal dialog builder (use `builder`)
 * Rename route builders to the `*RouteBuilder` convention
 * Support Flutter 3.41.9 (Dart 3.11.5): drop unreachable switch defaults, replace deprecated `withOpacity` with `withValues`
+* Update README to the 2.0 API (typed `NavScreen` / `pushResult` / positional `popResult`)
 
 ## [1.4.3] - 2024-02-05
 

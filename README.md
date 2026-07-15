@@ -20,26 +20,27 @@ nav: ^{latest version}
 
 ## Usage
 
-1. Add mixin "Nav" on your App State
+1. Add the `Nav` mixin on your App State
 
 ```dart
 import 'package:nav/nav.dart';
 
-class _MyAppState extends State<MyApp> with Nav 
+class MyAppState extends State<MyApp> with Nav
 ```
 
-2. Overide "get navigatorKey method" and provide key which you use in MaterialApp.navigatorKey
+2. Override `navigatorKey` and provide the same key you pass to `MaterialApp.navigatorKey`
 
 ```dart
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey();
-  // This widget is the root of your application.
 
   @override
-  _MyAppState createState() => _MyAppState();
+  MyAppState createState() => MyAppState();
 }
 
-class _MyAppState extends State<MyApp> with Nav {
+class MyAppState extends State<MyApp> with Nav {
   @override
   GlobalKey<NavigatorState> get navigatorKey => MyApp.navigatorKey;
 
@@ -47,53 +48,84 @@ class _MyAppState extends State<MyApp> with Nav {
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: navigatorKey,
-...
+      home: const MyHomePage(),
+    );
+  }
+}
 ```
 
-3. Use push methods
+Because the navigator key is held globally, every `Nav` call works without a
+`BuildContext`. Pass an optional `context:` argument when you need to navigate
+inside a nested `Navigator`.
+
+3. Push with a built-in animation
 
 ```dart
-//dynamic
-Nav.push(Widget, navAni: NavAni.Blink);
-
-//or
-Nav.pushFromRight(Widget);
-Nav.pushReplacement(Widget);
-Nav.pushWithRippleEffect(Widget, centerAlignment : Alignment.bottomRight, centerOffset : Offset(10, 10));
-Nav.clearAllAndPush(Widget);
+// Pick any animation with the NavAni enum
+Nav.push(const NextScreen(), navAni: NavAni.Blink);
 
 enum NavAni { Left, Right, Top, Bottom, Fade, Ripple, Blink }
+
+// Convenience methods
+Nav.pushFromRight(const NextScreen());              // iOS swipe-back by default
+Nav.pushReplacement(const NextScreen());            // replace the current route
+Nav.clearAllAndPush(const NextScreen());            // clear the stack, then push
+Nav.pushWithRippleEffect(
+  const NextScreen(),
+  alignment: Alignment.bottomRight,
+  offset: const Offset(10, 10),
+);
+
+// Pop helpers
+Nav.pop(context);                                   // simple pop
+await Nav.canPop();                                 // whether a route can be popped
+Nav.clearAll();                                     // pop everything
 ```
 
-4. All methods can return value
+4. Any push can return a value
 
 ```dart
-//from bottom screen
-final result = await Nav.pushFromRight( TopScreen ) //you can get result from TopWidget
+// from the pushing screen
+final result = await Nav.pushFromRight(const TopScreen());
 
-//from top screen
-Nav.pop(context, result: {"key": "value", "key2": 2})
+// from the pushed screen
+Nav.pop(context, result: {"key": "value", "key2": 2});
 ```
 
-5. Can define Type with NavScreen & pushResult method
+5. Get a **type-safe** result with the `NavScreen<Result>` mixin & `pushResult`
+
+Add the `NavScreen<Result>` mixin to the destination screen. It fixes the
+result type and exposes a typed `popResult(context, result)` method.
 
 ```dart
+// A screen that returns a String result
+class TopScreen extends StatelessWidget with NavScreen<String> {
+  const TopScreen({super.key});
 
-TopScreen extends StatelessWidget with NavScreen<String> 
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      // result is positional; its type is enforced by NavScreen<String>
+      onTap: () => popResult(context, 'Data to return'),
+      child: const Text('return'),
+    );
+  }
+}
 
-or
+// Push it and await the typed result (String? here)
+final String? result = await Nav.pushResult(const TopScreen());
+```
 
-TopScreen extends StatefulWidget with NavScreen<String>
+From a `StatefulWidget`'s `State`, call it through `widget`:
 
+```dart
+widget.popResult(context, 'Data to return');
+```
 
-///from bottom screen
-final result = await Nav.pushResult( TopScreen()); ///result type will be String? 
+### Global settings (optional)
 
-///from top screen
-///return Type will be fixed by Generic NavScreen<Result>
-popResult(context, result: 'Data to return'); ///from Widget
-
-widget.popResult(context, result: 'Data to return'); ///from State
+```dart
+Nav.initialize(NavSetting(useRootNavigator: true, useSafeArea: false));
 ```
 
 
