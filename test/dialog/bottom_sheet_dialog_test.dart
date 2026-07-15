@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:nav/test/nav_app_for_testing.dart';
+import 'package:nav/testing.dart';
 
 import 'bottom_sheet_dialog.dart';
 

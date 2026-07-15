@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nav/nav.dart';
-import 'package:nav/screen/nav_screen.dart';
 
 import 'result_screen.dart';
 import 'simple_result.dart';

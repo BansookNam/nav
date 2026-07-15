@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../nav.dart';
+import '../nav_base.dart';
 
 abstract class ModalBottomSheet<ResultType> extends StatelessWidget {
   ModalBottomSheet({

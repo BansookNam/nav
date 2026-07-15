@@ -5,7 +5,6 @@ import 'package:example/enum_direction.dart';
 import 'package:example/util/get_random_color.dart';
 import 'package:flutter/material.dart';
 import 'package:nav/nav.dart';
-import 'package:nav/screen/nav_screen.dart';
 
 import 'dialog/message_dialog.dart';
 import 'screen/simple_result.dart';
@@ -77,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
   }
 
   void checkCanPop() async {
-    if (await Nav.canPop()) {
+    if (Nav.canPop()) {
       setState(() {
         this.showBackButton = true;
       });

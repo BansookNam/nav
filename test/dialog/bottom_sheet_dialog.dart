@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nav/dialog/dialog.dart';
-import 'package:nav/enum/enum_nav_ani.dart';
 import 'package:nav/nav.dart';
-import 'package:nav/screen/nav_screen.dart';
 
 import '../screen/simple_result.dart';
 import '../widget/pressed_change_button.dart';

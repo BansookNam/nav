@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nav/nav.dart';
+import 'package:nav/src/nav_base.dart';
 
 class NavAppForTesting extends StatefulWidget {
   final Widget child;

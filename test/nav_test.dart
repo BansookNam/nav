@@ -4,8 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:nav/nav.dart';
-import 'package:nav/setting/nav_setting.dart';
-import 'package:nav/test/nav_app_for_testing.dart';
+import 'package:nav/testing.dart';
 
 import 'my_app.dart';
 import 'nav_test.mocks.dart';
@@ -156,11 +155,11 @@ void main() {
     await pumpApp(tester);
     Nav.push(const SampleScreen());
     await tester.pumpAndSettle();
-    canPop = await Nav.canPop();
+    canPop = Nav.canPop();
     expect(canPop, true);
 
     await popCurrentScreen(tester);
-    canPop = await Nav.canPop();
+    canPop = Nav.canPop();
     expect(canPop, false);
   });
 

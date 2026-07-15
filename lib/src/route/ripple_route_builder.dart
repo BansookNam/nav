@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nav/nav.dart';
-import 'package:nav/route/custom_page_route_builder.dart';
-import 'package:nav/route/clipper_circle.dart';
+import 'package:nav/src/nav_base.dart';
+import 'package:nav/src/route/custom_page_route_builder.dart';
+import 'package:nav/src/route/clipper_circle.dart';
 
 class RippleRouteBuilder<T> extends CustomPageRouteBuilder<T> {
   final Widget widget;

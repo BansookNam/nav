@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:nav/dialog/dialog.dart';
+import 'package:nav/nav.dart';
 
 class _ProbeDialog extends DialogWidget<void> {
   _ProbeDialog({super.useSafeArea, super.useRootNavigator});

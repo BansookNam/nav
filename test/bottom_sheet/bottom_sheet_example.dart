@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nav/bottom_sheet/modal_bottom_sheet.dart';
-import 'package:nav/screen/nav_screen.dart';
+import 'package:nav/nav.dart';
 
 import '../dialog/bottom_sheet_dialog.dart';
 import '../screen/simple_result.dart';

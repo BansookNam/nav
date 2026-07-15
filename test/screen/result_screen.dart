@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nav/screen/nav_screen.dart';
+import 'package:nav/nav.dart';
 
 import 'simple_result.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nav/route/custom_page_route_builder.dart';
+import 'package:nav/src/route/custom_page_route_builder.dart';
 
 class BlinkRouteBuilder<T> extends CustomPageRouteBuilder<T> {
   final Widget widget;

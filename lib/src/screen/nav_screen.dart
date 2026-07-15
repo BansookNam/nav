@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../nav.dart';
+import '../nav_base.dart';
 
 abstract mixin class NavScreen<Result> implements Widget {
   void popResult(BuildContext context, Result result) {
