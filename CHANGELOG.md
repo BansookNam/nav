@@ -1,3 +1,7 @@
+## [2.0.0-release-candidate-1] - 2024-02-05
+
+* Remove deprecated functions & constants
+
 ## [1.4.3] - 2024-02-05
 
 * Add test cases for various scenarios. (for a feature/nav_2.0 the coverage is 100%)

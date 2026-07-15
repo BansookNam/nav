@@ -8,12 +8,16 @@ class MessageDialog extends DialogWidget {
   final bool isCancelOnBack = false;
   final String text;
 
-  MessageDialog(this.text, {super.key, super.context})
-      : super(
-          animation: NavAni.Fade,
-          barrierColor: Colors.black.withOpacity(0.5),
-          barrierDismissible: false,
-        );
+  MessageDialog(
+    this.text, {
+    super.key,
+    super.context,
+    super.useRootNavigator,
+    super.useSafeArea,
+    super.animation = NavAni.Fade,
+    super.barrierColor = const Color(0x80000000),
+    super.barrierDismissible = false,
+  });
 
   @override
   State<StatefulWidget> createState() {

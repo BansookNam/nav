@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nav/nav.dart';
 
 import 'dialog/message_dialog.dart';
+import 'screen/result_screen.dart';
 
 class MyApp extends StatefulWidget {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey();
@@ -92,7 +93,19 @@ class MyHomePageState extends State<MyHomePage> {
       ),
       body: Builder(
           builder: (context) => SafeArea(
-                child: Container(),
+                child: Column(
+                  children: [
+                    GestureDetector(
+                      child: const Text('Open Result Screen'),
+                      onTap: () async {
+                        final result =
+                            await Nav.pushResult(const ResultScreen());
+                        result?.runIfSuccess((data) => debugPrint(data));
+                        result?.runIfFailure((data) => debugPrint('fail'));
+                      },
+                    )
+                  ],
+                ),
               )), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }

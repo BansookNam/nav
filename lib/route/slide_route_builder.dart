@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:nav/nav.dart';
 import 'package:nav/route/custom_page_route_builder.dart';
 
-class SlideFromLeftRoute<T> extends CustomPageRouteBuilder<T> {
+class SlideFromLeftRouteBuilder<T> extends CustomPageRouteBuilder<T> {
   final Widget widget;
 
-  SlideFromLeftRoute(this.widget, {int durationMs = Nav.defaultDurationMs})
+  SlideFromLeftRouteBuilder(this.widget,
+      {int durationMs = Nav.defaultDurationMs})
       : super(
             pageBuilder: (BuildContext context, Animation<double> animation,
                 Animation<double> secondaryAnimation) {
@@ -26,10 +27,11 @@ class SlideFromLeftRoute<T> extends CustomPageRouteBuilder<T> {
             });
 }
 
-class SlideFromRightRoute<T> extends CustomPageRouteBuilder<T> {
+class SlideFromRightRouteBuilder<T> extends CustomPageRouteBuilder<T> {
   final Widget widget;
 
-  SlideFromRightRoute(this.widget, {int durationMs = Nav.defaultDurationMs})
+  SlideFromRightRouteBuilder(this.widget,
+      {int durationMs = Nav.defaultDurationMs})
       : super(
             pageBuilder: (BuildContext context, Animation<double> animation,
                 Animation<double> secondaryAnimation) {

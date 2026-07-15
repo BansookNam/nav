@@ -3,10 +3,10 @@ import 'package:nav/nav.dart';
 import 'package:nav/route/custom_page_route_builder.dart';
 import 'package:nav/route/clipper_circle.dart';
 
-class RoundRevealRoute<T> extends CustomPageRouteBuilder<T> {
+class RippleRouteBuilder<T> extends CustomPageRouteBuilder<T> {
   final Widget widget;
   final AlignmentGeometry? centerAlignment;
-  final Offset? centerOffset;
+  final Offset centerOffset;
   final double minRadius;
   final double maxRadius;
 
@@ -17,14 +17,14 @@ class RoundRevealRoute<T> extends CustomPageRouteBuilder<T> {
   ///
   /// The transition doesn't affect the entry screen so we will only touch
   /// the target screen.
-  RoundRevealRoute(
+  RippleRouteBuilder(
     this.widget, {
     this.minRadius = 0,
     required this.maxRadius,
     this.centerAlignment,
-    this.centerOffset,
+    required this.centerOffset,
     int durationMs = Nav.defaultDurationMs,
-  })  : assert(centerOffset != null || centerAlignment != null),
+  })  : assert(centerAlignment != null),
         super(
           transitionDuration: Duration(milliseconds: durationMs),
 
