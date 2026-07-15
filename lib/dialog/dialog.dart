@@ -19,7 +19,7 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
     this.context,
   })  : useRootNavigator =
             useRootNavigator ?? Nav.navSetting?.useRootNavigator ?? true,
-        useSafeArea = useRootNavigator ?? Nav.navSetting?.useSafeArea ?? false;
+        useSafeArea = useSafeArea ?? Nav.navSetting?.useSafeArea ?? false;
 
   final BuildContext? context;
   final NavAni animation;
