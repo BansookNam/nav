@@ -5,6 +5,15 @@
 * Rename route builders to the `*RouteBuilder` convention
 * Support Flutter 3.41.9 (Dart 3.11.5): drop unreachable switch defaults, replace deprecated `withOpacity` with `withValues`
 * Update README to the 2.0 API (typed `NavScreen` / `pushResult` / positional `popResult`)
+* **Fix**: `DialogWidget`'s `useSafeArea` parameter was ignored (it was initialized from `useRootNavigator`)
+* **BREAKING**: implementation moved into `lib/src/` — import `package:nav/nav.dart` (whole API) or `package:nav/testing.dart` (`NavAppForTesting`) instead of deep paths
+* **BREAKING**: the four slide route classes are unified into `SlideRouteBuilder` with `fromLeft`/`fromRight`/`fromTop`/`fromBottom` named constructors
+* **BREAKING**: `Nav.push`/`pushReplacement`/`clearAllAndPush`/`pushFromRight`/`pushWithRippleEffect` take a non-null `Widget`
+* **BREAKING**: `Nav.canPop()` is now a synchronous `bool`
+* Add `Nav.init(navigatorKey, setting: ...)` as an explicit alternative to the mixin; using Nav before initialization now throws a descriptive `StateError` instead of `LateInitializationError`
+* Add lowerCamelCase `NavAni` aliases (`NavAni.left`, ...); uppercase values will be removed in 3.0
+* Dialog/route transitions now share one implementation; `DialogWidget.isShown` is a getter and double-`show()` of one instance is guarded
+* Stop tracking generated `coverage/` output in git
 
 ## [1.4.3] - 2024-02-05
 

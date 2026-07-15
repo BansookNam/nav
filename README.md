@@ -7,6 +7,11 @@
 
   Provide an easy way to navigate. Includes lots of routers. Available On Android & iOS
 
+  Nav is an **imperative navigation helper** (Navigator 1.0 sugar): context-free push/pop,
+  seven built-in transitions, dialogs & bottom sheets, and a type-safe result API
+  (`NavScreen<Result>` + `pushResult`). It complements — and can coexist with —
+  declarative routers like go_router.
+
 
 <img src="https://raw.githubusercontent.com/BansookNam/nav/master/img/sample.gif" width="300" />
 
@@ -65,6 +70,8 @@ inside a nested `Navigator`.
 Nav.push(const NextScreen(), navAni: NavAni.Blink);
 
 enum NavAni { Left, Right, Top, Bottom, Fade, Ripple, Blink }
+// lowerCamelCase aliases are also available (NavAni.blink, ...);
+// the uppercase values will be removed in 3.0.
 
 // Convenience methods
 Nav.pushFromRight(const NextScreen());              // iOS swipe-back by default
@@ -125,7 +132,22 @@ widget.popResult(context, 'Data to return');
 ### Global settings (optional)
 
 ```dart
-Nav.initialize(NavSetting(useRootNavigator: true, useSafeArea: false));
+Nav.init(navigatorKey, setting: NavSetting(useRootNavigator: true, useSafeArea: false));
+```
+
+`Nav.init` is also an alternative to the mixin: call it once with the key you
+pass to `MaterialApp.navigatorKey` and skip mixing `Nav` into your App State.
+
+### Widget tests
+
+`package:nav/testing.dart` ships a ready-made harness so you don't need to
+wire up a navigator key in every test:
+
+```dart
+import 'package:nav/testing.dart';
+
+await tester.pumpWidget(NavAppForTesting(child: MyScreen()));
+Nav.push(const NextScreen()); // works immediately
 ```
 
 
