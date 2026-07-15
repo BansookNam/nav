@@ -22,7 +22,7 @@ abstract class ModalBottomSheet<ResultType> extends StatelessWidget {
     this.routeSettings,
     this.transitionAnimationController,
     this.anchorPoint,
-    this.isScrollControlled = false,
+    this.isScrollControlled = true,
     this.useRootNavigator = false,
   }) : context = context ?? Nav.globalContext;
 
@@ -90,7 +90,7 @@ abstract class ModalBottomSheet<ResultType> extends StatelessWidget {
 
     return showModalBottomSheet<ResultType>(
       context: context,
-      isScrollControlled: true,
+      isScrollControlled: isScrollControlled,
       enableDrag: enableDrag,
       isDismissible: isDismissible,
       useSafeArea: useSafeArea,

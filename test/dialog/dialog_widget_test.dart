@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nav/nav.dart';
+import 'package:nav/testing.dart';
 
 class _ProbeDialog extends DialogWidget<void> {
   _ProbeDialog({super.useSafeArea, super.useRootNavigator});
@@ -36,5 +37,21 @@ void main() {
   test('useSafeArea defaults to false when not provided', () {
     expect(_ProbeDialog().useSafeArea, false);
     expect(_ProbeDialog(useRootNavigator: true).useSafeArea, false);
+  });
+
+  testWidgets('isShown reflects the dialog lifecycle',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(NavAppForTesting(child: Container()));
+
+    final dialog = _ProbeDialog();
+    expect(dialog.isShown, false);
+
+    dialog.show();
+    await tester.pump();
+    expect(dialog.isShown, true);
+
+    dialog.hide();
+    await tester.pumpAndSettle();
+    expect(dialog.isShown, false);
   });
 }

@@ -6,6 +6,8 @@
 * Support Flutter 3.41.9 (Dart 3.11.5): drop unreachable switch defaults, replace deprecated `withOpacity` with `withValues`
 * Update README to the 2.0 API (typed `NavScreen` / `pushResult` / positional `popResult`)
 * **Fix**: `DialogWidget`'s `useSafeArea` parameter was ignored (it was initialized from `useRootNavigator`)
+* **Fix**: `ModalBottomSheet`'s `isScrollControlled` parameter was ignored (`show()` hardcoded `true`); the parameter is now honored and its default is `true` to preserve existing behavior
+* Test coverage raised to 100% (`ModalBottomSheet` show/hide/result, `DialogWidget.isShown` lifecycle)
 * **BREAKING**: implementation moved into `lib/src/` — import `package:nav/nav.dart` (whole API) or `package:nav/testing.dart` (`NavAppForTesting`) instead of deep paths
 * **BREAKING**: the four slide route classes are unified into `SlideRouteBuilder` with `fromLeft`/`fromRight`/`fromTop`/`fromBottom` named constructors
 * **BREAKING**: `Nav.push`/`pushReplacement`/`clearAllAndPush`/`pushFromRight`/`pushWithRippleEffect` take a non-null `Widget`

@@ -159,23 +159,18 @@ Future<T?> _showDialogWith<T>(
 }
 
 RouteTransitionsBuilder _getTransition(NavAni ani) {
-  switch (ani) {
-    case NavAni.Left:
-      return slideTransitionBuilder(const Offset(-1.0, 0.0),
-          curve: dialogTransitionCurve);
-    case NavAni.Right:
-      return slideTransitionBuilder(const Offset(1.0, 0.0),
-          curve: dialogTransitionCurve);
-    case NavAni.Top:
-      return slideTransitionBuilder(const Offset(0.0, -1.0),
-          curve: dialogTransitionCurve);
-    case NavAni.Bottom:
-      return slideTransitionBuilder(const Offset(0.0, 1.0),
-          curve: dialogTransitionCurve);
-    case NavAni.Ripple:
-      return _buildRippleTransition;
-    case NavAni.Blink:
-    case NavAni.Fade:
-      return fadeTransitionBuilder;
-  }
+  return switch (ani) {
+    NavAni.Left => slideTransitionBuilder(const Offset(-1.0, 0.0),
+        curve: dialogTransitionCurve),
+    NavAni.Right => slideTransitionBuilder(const Offset(1.0, 0.0),
+        curve: dialogTransitionCurve),
+    NavAni.Top => slideTransitionBuilder(const Offset(0.0, -1.0),
+        curve: dialogTransitionCurve),
+    NavAni.Bottom => slideTransitionBuilder(const Offset(0.0, 1.0),
+        curve: dialogTransitionCurve),
+    NavAni.Ripple => _buildRippleTransition,
+    // NavAni.Fade normally goes through showDialog (see show()); it is
+    // grouped with Blink so the switch stays exhaustive.
+    NavAni.Blink || NavAni.Fade => fadeTransitionBuilder,
+  };
 }
