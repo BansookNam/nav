@@ -1,3 +1,5 @@
+
+
 # Welcome to Nav 👋
 [![Version](https://img.shields.io/pub/v/nav.svg?style=flat-square)](https://pub.dev/packages/nav)
 [![codecov](https://codecov.io/gh/BansookNam/nav/branch/master/graph/badge.svg)](https://codecov.io/gh/BansookNam/nav)
@@ -86,7 +88,7 @@ Nav.pushWithRippleEffect(
 
 // Pop helpers
 Nav.pop(context);                                   // simple pop
-await Nav.canPop();                                 // whether a route can be popped
+final canPop = Nav.canPop();                        // whether a route can be popped
 Nav.clearAll();                                     // pop everything
 ```
 
