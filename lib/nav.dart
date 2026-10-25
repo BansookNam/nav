@@ -1,4 +1,5 @@
-/// An easy, imperative navigation helper for Flutter (Navigator 1.0).
+/// An easy, imperative navigation helper for Flutter (Navigator 1.0), with
+/// [NavPage] for Navigator 2.0 and routers such as go_router.
 ///
 /// Import this single library to access the entire public API:
 ///
@@ -18,6 +19,7 @@ export 'src/dialog/dialog.dart' show DialogWidget;
 export 'src/dialog/dialog_state.dart' show DialogState;
 export 'src/enum/enum_nav_ani.dart' show NavAni, NavAniExt;
 export 'src/nav_base.dart' show Nav;
+export 'src/page/nav_page.dart' show NavPage;
 export 'src/route/blink_route_builder.dart' show BlinkRouteBuilder;
 export 'src/route/custom_page_route_builder.dart' show CustomPageRouteBuilder;
 export 'src/route/fade_route_builder.dart' show FadeRouteBuilder;

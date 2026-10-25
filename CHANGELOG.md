@@ -2,6 +2,8 @@
 
 * **Fix**: `Nav.pushWithRippleEffect(screen, offset: ...)` without an `alignment` failed an assertion in debug builds; `RippleRouteBuilder` accepts `centerOffset` alone again (as `RoundRevealRoute` did in 1.x), and `centerOffset` is now optional
 * **Fix**: a ripple with an `AlignmentDirectional` (e.g. `AlignmentDirectional.bottomEnd`) threw a type error; directional alignments are now resolved against the ambient text direction
+* Add `NavPage`: a Navigator 2.0 `Page` with Nav's transitions, for `Navigator.pages` and router `pageBuilder`s such as go_router's. A page replaced with the same key shows its new child, and `NavAni.right` keeps the iOS swipe-back gesture unless `prohibitSwipeBack` is set
+* Document using `Nav.push`, dialogs and bottom sheets under a router (`Nav.init(router's navigatorKey)`), tested with go_router
 * Fix the broken "contributing guide" link in the README
 * CI fails if the pana (pub.dev score) report drops below the maximum
 

@@ -11,7 +11,8 @@
   Nav is an **imperative navigation helper** (Navigator 1.0 sugar): context-free push/pop,
   seven built-in transitions, dialogs & bottom sheets, and a type-safe result API
   (`NavScreen<Result>` + `pushResult`). It complements — and can coexist with —
-  declarative routers like go_router.
+  declarative routers like go_router, whose pages can use the same transitions
+  through `NavPage`.
 
 
 <img src="https://raw.githubusercontent.com/BansookNam/nav/master/img/sample.gif" width="300" />
@@ -208,6 +209,50 @@ match `/product/:id`.
 
 The example app is wired for `navexample://open/...` and
 `https://nav.example.com/...`; see `example/lib/deep_link/`.
+
+### Navigator 2.0 and routers (go_router, ...)
+
+`NavPage` is a `Page` that uses Nav's transitions, so they work anywhere
+Navigator 2.0 takes pages — a router's `pageBuilder`, or `Navigator.pages`.
+
+```dart
+GoRoute(
+  path: '/product/:id',
+  pageBuilder: (context, state) => NavPage(
+    key: state.pageKey,
+    navAni: NavAni.fade,
+    child: ProductScreen(id: state.pathParameters['id']!),
+  ),
+);
+
+Navigator(
+  pages: [
+    const NavPage(child: HomeScreen()),
+    if (selected != null) NavPage(navAni: NavAni.bottom, child: DetailScreen(selected)),
+  ],
+  onDidRemovePage: (page) => setState(() => selected = null),
+);
+```
+
+`NavAni.right` follows `Nav.pushFromRight`: on iOS it is a Cupertino page with
+swipe-back, unless `prohibitSwipeBack: true`.
+
+The imperative API — `Nav.push`, dialogs, bottom sheets — keeps working under
+a router. Give the router's navigator key to Nav; routes pushed this way sit on
+top of the current page and are removed with it.
+
+```dart
+final navigatorKey = GlobalKey<NavigatorState>();
+final router = GoRouter(navigatorKey: navigatorKey, routes: [...]);
+
+Nav.init(navigatorKey);
+runApp(MaterialApp.router(routerConfig: router));
+
+Nav.push(const NextScreen(), navAni: NavAni.top); // on top of the current page
+```
+
+With a router, use the router's own deep linking; `NavPathDelegate` is for
+`MaterialApp` with `onGenerateRoute`.
 
 ### Global settings (optional)
 
