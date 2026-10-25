@@ -1,0 +1,111 @@
+# Publishes to pub.dev when a version tag is pushed.
+#
+# WHY THE TAG IS THE TRIGGER
+# --------------------------
+# Making the tag the trigger means an untagged release is a release that never
+# shipped, because `flutter pub publish` is not run by hand any more. Every
+# version on pub.dev can then be checked out, diffed and bisected.
+#
+# Tags are `v<version>`, e.g. `v2.0.0` or `v2.0.0-release-candidate-2`.
+#
+# NO CREDENTIAL LIVES HERE
+# ------------------------
+# pub.dev authenticates this workflow over OIDC. GitHub mints a short-lived
+# token for the individual run and pub.dev exchanges it, having been told in
+# advance — on the package's admin page (pub.dev/packages/nav/admin →
+# Automated publishing) — which repository (BansookNam/nav) and which tag
+# pattern (`v{{version}}`) to trust. Nothing is stored in repository secrets,
+# so nothing can leak from one. That trust must be configured on pub.dev
+# before the first tag is pushed, or the publish job fails at the exchange.
+#
+# WHY NOT dart-lang/setup-dart's REUSABLE publish WORKFLOW
+# --------------------------------------------------------
+# It publishes with a plain Dart SDK, and this package depends on
+# `sdk: flutter`, which a plain Dart SDK cannot resolve. setup-dart is still
+# used — it is what requests the OIDC token and registers it with pub — and
+# Flutter's pub picks the same token up.
+#
+# WHY THERE IS A GUARD IN FRONT OF IT
+# -----------------------------------
+#   * A tag can be placed on any commit, including one that never went
+#     through a pull request. ci.yml guards master; nothing guarded the tag.
+#   * `v2.0.1` on a tree whose pubspec still says 2.0.0 is either a wrong
+#     publish or a failed one.
+#   * pub.dev renders CHANGELOG.md on the package page. Publishing a version
+#     the changelog has never heard of ships release notes that stop one
+#     version short, and a published version is immutable.
+#
+# The guard answers all three before the OIDC token is ever minted.
+name: publish
+
+on:
+  push:
+    tags: ['v[0-9]+.[0-9]+.[0-9]+*']
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: The tag, the pubspec and the changelog agree
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          pubspec="$(sed -n 's/^version:[[:space:]]*//p' pubspec.yaml | head -1)"
+          if [[ "$tag" != "$pubspec" ]]; then
+            echo "::error::tag ${GITHUB_REF_NAME} declares $tag, pubspec.yaml says $pubspec"
+            exit 1
+          fi
+          if ! grep -qF "## [$tag]" CHANGELOG.md; then
+            echo "::error::CHANGELOG.md has no '## [$tag]' section"
+            exit 1
+          fi
+          echo "${GITHUB_REF_NAME} == pubspec $pubspec, and the changelog has a section"
+
+      # ci.yml runs these on master. A tag is not necessarily on master.
+      - name: Analyze
+        run: flutter analyze lib test
+
+      - name: Test
+        run: flutter test
+
+      # See ci.yml for why the tool's own edits are hidden from git first.
+      - name: Publishable
+        run: |
+          git ls-files -m | xargs -r git update-index --assume-unchanged
+          flutter pub publish --dry-run
+
+  publish:
+    needs: guard
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      # OIDC: mints the short-lived token pub.dev exchanges. This is the only
+      # credential in the flow, and it does not outlive the run.
+      id-token: write
+    steps:
+      - uses: actions/checkout@v5
+
+      # Requests the OIDC token and registers it with pub.
+      - uses: dart-lang/setup-dart@v1
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      # --force skips the interactive confirmation. Warnings were already
+      # turned into failures by the guard's dry run.
+      - name: Publish
+        run: flutter pub publish --force
