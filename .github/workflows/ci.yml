@@ -40,6 +40,12 @@ jobs:
           flutter pub get --directory example
           flutter analyze --no-fatal-infos example
 
+      # The samples (deep link delivery, the mock link server, Navigator.pages
+      # and go_router) are documentation that runs; this keeps them true.
+      - name: Example tests
+        working-directory: example
+        run: flutter test
+
       # `flutter pub get` on a newer SDK rewrites the tracked pubspec.lock
       # files (and, from Flutter 3.47, analysis_options.yaml). pub reports a
       # dirty tree as a warning, and a warning fails the dry run, so the

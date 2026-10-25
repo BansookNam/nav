@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:after_layout/after_layout.dart';
 import 'package:example/deep_link/deep_link_paths.dart';
+import 'package:example/demo_list_screen.dart';
 import 'package:example/enum_direction.dart';
 import 'package:example/util/get_random_color.dart';
 import 'package:flutter/material.dart';
@@ -209,6 +210,15 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin {
                         ),
                       ],
                     ),
+                    if (isHome)
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: IconButton(
+                          tooltip: 'Samples',
+                          onPressed: () => Nav.push(const DemoListScreen()),
+                          icon: icon(Icons.apps),
+                        ),
+                      ),
                     !showBackButton
                         ? Container()
                         : IconButton(

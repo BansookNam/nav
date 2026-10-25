@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.example.example",
+      "sha256_cert_fingerprints": [
+        "REPLACE:WITH:YOUR:SIGNING:CERT:SHA256 (keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android)"
+      ]
+    }
+  }
+]

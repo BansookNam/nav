@@ -1,0 +1,13 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["TEAMID.com.example.example"],
+        "components": [
+          { "/": "/product/*", "comment": "NavPath('/product/:id')" },
+          { "/": "/user/*", "comment": "NavPath('/user/:name')" }
+        ]
+      }
+    ]
+  }
+}

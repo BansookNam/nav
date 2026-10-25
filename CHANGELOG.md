@@ -5,6 +5,7 @@
 * Add `NavPage`: a Navigator 2.0 `Page` with Nav's transitions, for `Navigator.pages` and router `pageBuilder`s such as go_router's. A page replaced with the same key shows its new child, and `NavAni.right` keeps the iOS swipe-back gesture unless `prohibitSwipeBack` is set
 * Document using `Nav.push`, dialogs and bottom sheets under a router (`Nav.init(router's navigatorKey)`), tested with go_router
 * Fix the broken "contributing guide" link in the README
+* Example: a deep link tester (in-app WebView on a `dart:io` mock site serving `assetlinks.json` / `apple-app-site-association`, plus `tool/open_link.sh` for `adb`/`simctl`), Navigator 2.0 samples (`Navigator.pages` with `NavPage`, and go_router with `NavPage` and `Nav.push` on top), tests for each, and a real `example/README.md` for pub.dev's Example tab
 * CI fails if the pana (pub.dev score) report drops below the maximum
 
 ## [2.0.0] - 2026-10-26
