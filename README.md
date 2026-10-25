@@ -268,7 +268,7 @@ public.
 | `SlideFromBottomRoute(screen)` | `SlideRouteBuilder.fromBottom(screen)` |
 | `FadeRoute(screen)` | `FadeRouteBuilder(screen)` |
 | `BlinkRoute(screen)` | `BlinkRouteBuilder(screen)` |
-| `RoundRevealRoute(screen, ...)` | `RippleRouteBuilder(screen, ...)` — `centerAlignment` and `centerOffset` are now both required |
+| `RoundRevealRoute(screen, ...)` | `RippleRouteBuilder(screen, ...)` — same parameters; when both `centerAlignment` and `centerOffset` are given, the alignment wins |
 
 ### 3. Replace removed members
 
@@ -362,7 +362,7 @@ below is a source file — click it to explore the full interactive report.
 
 Contributions, issues and feature requests are welcome!
 
-Feel free to check [issues page](https://github.com/bansooknam/nav/issues). You can also take a look at the [contributing guide](Contributions, issues and feature requests are welcome.).
+Feel free to check the [issues page](https://github.com/bansooknam/nav/issues).
 
 ## Show your support
 

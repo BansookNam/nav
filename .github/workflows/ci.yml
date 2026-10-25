@@ -49,3 +49,23 @@ jobs:
         run: |
           git ls-files -m | xargs -r git update-index --assume-unchanged
           flutter pub publish --dry-run
+
+  # pub.dev scores every release with pana. Running it here turns a lost point
+  # (a lint, a broken doc reference, an outdated constraint, an unsupported
+  # platform) into a red PR, instead of a lower number on the package page
+  # after a version that cannot be changed has shipped.
+  score:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Install pana
+        run: dart pub global activate pana
+
+      - name: Full pub.dev score
+        run: dart pub global run pana --no-warning --exit-code-threshold 0 .

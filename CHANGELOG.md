@@ -1,3 +1,10 @@
+## [2.0.1] - 2026-10-26
+
+* **Fix**: `Nav.pushWithRippleEffect(screen, offset: ...)` without an `alignment` failed an assertion in debug builds; `RippleRouteBuilder` accepts `centerOffset` alone again (as `RoundRevealRoute` did in 1.x), and `centerOffset` is now optional
+* **Fix**: a ripple with an `AlignmentDirectional` (e.g. `AlignmentDirectional.bottomEnd`) threw a type error; directional alignments are now resolved against the ambient text direction
+* Fix the broken "contributing guide" link in the README
+* CI fails if the pana (pub.dev score) report drops below the maximum
+
 ## [2.0.0] - 2026-10-26
 
 First stable 2.0 release. It includes everything in 2.0.0-release-candidate-1 below; 1.x users should read "Migrating from 1.x" in the README.
