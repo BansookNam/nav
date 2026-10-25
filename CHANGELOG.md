@@ -1,3 +1,12 @@
+## [2.0.0] - 2026-10-26
+
+First stable 2.0 release. It includes everything in 2.0.0-release-candidate-1 below; 1.x users should read "Migrating from 1.x" in the README.
+
+* Add deep link support: `NavPathDelegate` matches App Links, Universal Links, custom schemes and `pushNamed` names against `NavPath` patterns (`/product/:id`) and opens the screen with the parsed `NavPathParams` (path + query parameters, typed `getInt`/`getDouble`/`getBool`). Plug it into `MaterialApp.onGenerateRoute`/`onUnknownRoute`, or call `open(uri)` directly
+* Add a "Migrating from 1.x" guide to the README: deep imports, renamed route classes, removed members with their replacements, and behavior changes
+* **Note on 2.0 removals**: the members deprecated in 1.4.3 said they would be removed in 3.0. They were removed in 2.0 instead, so 1.x users migrate once rather than twice; the README guide lists each one with its replacement
+* Publish to pub.dev from GitHub Actions on a `v<version>` tag (OIDC, guarded by tag/pubspec/changelog agreement, analyze, test and a publish dry run); add a CI workflow for format, analyze, the example app and publishability
+
 ## [2.0.0-release-candidate-1] - 2024-02-05
 
 * Remove deprecated functions & constants

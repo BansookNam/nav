@@ -1,0 +1,51 @@
+# Guards the things `coverage.yml` structurally cannot.
+#
+# coverage.yml runs the tests. It does not analyze, it never builds the
+# example app, and it never asks pub whether the package is publishable — so
+# a lint regression, an example broken by an API change, or a pubspec pub.dev
+# would reject is first discovered by `publish.yml`, after the tag is pushed.
+# These steps move that discovery to PR time.
+name: ci
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Formatted
+        run: dart format --output=none --set-exit-if-changed lib test
+
+      - name: Analyze library and tests
+        run: flutter analyze lib test
+
+      # The example carries pre-existing style infos, so only warnings and
+      # errors fail here. What this catches is the example no longer compiling
+      # against lib/.
+      - name: Analyze the example
+        run: |
+          flutter pub get --directory example
+          flutter analyze --no-fatal-infos example
+
+      # `flutter pub get` on a newer SDK rewrites the tracked pubspec.lock
+      # files (and, from Flutter 3.47, analysis_options.yaml). pub reports a
+      # dirty tree as a warning, and a warning fails the dry run, so the
+      # tool's own edits are hidden from git first. Nothing else in this job
+      # writes to the tree.
+      - name: Publishable
+        run: |
+          git ls-files -m | xargs -r git update-index --assume-unchanged
+          flutter pub publish --dry-run

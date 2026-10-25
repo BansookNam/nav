@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:after_layout/after_layout.dart';
+import 'package:example/deep_link/deep_link_paths.dart';
 import 'package:example/enum_direction.dart';
 import 'package:example/util/get_random_color.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +45,8 @@ class _MyAppState extends State<MyApp> with Nav {
             bottomSheetTheme: const BottomSheetThemeData(
                 backgroundColor: Colors.transparent)),
         home: MyHomePage(),
+        onGenerateRoute: deepLinkPaths.onGenerateRoute,
+        onUnknownRoute: deepLinkPaths.onUnknownRoute,
       ),
     );
   }

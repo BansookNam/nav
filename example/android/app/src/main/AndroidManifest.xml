@@ -24,6 +24,24 @@
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+            <!-- Deep links handled by NavPathDelegate (lib/deep_link). -->
+            <meta-data android:name="flutter_deeplinking_enabled" android:value="true" />
+            <!-- Custom scheme: navexample://open/product/42 -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="navexample" android:host="open" />
+            </intent-filter>
+            <!-- App Link: https://nav.example.com/product/42
+                 Verified only when the domain serves
+                 /.well-known/assetlinks.json for this package. -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https" android:host="nav.example.com" />
+            </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->

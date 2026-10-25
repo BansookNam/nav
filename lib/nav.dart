@@ -10,6 +10,10 @@
 library nav;
 
 export 'src/bottom_sheet/modal_bottom_sheet.dart' show ModalBottomSheet;
+export 'src/deep_link/nav_path.dart'
+    show NavPath, NavPathBuilder, NavPathParams;
+export 'src/deep_link/nav_path_delegate.dart'
+    show NavPathDelegate, NavPathMatch;
 export 'src/dialog/dialog.dart' show DialogWidget;
 export 'src/dialog/dialog_state.dart' show DialogState;
 export 'src/enum/enum_nav_ani.dart' show NavAni, NavAniExt;
