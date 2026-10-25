@@ -56,6 +56,23 @@ void main() {
     expect(find.byType(SampleScreen), findsOneWidget);
   });
 
+  testWidgets('Push - Ripple from an offset only', (WidgetTester tester) async {
+    await pumpApp(tester);
+    Nav.pushWithRippleEffect(const SampleScreen(),
+        offset: const Offset(10, 10));
+    await tester.pumpAndSettle();
+    expect(find.byType(SampleScreen), findsOneWidget);
+  });
+
+  testWidgets('Push - Ripple from a directional alignment',
+      (WidgetTester tester) async {
+    await pumpApp(tester);
+    Nav.pushWithRippleEffect(const SampleScreen(),
+        alignment: AlignmentDirectional.bottomEnd);
+    await tester.pumpAndSettle();
+    expect(find.byType(SampleScreen), findsOneWidget);
+  });
+
   testWidgets('Push - Right ', (WidgetTester tester) async {
     await pumpApp(tester);
     Nav.pushFromRight(const SampleScreen());

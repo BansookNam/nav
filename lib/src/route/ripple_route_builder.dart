@@ -13,7 +13,8 @@ class RippleRouteBuilder<T> extends CustomPageRouteBuilder<T> {
   /// Reveals the next item pushed to the navigation using circle shape.
   ///
   /// You can provide [centerAlignment] for the reveal center or if you want a
-  /// more precise use only [centerOffset] and leave other blank.
+  /// more precise use only [centerOffset] and leave other blank. When both
+  /// are given, [centerAlignment] wins.
   ///
   /// The transition doesn't affect the entry screen so we will only touch
   /// the target screen.
@@ -22,10 +23,9 @@ class RippleRouteBuilder<T> extends CustomPageRouteBuilder<T> {
     this.minRadius = 0,
     required this.maxRadius,
     this.centerAlignment,
-    required this.centerOffset,
+    this.centerOffset = Offset.zero,
     int durationMs = Nav.defaultDurationMs,
-  })  : assert(centerAlignment != null),
-        super(
+  }) : super(
           transitionDuration: Duration(milliseconds: durationMs),
 
           /// We could override pageBuilder but it's a required parameter of
@@ -49,7 +49,8 @@ class RippleRouteBuilder<T> extends CustomPageRouteBuilder<T> {
     return ClipPath(
       clipper: CircularRevealClipper(
         fraction: animation.value,
-        centerAlignment: centerAlignment as Alignment?,
+        centerAlignment:
+            centerAlignment?.resolve(Directionality.maybeOf(context)),
         centerOffset: centerOffset,
         minRadius: minRadius,
         maxRadius: maxRadius,
