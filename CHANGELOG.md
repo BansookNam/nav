@@ -1,3 +1,8 @@
+## [2.1.1] - 2026-11-05
+
+* Add `Nav.maybePop(context, result:)`: `Navigator.maybePop` (honours `PopScope`), returning whether a route handled the pop
+* Add `Nav.popUntil(predicate, context:)`: `Navigator.popUntil`, e.g. `Nav.popUntil((route) => route.isFirst)`
+
 ## [2.1.0] - 2026-11-05
 
 * Add `NavAni.platform`: a `MaterialPageRoute`, so a push follows the app's `PageTransitionsTheme` (Android's predictive back and system transitions, the iOS slide with swipe back). For a `DialogWidget` it is Material's `showDialog`. **A `switch` over `NavAni` that lists every value needs a `NavAni.platform` case**

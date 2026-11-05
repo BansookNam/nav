@@ -24,6 +24,50 @@ Future<void> pumpHome(WidgetTester tester) =>
 void main() {
   navPageTests();
 
+  group('maybePop and popUntil', () {
+    testWidgets('maybePop pops with a result and respects PopScope',
+        (tester) async {
+      await pumpHome(tester);
+      final result = Nav.push<String>(const Text('next'));
+      await tester.pumpAndSettle();
+      expect(await Nav.maybePop(tester.element(find.text('next')), result: 'r'),
+          isTrue);
+      await tester.pumpAndSettle();
+      expect(await result, 'r');
+
+      Nav.push(const PopScope(canPop: false, child: Text('stuck')));
+      await tester.pumpAndSettle();
+      await Nav.maybePop(tester.element(find.text('stuck')));
+      await tester.pumpAndSettle();
+      expect(find.text('stuck'), findsOneWidget);
+    });
+
+    testWidgets('maybePop on the first route does nothing', (tester) async {
+      await pumpHome(tester);
+      expect(await Nav.maybePop(tester.element(find.text('home'))), isFalse);
+    });
+
+    testWidgets('popUntil goes back to the first screen', (tester) async {
+      await pumpHome(tester);
+      Nav.push(const Text('a'));
+      await tester.pumpAndSettle();
+      Nav.push(const Text('b'), settings: const RouteSettings(name: '/b'));
+      await tester.pumpAndSettle();
+      Nav.push(const Text('c'));
+      await tester.pumpAndSettle();
+
+      Nav.popUntil((route) => route.settings.name == '/b');
+      await tester.pumpAndSettle();
+      expect(find.text('b'), findsOneWidget);
+      expect(find.text('c'), findsNothing);
+
+      Nav.popUntil((route) => route.isFirst);
+      await tester.pumpAndSettle();
+      expect(Nav.canPop(), isFalse);
+      expect(find.text('home'), findsOneWidget);
+    });
+  });
+
   group('Nav.push route options', () {
     testWidgets('settings, fullscreenDialog, opaque and maintainState',
         (tester) async {

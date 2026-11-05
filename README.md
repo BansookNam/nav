@@ -91,6 +91,8 @@ Nav.pushWithRippleEffect(
 
 // Pop helpers
 Nav.pop(context);                                   // simple pop
+Nav.maybePop(context);                              // pop unless a PopScope says no
+Nav.popUntil((route) => route.isFirst);             // back to the first screen
 final canPop = Nav.canPop();                        // whether a route can be popped
 Nav.clearAll();                                     // pop everything
 ```
