@@ -33,9 +33,10 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
   final bool useRootNavigator;
 
   /// How long [animation] runs, opening and closing. Null:
-  /// [Nav.defaultDialogDurationMs] (0 for [NavAni.Blink]). [NavAni.Fade] is
-  /// Material's own `showDialog` fade while this and [animationCurve] are both
-  /// null; once either is set (here or in [show]) Nav draws the fade instead.
+  /// [Nav.defaultDialogDurationMs] (0 for [NavAni.Blink]). [NavAni.Fade] and
+  /// [NavAni.platform] are Material's own `showDialog` while this and
+  /// [animationCurve] are both null; once either is set (here or in [show])
+  /// Nav draws the fade instead.
   final Duration? animationDuration;
 
   /// Easing of the slides and of [NavAni.Fade]. Null: [dialogTransitionCurve].
@@ -75,7 +76,9 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
 
     _visibility.isShowing = true;
 
-    if (animation == NavAni.Fade && duration == null && curve == null) {
+    if ((animation == NavAni.Fade || animation == NavAni.platform) &&
+        duration == null &&
+        curve == null) {
       return showDialog<ResultType>(
         context: context,
         barrierDismissible: barrierDismissible,
@@ -193,19 +196,9 @@ RouteTransitionsBuilder _getTransition(NavAni ani, Curve curve) {
     NavAni.Bottom =>
       slideTransitionBuilder(const Offset(0.0, 1.0), curve: curve),
     NavAni.Ripple => _buildRippleTransition,
-    // NavAni.Fade goes through showDialog unless a duration / curve is given
-    // (see show()); it is grouped with Blink so the switch stays exhaustive.
+    // NavAni.Fade and NavAni.platform (Material's own dialog) go through
+    // showDialog unless a duration / curve is given (see show()).
     NavAni.Blink => fadeTransitionBuilder,
-    NavAni.Fade => _fadeWithCurve(curve),
-  };
-}
-
-RouteTransitionsBuilder _fadeWithCurve(Curve curve) {
-  return (BuildContext context, Animation<double> animation,
-      Animation<double> secondaryAnimation, Widget child) {
-    return FadeTransition(
-      opacity: CurvedAnimation(parent: animation, curve: curve),
-      child: child,
-    );
+    NavAni.Fade || NavAni.platform => curvedFadeTransitionBuilder(curve),
   };
 }

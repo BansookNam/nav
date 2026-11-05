@@ -28,3 +28,14 @@ Widget fadeTransitionBuilder(BuildContext context, Animation<double> animation,
     child: child,
   );
 }
+
+/// A 0 → 1 [FadeTransition] eased by [curve].
+RouteTransitionsBuilder curvedFadeTransitionBuilder(Curve curve) {
+  return (BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation, Widget child) {
+    return FadeTransition(
+      opacity: CurvedAnimation(parent: animation, curve: curve),
+      child: child,
+    );
+  };
+}

@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:nav/src/enum/enum_nav_ani.dart';
 import 'package:nav/src/route/ripple_route_builder.dart';
-import 'package:nav/src/route/slide_route_builder.dart';
 import 'package:nav/src/screen/nav_screen.dart';
 import 'package:nav/src/setting/nav_setting.dart';
 
@@ -78,20 +76,28 @@ mixin Nav<T extends StatefulWidget> on State<T> {
     Widget screen, {
     bool prohibitSwipeBack = false,
     BuildContext? context,
+    RouteSettings? settings,
+    bool fullscreenDialog = false,
   }) async {
     return navigatorState(context)?.push(
-      getPushRightRoute(screen,
-          prohibitSwipeBack: prohibitSwipeBack, context: context) as Route<T>,
+      getPushRightRoute<T>(screen,
+          prohibitSwipeBack: prohibitSwipeBack,
+          context: context,
+          settings: settings,
+          fullscreenDialog: fullscreenDialog),
     );
   }
 
   static Route<T> getPushRightRoute<T>(Widget screen,
       {bool prohibitSwipeBack = false,
       BuildContext? context,
-      int durationMs = Nav.defaultDurationMs}) {
-    return TargetPlatform.iOS == defaultTargetPlatform && !prohibitSwipeBack
-        ? CupertinoPageRoute<T>(builder: (context) => screen)
-        : SlideRouteBuilder<T>.fromRight(screen, durationMs: durationMs);
+      int durationMs = Nav.defaultDurationMs,
+      RouteSettings? settings,
+      bool fullscreenDialog = false}) {
+    return NavAni.Right.createRoute<T>(screen, context, durationMs,
+        prohibitSwipeBack: prohibitSwipeBack,
+        settings: settings,
+        fullscreenDialog: fullscreenDialog);
   }
 
   /// Push screen with Ripple Effect (Default: bottomRight to topLeft, You can change the alignment and offset)
@@ -121,48 +127,127 @@ mixin Nav<T extends StatefulWidget> on State<T> {
 
   /// Push screen with NavAni param
   ///
-  /// If you provide context, you can nest navigate in your specific context
-  static Future<T?> push<T>(Widget screen,
-      {NavAni navAni = NavAni.Right,
-      BuildContext? context,
-      int durationMs = defaultDurationMs}) async {
-    return navigatorState(context)?.push(navAni.createRoute(
-        screen, navigatorState(context)!.context, durationMs));
+  /// If you provide context, you can nest navigate in your specific context.
+  ///
+  /// [reverseDurationMs] (closing) defaults to [durationMs]; [curve] defaults
+  /// to linear. [settings] names the route (observers, `ModalRoute.of`),
+  /// [fullscreenDialog] makes it a full-screen modal (an iOS close button,
+  /// no swipe back), [opaque] false keeps the screen below drawn, and
+  /// [maintainState] false lets the route drop its state when covered.
+  /// [NavAni.platform] and the iOS [NavAni.Right] use the platform's timing:
+  /// the durations, [curve] and [opaque] do not apply to them.
+  static Future<T?> push<T>(
+    Widget screen, {
+    NavAni navAni = NavAni.Right,
+    BuildContext? context,
+    int durationMs = defaultDurationMs,
+    int? reverseDurationMs,
+    Curve curve = Curves.linear,
+    RouteSettings? settings,
+    bool fullscreenDialog = false,
+    bool opaque = true,
+    bool maintainState = true,
+  }) async {
+    final navigator = navigatorState(context);
+    if (navigator == null) return null;
+    return navigator.push(navAni.createRoute<T>(
+        screen, navigator.context, durationMs,
+        reverseDurationMs: reverseDurationMs,
+        curve: curve,
+        settings: settings,
+        fullscreenDialog: fullscreenDialog,
+        opaque: opaque,
+        maintainState: maintainState));
+  }
+
+  /// Push a [route] you built yourself (a `MaterialPageRoute` subclass, a
+  /// `PageRouteBuilder`, …) on the same navigator [push] uses.
+  static Future<T?> pushRoute<T>(Route<T> route,
+      {BuildContext? context}) async {
+    return navigatorState(context)?.push(route);
   }
 
   /// Push Replacement screen
   ///
-  /// If you provide context, you can nest navigate in your specific context
-  static Future<T?> pushReplacement<T, TO extends Object>(Widget screen,
-      {BuildContext? context,
-      NavAni navAni = NavAni.Fade,
-      TO? result,
-      int durationMs = defaultDurationMs}) async {
-    return navigatorState(context)?.pushReplacement(
-        navAni.createRoute(
-            screen, navigatorState(context)!.context, durationMs),
+  /// If you provide context, you can nest navigate in your specific context.
+  /// The route options are the same as [push]'s.
+  static Future<T?> pushReplacement<T, TO extends Object>(
+    Widget screen, {
+    BuildContext? context,
+    NavAni navAni = NavAni.Fade,
+    TO? result,
+    int durationMs = defaultDurationMs,
+    int? reverseDurationMs,
+    Curve curve = Curves.linear,
+    RouteSettings? settings,
+    bool fullscreenDialog = false,
+    bool opaque = true,
+    bool maintainState = true,
+  }) async {
+    final navigator = navigatorState(context);
+    if (navigator == null) return null;
+    return navigator.pushReplacement(
+        navAni.createRoute<T>(screen, navigator.context, durationMs,
+            reverseDurationMs: reverseDurationMs,
+            curve: curve,
+            settings: settings,
+            fullscreenDialog: fullscreenDialog,
+            opaque: opaque,
+            maintainState: maintainState),
         result: result);
   }
 
   /// Clear All screen on navigator state and push the new one.
   ///
-  /// If you provide context, you can nest navigate in your specific context
-  static Future<T?> clearAllAndPush<T>(Widget screen,
-      {BuildContext? context,
-      NavAni navAni = NavAni.Fade,
-      int durationMs = defaultDurationMs}) async {
-    return navigatorState(context)?.pushAndRemoveUntil(
-        navAni.createRoute(
-            screen, navigatorState(context)!.context, durationMs),
+  /// If you provide context, you can nest navigate in your specific context.
+  /// The route options are the same as [push]'s.
+  static Future<T?> clearAllAndPush<T>(
+    Widget screen, {
+    BuildContext? context,
+    NavAni navAni = NavAni.Fade,
+    int durationMs = defaultDurationMs,
+    int? reverseDurationMs,
+    Curve curve = Curves.linear,
+    RouteSettings? settings,
+    bool fullscreenDialog = false,
+    bool opaque = true,
+    bool maintainState = true,
+  }) async {
+    final navigator = navigatorState(context);
+    if (navigator == null) return null;
+    return navigator.pushAndRemoveUntil(
+        navAni.createRoute<T>(screen, navigator.context, durationMs,
+            reverseDurationMs: reverseDurationMs,
+            curve: curve,
+            settings: settings,
+            fullscreenDialog: fullscreenDialog,
+            opaque: opaque,
+            maintainState: maintainState),
         (Route<dynamic> route) => false);
   }
 
-  static Future<Result?> pushResult<Result>(NavScreen<Result> screen,
-      {NavAni navAni = NavAni.Right,
-      BuildContext? context,
-      int durationMs = defaultDurationMs}) async {
+  static Future<Result?> pushResult<Result>(
+    NavScreen<Result> screen, {
+    NavAni navAni = NavAni.Right,
+    BuildContext? context,
+    int durationMs = defaultDurationMs,
+    int? reverseDurationMs,
+    Curve curve = Curves.linear,
+    RouteSettings? settings,
+    bool fullscreenDialog = false,
+    bool opaque = true,
+    bool maintainState = true,
+  }) async {
     return push<Result>(screen,
-        navAni: navAni, context: context, durationMs: durationMs);
+        navAni: navAni,
+        context: context,
+        durationMs: durationMs,
+        reverseDurationMs: reverseDurationMs,
+        curve: curve,
+        settings: settings,
+        fullscreenDialog: fullscreenDialog,
+        opaque: opaque,
+        maintainState: maintainState);
   }
 
   /// pop screen with result

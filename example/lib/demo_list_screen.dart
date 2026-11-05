@@ -5,6 +5,7 @@ import 'deep_link/link_test_page.dart';
 import 'dialog/dialog_animation_demo.dart';
 import 'dialog/show_override_demo.dart';
 import 'navigator2/pages_demo.dart';
+import 'route/route_options_demo.dart';
 
 class DemoListScreen extends StatelessWidget {
   const DemoListScreen({super.key});
@@ -28,6 +29,14 @@ class DemoListScreen extends StatelessWidget {
             title: const Text('Navigator 2.0: Navigator.pages'),
             subtitle: const Text('NavPage stack driven by state'),
             onTap: () => Nav.push(const PagesDemo(), navAni: NavAni.fade),
+          ),
+          ListTile(
+            leading: const Icon(Icons.tune),
+            title: const Text('Route options'),
+            subtitle: const Text(
+                'NavAni.platform, fullscreenDialog, opaque, reverseDurationMs, '
+                'settings'),
+            onTap: () => Nav.push(const RouteOptionsDemo()),
           ),
           ListTile(
             leading: const Icon(Icons.animation),

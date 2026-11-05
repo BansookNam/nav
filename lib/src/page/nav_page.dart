@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart' show MaterialRouteTransitionMixin;
 import 'package:flutter/foundation.dart';
 import 'package:nav/src/enum/enum_nav_ani.dart';
 import 'package:nav/src/nav_base.dart';
@@ -23,6 +24,8 @@ import 'package:nav/src/route/nav_transitions.dart';
 ///
 /// [NavAni.Right] behaves like [Nav.pushFromRight]: on iOS it is a Cupertino
 /// route with the swipe-back gesture, unless [prohibitSwipeBack] is true.
+/// [NavAni.platform] is the app's `PageTransitionsTheme`, like a
+/// `MaterialPage`. The other options are the same as [Nav.push]'s.
 class NavPage<T> extends Page<T> {
   const NavPage({
     required this.child,
@@ -30,6 +33,10 @@ class NavPage<T> extends Page<T> {
     this.durationMs = Nav.defaultDurationMs,
     this.prohibitSwipeBack = false,
     this.maintainState = true,
+    this.reverseDurationMs,
+    this.curve = Curves.linear,
+    this.fullscreenDialog = false,
+    this.opaque = true,
     super.key,
     super.name,
     super.arguments,
@@ -49,8 +56,22 @@ class NavPage<T> extends Page<T> {
 
   final bool maintainState;
 
+  /// Closing time; null: [durationMs].
+  final int? reverseDurationMs;
+
+  /// Easing of the transition (not for [NavAni.platform] or the iOS
+  /// [NavAni.Right]).
+  final Curve curve;
+
+  final bool fullscreenDialog;
+
+  /// False keeps the page below drawn (not for [NavAni.platform] or the iOS
+  /// [NavAni.Right], which are always opaque).
+  final bool opaque;
+
   @override
   Route<T> createRoute(BuildContext context) {
+    if (navAni == NavAni.platform) return _NavMaterialPageRoute<T>(this);
     if (navAni == NavAni.Right &&
         defaultTargetPlatform == TargetPlatform.iOS &&
         !prohibitSwipeBack) {
@@ -63,7 +84,8 @@ class NavPage<T> extends Page<T> {
 /// Reads everything from its page on each build, so a page replaced with
 /// the same key shows the new [NavPage.child].
 class _NavPageRoute<T> extends PageRoute<T> {
-  _NavPageRoute(NavPage<T> page) : super(settings: page);
+  _NavPageRoute(NavPage<T> page)
+      : super(settings: page, fullscreenDialog: page.fullscreenDialog);
 
   NavPage<T> get _page => settings as NavPage<T>;
 
@@ -71,6 +93,14 @@ class _NavPageRoute<T> extends PageRoute<T> {
   Duration get transitionDuration => _page.navAni == NavAni.Blink
       ? Duration.zero
       : Duration(milliseconds: _page.durationMs);
+
+  @override
+  Duration get reverseTransitionDuration => _page.navAni == NavAni.Blink
+      ? Duration.zero
+      : Duration(milliseconds: _page.reverseDurationMs ?? _page.durationMs);
+
+  @override
+  bool get opaque => _page.opaque;
 
   @override
   bool get maintainState => _page.maintainState;
@@ -91,28 +121,29 @@ class _NavPageRoute<T> extends PageRoute<T> {
       Animation<double> secondaryAnimation, Widget child) {
     switch (_page.navAni) {
       case NavAni.Left:
-        return slideTransitionBuilder(const Offset(-1.0, 0.0))(
-            context, animation, secondaryAnimation, child);
+        return slideTransitionBuilder(const Offset(-1.0, 0.0),
+            curve: _page.curve)(context, animation, secondaryAnimation, child);
       case NavAni.Right:
-        return slideTransitionBuilder(const Offset(1.0, 0.0))(
-            context, animation, secondaryAnimation, child);
+        return slideTransitionBuilder(const Offset(1.0, 0.0),
+            curve: _page.curve)(context, animation, secondaryAnimation, child);
       case NavAni.Top:
-        return slideTransitionBuilder(const Offset(0.0, -1.0))(
-            context, animation, secondaryAnimation, child);
+        return slideTransitionBuilder(const Offset(0.0, -1.0),
+            curve: _page.curve)(context, animation, secondaryAnimation, child);
       case NavAni.Bottom:
-        return slideTransitionBuilder(const Offset(0.0, 1.0))(
-            context, animation, secondaryAnimation, child);
+        return slideTransitionBuilder(const Offset(0.0, 1.0),
+            curve: _page.curve)(context, animation, secondaryAnimation, child);
       case NavAni.Fade:
-        return fadeTransitionBuilder(
+        return curvedFadeTransitionBuilder(_page.curve)(
             context, animation, secondaryAnimation, child);
-      case NavAni.Blink:
+      case NavAni.Blink || NavAni.platform:
+        // NavAni.platform pages are _NavMaterialPageRoute (createRoute).
         return child;
       case NavAni.Ripple:
         // Same reveal as NavAni.Ripple.createRoute.
         final size = MediaQuery.sizeOf(context);
         return ClipPath(
           clipper: CircularRevealClipper(
-            fraction: animation.value,
+            fraction: _page.curve.transform(animation.value),
             centerAlignment: Alignment.bottomRight,
             centerOffset: Offset.zero,
             minRadius: 10,
@@ -129,7 +160,8 @@ class _NavPageRoute<T> extends PageRoute<T> {
 
 class _NavCupertinoPageRoute<T> extends PageRoute<T>
     with CupertinoRouteTransitionMixin<T> {
-  _NavCupertinoPageRoute(NavPage<T> page) : super(settings: page);
+  _NavCupertinoPageRoute(NavPage<T> page)
+      : super(settings: page, fullscreenDialog: page.fullscreenDialog);
 
   NavPage<T> get _page => settings as NavPage<T>;
 
@@ -138,6 +170,23 @@ class _NavCupertinoPageRoute<T> extends PageRoute<T>
 
   @override
   String? get title => null;
+
+  @override
+  bool get maintainState => _page.maintainState;
+
+  @override
+  String get debugLabel => '${super.debugLabel}(${_page.name})';
+}
+
+class _NavMaterialPageRoute<T> extends PageRoute<T>
+    with MaterialRouteTransitionMixin<T> {
+  _NavMaterialPageRoute(NavPage<T> page)
+      : super(settings: page, fullscreenDialog: page.fullscreenDialog);
+
+  NavPage<T> get _page => settings as NavPage<T>;
+
+  @override
+  Widget buildContent(BuildContext context) => _page.child;
 
   @override
   bool get maintainState => _page.maintainState;
