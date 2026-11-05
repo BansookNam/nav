@@ -124,6 +124,45 @@ go_router handles incoming deep links itself, so
 `tool/open_link.sh android "navexample://open/product/42?color=blue"` opens
 the product page in this app too.
 
+## Dialog animation
+
+### Constructor props (`lib/dialog/dialog_animation_demo.dart`)
+
+*Samples → Dialog animation*. Pick a `NavAni`, a duration and a curve, then
+`show()`: the dialog (`lib/dialog/panel_dialog.dart`) gets them as constructor
+arguments.
+
+```dart
+PanelDialog(
+  title: 'Bottom sheet',
+  animation: NavAni.Bottom,
+  animationDuration: const Duration(milliseconds: 250), // default 500 ms
+  animationCurve: Curves.easeOutBack,                   // default dialogTransitionCurve
+).show();
+```
+
+The curve applies to the slides and to `NavAni.Fade` (once a duration or a
+curve is given, Fade is drawn by Nav instead of Material's `showDialog`);
+`NavAni.Ripple` has its own reveal. The duration is used both ways.
+
+### Per `show()` (`lib/dialog/show_override_demo.dart`)
+
+*Samples → Per-show animation*. The arguments of `show()` win over the
+constructor's for that one showing, e.g. a 250 ms sheet that opens slowly once:
+
+```dart
+final sheet = PanelDialog(title: 'Sheet', animation: NavAni.Bottom,
+    animationDuration: const Duration(milliseconds: 250));
+await sheet.show();                                  // 250 ms
+await PanelDialog(title: 'Sheet', animation: NavAni.Bottom).show(
+  animationDuration: const Duration(seconds: 1),     // this time 1 s
+  animationCurve: Curves.bounceOut,
+);
+```
+
+A `DialogWidget` instance is one showing: build a new one for the next
+`show()`.
+
 ## Known limitation
 
 `android/` still uses the pre-Flutter-3.16 Gradle setup
