@@ -259,6 +259,21 @@ mixin Nav<T extends StatefulWidget> on State<T> {
     }
   }
 
+  /// Pops the top route if it agrees to (`PopScope`, `Route.popDisposition`),
+  /// like `Navigator.maybePop` on [context]'s navigator. Returns whether a
+  /// route handled the pop.
+  static Future<bool> maybePop<T extends Object?>(BuildContext context,
+      {T? result}) {
+    return Navigator.of(context).maybePop<T>(result);
+  }
+
+  /// Pops routes until [predicate] is true for the top one, like
+  /// `Navigator.popUntil`. `Nav.popUntil((route) => route.isFirst)` goes back
+  /// to the first screen. Without [context], Nav's navigator.
+  static void popUntil(RoutePredicate predicate, {BuildContext? context}) {
+    navigatorState(context)?.popUntil(predicate);
+  }
+
   /// Whether the navigator can pop.
   static bool canPop({BuildContext? context}) {
     return navigatorState(context)?.canPop() == true;
