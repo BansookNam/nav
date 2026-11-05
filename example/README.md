@@ -163,6 +163,20 @@ await PanelDialog(title: 'Sheet', animation: NavAni.Bottom).show(
 A `DialogWidget` instance is one showing: build a new one for the next
 `show()`.
 
+## Route options (`lib/route/route_options_demo.dart`)
+
+*Samples → Route options*. The same screen pushed four ways; it reads its own
+route back (`settings.name`, route type, `fullscreenDialog`, `opaque`).
+
+```dart
+Nav.push(screen, navAni: NavAni.platform,               // the theme's transition
+    settings: const RouteSettings(name: '/platform'));
+Nav.push(screen, navAni: NavAni.platform, fullscreenDialog: true);
+Nav.push(screen, navAni: NavAni.bottom, opaque: false,  // the list stays drawn
+    durationMs: 350, curve: Curves.easeOutCubic);
+Nav.push(screen, durationMs: 600, reverseDurationMs: 120); // fast close
+```
+
 ## Known limitation
 
 `android/` still uses the pre-Flutter-3.16 Gradle setup

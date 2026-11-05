@@ -71,9 +71,11 @@ inside a nested `Navigator`.
 // Pick any animation with the NavAni enum
 Nav.push(const NextScreen(), navAni: NavAni.Blink);
 
-enum NavAni { Left, Right, Top, Bottom, Fade, Ripple, Blink }
+enum NavAni { Left, Right, Top, Bottom, Fade, Ripple, Blink, platform }
 // lowerCamelCase aliases are also available (NavAni.blink, ...);
 // the uppercase values will be removed in 3.0.
+// NavAni.platform is a MaterialPageRoute: the app's PageTransitionsTheme
+// (Android's predictive back and system transitions, the iOS swipe back).
 
 // Convenience methods
 Nav.pushFromRight(const NextScreen());              // iOS swipe-back by default
@@ -130,6 +132,55 @@ From a `StatefulWidget`'s `State`, call it through `widget`:
 ```dart
 widget.popResult(context, 'Data to return');
 ```
+
+6. Route options
+
+`push`, `pushReplacement`, `clearAllAndPush`, `pushResult`, `NavPath` and
+`NavPage` take the same options. All are optional and default to what a push
+did before.
+
+```dart
+Nav.push(
+  const EditorScreen(),
+  navAni: NavAni.bottom,
+  durationMs: 300,                              // opening
+  reverseDurationMs: 200,                       // closing (default: durationMs)
+  curve: Curves.easeOutCubic,                   // default: linear
+  settings: const RouteSettings(name: '/editor'), // for observers, ModalRoute.of
+  fullscreenDialog: true,                       // a full-screen modal
+  opaque: false,                                // keep the screen below drawn
+  maintainState: true,
+);
+
+// A route you built yourself, on the same navigator
+Nav.pushRoute(MyCustomRoute());
+```
+
+`NavAni.platform` and the iOS `NavAni.right` (a `CupertinoPageRoute`) use the
+platform's own timing, so `durationMs`, `reverseDurationMs`, `curve` and
+`opaque` do not apply to them. `NavPathDelegate.open` names each route with its
+link, and `onGenerateRoute` keeps the engine's `RouteSettings`.
+
+7. Dialog animation
+
+```dart
+class SheetDialog extends DialogWidget<String> {
+  SheetDialog({super.context})
+      : super(
+          animation: NavAni.bottom,
+          animationDuration: const Duration(milliseconds: 250), // default 500 ms
+          animationCurve: Curves.easeOutCubic,
+        );
+  ...
+}
+
+await SheetDialog().show();
+await SheetDialog().show(animationDuration: const Duration(seconds: 1)); // this showing only
+```
+
+The duration applies to every `NavAni`, the curve to the slides and the fade.
+`NavAni.fade` and `NavAni.platform` are Material's `showDialog` until one of
+them is given.
 
 ### Deep links (App Links, Universal Links, custom schemes)
 

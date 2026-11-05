@@ -1,7 +1,13 @@
-## [Unreleased]
+## [2.1.0] - 2026-11-05
 
+* Add `NavAni.platform`: a `MaterialPageRoute`, so a push follows the app's `PageTransitionsTheme` (Android's predictive back and system transitions, the iOS slide with swipe back). For a `DialogWidget` it is Material's `showDialog`. **A `switch` over `NavAni` that lists every value needs a `NavAni.platform` case**
+* Add route options to `Nav.push`, `pushReplacement`, `clearAllAndPush`, `pushResult`, `NavPath` and `NavPage`: `reverseDurationMs` (closing time, default `durationMs`), `curve` (default linear), `settings` (`RouteSettings`), `fullscreenDialog`, `opaque` and `maintainState`. Defaults keep the 2.0 behaviour. `NavAni.platform` and the iOS `NavAni.right` use the platform's timing, so the durations, curve and `opaque` do not apply to them. `pushFromRight` / `getPushRightRoute` take `settings` and `fullscreenDialog`
+* Add `Nav.pushRoute(route)`: push a route you built yourself on Nav's navigator
+* `NavPathDelegate.open` names the route with its link (`RouteSettings(name: uri)`) and `onGenerateRoute` keeps the engine's `RouteSettings`; before, deep link routes had no name
+* `SlideRouteBuilder`, `FadeRouteBuilder`, `RippleRouteBuilder`, `BlinkRouteBuilder` and `CustomPageRouteBuilder` take the same options; `CustomPageRouteBuilder` gets `fullscreenDialog` and `reverseTransitionDuration`
+* `NavAniExt.createRoute` takes the options as named arguments, and its `context` may be null (only `NavAni.ripple` reads it, falling back to Nav's navigator)
 * Add `DialogWidget(animationDuration:, animationCurve:)` and the same two arguments on `show()` (which win for that showing): how long a dialog's transition runs, opening and closing, and its easing. The duration applies to every `NavAni` including `Ripple`; the curve applies to the slides and `Fade` (`Ripple` has its own reveal). Defaults are unchanged (`Nav.defaultDialogDurationMs`, `dialogTransitionCurve`); `NavAni.Fade` stays Material's `showDialog` fade unless one of them is given
-* Example: *Dialog animation* (pick `NavAni`, duration and curve) and *Per-show animation* (`show(animationDuration:)` over the constructor's) samples, with tests
+* Example: *Dialog animation* (pick `NavAni`, duration and curve), *Per-show animation* (`show(animationDuration:)` over the constructor's) and *Route options* samples, with tests
 
 ## [2.0.1] - 2026-10-26
 
