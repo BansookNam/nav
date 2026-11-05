@@ -79,14 +79,16 @@ class NavPathDelegate {
   Future<T?> open<T>(Uri uri, {BuildContext? context}) async {
     final matched = match(uri);
     if (matched != null) {
-      return Nav.push<T>(matched.buildScreen(),
-          navAni: matched.path.navAni,
-          context: context,
-          durationMs: matched.path.durationMs);
+      final navigator = Nav.navigatorState(context);
+      if (navigator == null) return null;
+      return navigator.push(matched.path.createRoute<T>(
+          matched.buildScreen(), RouteSettings(name: uri.toString()),
+          context: navigator.context));
     }
     final unknown = this.unknown;
     if (unknown != null) {
-      return Nav.push<T>(unknown(NavPathParams(uri: uri)), context: context);
+      return Nav.push<T>(unknown(NavPathParams(uri: uri)),
+          context: context, settings: RouteSettings(name: uri.toString()));
     }
     return null;
   }
@@ -109,8 +111,7 @@ class NavPathDelegate {
     if (matched == null) {
       return null;
     }
-    return matched.path.navAni.createRoute<dynamic>(
-        matched.buildScreen(), Nav.globalContext, matched.path.durationMs);
+    return matched.path.createRoute<dynamic>(matched.buildScreen(), settings);
   }
 
   /// For `MaterialApp.onUnknownRoute`: builds [unknown] for a link that no
@@ -123,8 +124,9 @@ class NavPathDelegate {
     }
     return NavAni.Right.createRoute<dynamic>(
         unknown(NavPathParams(uri: uri, arguments: settings.arguments)),
-        Nav.globalContext,
-        Nav.defaultDurationMs);
+        null,
+        Nav.defaultDurationMs,
+        settings: settings);
   }
 
   static Uri? _parse(String? name) => name == null ? null : Uri.tryParse(name);

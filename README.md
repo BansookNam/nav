@@ -13,7 +13,8 @@
   Nav is an **imperative navigation helper** (Navigator 1.0 sugar): context-free push/pop,
   seven built-in transitions, dialogs & bottom sheets, and a type-safe result API
   (`NavScreen<Result>` + `pushResult`). It complements — and can coexist with —
-  declarative routers like go_router.
+  declarative routers like go_router, whose pages can use the same transitions
+  through `NavPage`.
 
 
 <img src="https://raw.githubusercontent.com/BansookNam/nav/master/img/sample.gif" width="300" />
@@ -72,9 +73,11 @@ inside a nested `Navigator`.
 // Pick any animation with the NavAni enum
 Nav.push(const NextScreen(), navAni: NavAni.Blink);
 
-enum NavAni { Left, Right, Top, Bottom, Fade, Ripple, Blink }
+enum NavAni { Left, Right, Top, Bottom, Fade, Ripple, Blink, platform }
 // lowerCamelCase aliases are also available (NavAni.blink, ...);
 // the uppercase values will be removed in 3.0.
+// NavAni.platform is a MaterialPageRoute: the app's PageTransitionsTheme
+// (Android's predictive back and system transitions, the iOS swipe back).
 
 // Convenience methods
 Nav.pushFromRight(const NextScreen());              // iOS swipe-back by default
@@ -131,6 +134,55 @@ From a `StatefulWidget`'s `State`, call it through `widget`:
 ```dart
 widget.popResult(context, 'Data to return');
 ```
+
+6. Route options
+
+`push`, `pushReplacement`, `clearAllAndPush`, `pushResult`, `NavPath` and
+`NavPage` take the same options. All are optional and default to what a push
+did before.
+
+```dart
+Nav.push(
+  const EditorScreen(),
+  navAni: NavAni.bottom,
+  durationMs: 300,                              // opening
+  reverseDurationMs: 200,                       // closing (default: durationMs)
+  curve: Curves.easeOutCubic,                   // default: linear
+  settings: const RouteSettings(name: '/editor'), // for observers, ModalRoute.of
+  fullscreenDialog: true,                       // a full-screen modal
+  opaque: false,                                // keep the screen below drawn
+  maintainState: true,
+);
+
+// A route you built yourself, on the same navigator
+Nav.pushRoute(MyCustomRoute());
+```
+
+`NavAni.platform` and the iOS `NavAni.right` (a `CupertinoPageRoute`) use the
+platform's own timing, so `durationMs`, `reverseDurationMs`, `curve` and
+`opaque` do not apply to them. `NavPathDelegate.open` names each route with its
+link, and `onGenerateRoute` keeps the engine's `RouteSettings`.
+
+7. Dialog animation
+
+```dart
+class SheetDialog extends DialogWidget<String> {
+  SheetDialog({super.context})
+      : super(
+          animation: NavAni.bottom,
+          animationDuration: const Duration(milliseconds: 250), // default 500 ms
+          animationCurve: Curves.easeOutCubic,
+        );
+  ...
+}
+
+await SheetDialog().show();
+await SheetDialog().show(animationDuration: const Duration(seconds: 1)); // this showing only
+```
+
+The duration applies to every `NavAni`, the curve to the slides and the fade.
+`NavAni.fade` and `NavAni.platform` are Material's `showDialog` until one of
+them is given.
 
 ### Deep links (App Links, Universal Links, custom schemes)
 
@@ -211,6 +263,50 @@ match `/product/:id`.
 The example app is wired for `navexample://open/...` and
 `https://nav.example.com/...`; see `example/lib/deep_link/`.
 
+### Navigator 2.0 and routers (go_router, ...)
+
+`NavPage` is a `Page` that uses Nav's transitions, so they work anywhere
+Navigator 2.0 takes pages — a router's `pageBuilder`, or `Navigator.pages`.
+
+```dart
+GoRoute(
+  path: '/product/:id',
+  pageBuilder: (context, state) => NavPage(
+    key: state.pageKey,
+    navAni: NavAni.fade,
+    child: ProductScreen(id: state.pathParameters['id']!),
+  ),
+);
+
+Navigator(
+  pages: [
+    const NavPage(child: HomeScreen()),
+    if (selected != null) NavPage(navAni: NavAni.bottom, child: DetailScreen(selected)),
+  ],
+  onDidRemovePage: (page) => setState(() => selected = null),
+);
+```
+
+`NavAni.right` follows `Nav.pushFromRight`: on iOS it is a Cupertino page with
+swipe-back, unless `prohibitSwipeBack: true`.
+
+The imperative API — `Nav.push`, dialogs, bottom sheets — keeps working under
+a router. Give the router's navigator key to Nav; routes pushed this way sit on
+top of the current page and are removed with it.
+
+```dart
+final navigatorKey = GlobalKey<NavigatorState>();
+final router = GoRouter(navigatorKey: navigatorKey, routes: [...]);
+
+Nav.init(navigatorKey);
+runApp(MaterialApp.router(routerConfig: router));
+
+Nav.push(const NextScreen(), navAni: NavAni.top); // on top of the current page
+```
+
+With a router, use the router's own deep linking; `NavPathDelegate` is for
+`MaterialApp` with `onGenerateRoute`.
+
 ### Global settings (optional)
 
 ```dart
@@ -270,7 +366,7 @@ public.
 | `SlideFromBottomRoute(screen)` | `SlideRouteBuilder.fromBottom(screen)` |
 | `FadeRoute(screen)` | `FadeRouteBuilder(screen)` |
 | `BlinkRoute(screen)` | `BlinkRouteBuilder(screen)` |
-| `RoundRevealRoute(screen, ...)` | `RippleRouteBuilder(screen, ...)` — `centerAlignment` and `centerOffset` are now both required |
+| `RoundRevealRoute(screen, ...)` | `RippleRouteBuilder(screen, ...)` — same parameters; when both `centerAlignment` and `centerOffset` are given, the alignment wins |
 
 ### 3. Replace removed members
 
@@ -364,7 +460,7 @@ below is a source file — click it to explore the full interactive report.
 
 Contributions, issues and feature requests are welcome!
 
-Feel free to check [issues page](https://github.com/bansooknam/nav/issues). You can also take a look at the [contributing guide](Contributions, issues and feature requests are welcome.).
+Feel free to check the [issues page](https://github.com/bansooknam/nav/issues).
 
 ## Show your support
 

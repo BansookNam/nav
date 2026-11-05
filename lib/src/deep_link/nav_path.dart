@@ -88,6 +88,11 @@ class NavPath {
     this.builder, {
     this.navAni = NavAni.Right,
     this.durationMs = Nav.defaultDurationMs,
+    this.reverseDurationMs,
+    this.curve = Curves.linear,
+    this.fullscreenDialog = false,
+    this.opaque = true,
+    this.maintainState = true,
   })  : assert(pattern.startsWith('/'), 'NavPath pattern must start with "/"'),
         _segments = _split(pattern);
 
@@ -101,6 +106,29 @@ class NavPath {
   final NavAni navAni;
 
   final int durationMs;
+
+  /// Closing time; null: [durationMs]. These and the options below are the
+  /// same as [Nav.push]'s.
+  final int? reverseDurationMs;
+
+  final Curve curve;
+
+  final bool fullscreenDialog;
+
+  final bool opaque;
+
+  final bool maintainState;
+
+  /// The route [screen] is shown with, named by [settings].
+  Route<T> createRoute<T>(Widget screen, RouteSettings? settings,
+          {BuildContext? context}) =>
+      navAni.createRoute<T>(screen, context, durationMs,
+          reverseDurationMs: reverseDurationMs,
+          curve: curve,
+          settings: settings,
+          fullscreenDialog: fullscreenDialog,
+          opaque: opaque,
+          maintainState: maintainState);
 
   final List<String> _segments;
 

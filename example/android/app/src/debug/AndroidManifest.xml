@@ -4,4 +4,7 @@
          to allow setting breakpoints, to provide hot reload, etc.
     -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- Debug builds only: lets the Deep link tester WebView load the plain-http
+         mock site from tool/link_server/server.dart (http://10.0.2.2:8080). -->
+    <application android:usesCleartextTraffic="true" />
 </manifest>

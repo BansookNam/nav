@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nav deep link tester</title>
+  <style>
+    body { font-family: -apple-system, Roboto, sans-serif; margin: 16px; line-height: 1.5; color: #1a1a1a; }
+    h1 { font-size: 20px; } h2 { font-size: 15px; margin-top: 24px; color: #555; }
+    a { display: block; padding: 12px; margin: 8px 0; border: 1px solid #ccd; border-radius: 8px; color: #1747c2; text-decoration: none; word-break: break-all; }
+    small { color: #777; }
+  </style>
+</head>
+<body>
+  <h1>Nav deep link tester</h1>
+  <p><small>Served by example/tool/link_server/server.dart. In the example's WebView,
+  links the app claims are handed to <code>NavPathDelegate</code>; everything else loads here.</small></p>
+
+  <h2>App Links / Universal Links (https)</h2>
+  <a href="https://nav.example.com/product/42?color=blue">https://nav.example.com/product/42?color=blue</a>
+  <a href="https://nav.example.com/user/nam">https://nav.example.com/user/nam</a>
+  <a href="https://nav.example.com/nowhere">https://nav.example.com/nowhere <small>(no NavPath: unknown screen)</small></a>
+
+  <h2>Custom scheme</h2>
+  <a href="navexample://open/product/7">navexample://open/product/7</a>
+  <a href="intent://open/product/9#Intent;scheme=navexample;package=com.example.example;end">
+    intent://open/product/9 <small>(Android Chrome form of the custom scheme)</small></a>
+
+  <h2>Not claimed by the app</h2>
+  <a href="https://flutter.dev">https://flutter.dev <small>(stays in the web view)</small></a>
+</body>
+</html>

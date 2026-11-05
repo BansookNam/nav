@@ -1,6 +1,6 @@
 name: nav
 description: Provide easy way to navigate. Includes lots of routers. You can use this library on Android & iOS.
-version: 2.0.0
+version: 2.1.0
 homepage: https://github.com/bansooknam/nav
 #dart format .
 
@@ -20,5 +20,6 @@ dev_dependencies:
   flutter_lints: ^3.0.1
   build_runner: ^2.3.3
   mockito: ^5.4.4
+  go_router: ^18.1.1
 
 flutter:

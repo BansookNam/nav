@@ -11,19 +11,21 @@ Widget _defaultTransitionsBuilder(
 class CustomPageRouteBuilder<T> extends PageRoute<T> {
   /// Creates a route that delegates to builder callbacks.
   ///
-  /// The [pageBuilder], [transitionsBuilder], [opaque], [barrierDismissible],
-  /// and [maintainState] arguments must not be null.
+  /// [reverseTransitionDuration] defaults to [transitionDuration].
   CustomPageRouteBuilder({
     super.settings,
+    super.fullscreenDialog,
     required this.pageBuilder,
     this.transitionsBuilder = _defaultTransitionsBuilder,
     this.transitionDuration = const Duration(milliseconds: 300),
+    Duration? reverseTransitionDuration,
     this.opaque = true,
     this.barrierDismissible = false,
     this.barrierColor,
     this.barrierLabel,
     this.maintainState = true,
-  }) : super(fullscreenDialog: false);
+  }) : reverseTransitionDuration =
+            reverseTransitionDuration ?? transitionDuration;
 
   /// Used build the route's primary contents.
   ///
@@ -37,6 +39,9 @@ class CustomPageRouteBuilder<T> extends PageRoute<T> {
 
   @override
   final Duration transitionDuration;
+
+  @override
+  final Duration reverseTransitionDuration;
 
   @override
   final bool opaque;

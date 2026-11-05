@@ -1,3 +1,24 @@
+## [2.1.0] - 2026-11-05
+
+* Add `NavAni.platform`: a `MaterialPageRoute`, so a push follows the app's `PageTransitionsTheme` (Android's predictive back and system transitions, the iOS slide with swipe back). For a `DialogWidget` it is Material's `showDialog`. **A `switch` over `NavAni` that lists every value needs a `NavAni.platform` case**
+* Add route options to `Nav.push`, `pushReplacement`, `clearAllAndPush`, `pushResult`, `NavPath` and `NavPage`: `reverseDurationMs` (closing time, default `durationMs`), `curve` (default linear), `settings` (`RouteSettings`), `fullscreenDialog`, `opaque` and `maintainState`. Defaults keep the 2.0 behaviour. `NavAni.platform` and the iOS `NavAni.right` use the platform's timing, so the durations, curve and `opaque` do not apply to them. `pushFromRight` / `getPushRightRoute` take `settings` and `fullscreenDialog`
+* Add `Nav.pushRoute(route)`: push a route you built yourself on Nav's navigator
+* `NavPathDelegate.open` names the route with its link (`RouteSettings(name: uri)`) and `onGenerateRoute` keeps the engine's `RouteSettings`; before, deep link routes had no name
+* `SlideRouteBuilder`, `FadeRouteBuilder`, `RippleRouteBuilder`, `BlinkRouteBuilder` and `CustomPageRouteBuilder` take the same options; `CustomPageRouteBuilder` gets `fullscreenDialog` and `reverseTransitionDuration`
+* `NavAniExt.createRoute` takes the options as named arguments, and its `context` may be null (only `NavAni.ripple` reads it, falling back to Nav's navigator)
+* Add `DialogWidget(animationDuration:, animationCurve:)` and the same two arguments on `show()` (which win for that showing): how long a dialog's transition runs, opening and closing, and its easing. The duration applies to every `NavAni` including `Ripple`; the curve applies to the slides and `Fade` (`Ripple` has its own reveal). Defaults are unchanged (`Nav.defaultDialogDurationMs`, `dialogTransitionCurve`); `NavAni.Fade` stays Material's `showDialog` fade unless one of them is given
+* Example: *Dialog animation* (pick `NavAni`, duration and curve), *Per-show animation* (`show(animationDuration:)` over the constructor's) and *Route options* samples, with tests
+
+## [2.0.1] - 2026-10-26
+
+* **Fix**: `Nav.pushWithRippleEffect(screen, offset: ...)` without an `alignment` failed an assertion in debug builds; `RippleRouteBuilder` accepts `centerOffset` alone again (as `RoundRevealRoute` did in 1.x), and `centerOffset` is now optional
+* **Fix**: a ripple with an `AlignmentDirectional` (e.g. `AlignmentDirectional.bottomEnd`) threw a type error; directional alignments are now resolved against the ambient text direction
+* Add `NavPage`: a Navigator 2.0 `Page` with Nav's transitions, for `Navigator.pages` and router `pageBuilder`s such as go_router's. A page replaced with the same key shows its new child, and `NavAni.right` keeps the iOS swipe-back gesture unless `prohibitSwipeBack` is set
+* Document using `Nav.push`, dialogs and bottom sheets under a router (`Nav.init(router's navigatorKey)`), tested with go_router
+* Fix the broken "contributing guide" link in the README
+* Example: a deep link tester (in-app WebView on a `dart:io` mock site serving `assetlinks.json` / `apple-app-site-association`, plus `tool/open_link.sh` for `adb`/`simctl`), Navigator 2.0 samples (`Navigator.pages` with `NavPage`, and go_router with `NavPage` and `Nav.push` on top), tests for each, and a real `example/README.md` for pub.dev's Example tab
+* CI fails if the pana (pub.dev score) report drops below the maximum
+
 ## [2.0.0] - 2026-10-26
 
 First stable 2.0 release. It includes everything in 2.0.0-release-candidate-1 below; 1.x users should read "Migrating from 1.x" in the README.

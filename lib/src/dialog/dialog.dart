@@ -16,6 +16,8 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
     this.anchorPoint,
     this.routeSettings,
     this.context,
+    this.animationDuration,
+    this.animationCurve,
   })  : useRootNavigator =
             useRootNavigator ?? Nav.navSetting?.useRootNavigator ?? true,
         useSafeArea = useSafeArea ?? Nav.navSetting?.useSafeArea ?? false;
@@ -30,6 +32,17 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
   final bool useSafeArea;
   final bool useRootNavigator;
 
+  /// How long [animation] runs, opening and closing. Null:
+  /// [Nav.defaultDialogDurationMs] (0 for [NavAni.Blink]). [NavAni.Fade] and
+  /// [NavAni.platform] are Material's own `showDialog` while this and
+  /// [animationCurve] are both null; once either is set (here or in [show])
+  /// Nav draws the fade instead.
+  final Duration? animationDuration;
+
+  /// Easing of the slides and of [NavAni.Fade]. Null: [dialogTransitionCurve].
+  /// Not used by [NavAni.Ripple] (its own reveal) or [NavAni.Blink].
+  final Curve? animationCurve;
+
   /// Per-instance visibility state. A [DialogWidget] instance represents a
   /// single dialog session; this state lives on the widget (not in [State])
   /// because [hide] must work before the dialog is built and after it is
@@ -43,7 +56,15 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
     _visibility.isShowing = false;
   }
 
-  Future<ResultType?> show({bool? useRootNavigator}) async {
+  /// Shows the dialog. [animationDuration] / [animationCurve] override the
+  /// ones given to the constructor for this one showing.
+  Future<ResultType?> show({
+    bool? useRootNavigator,
+    Duration? animationDuration,
+    Curve? animationCurve,
+  }) async {
+    final duration = animationDuration ?? this.animationDuration;
+    final curve = animationCurve ?? this.animationCurve;
     final context = this.context ?? Nav.globalContext;
     if (context is StatefulElement && !context.mounted) {
       return null;
@@ -55,7 +76,9 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
 
     _visibility.isShowing = true;
 
-    if (animation == NavAni.Fade) {
+    if ((animation == NavAni.Fade || animation == NavAni.platform) &&
+        duration == null &&
+        curve == null) {
       return showDialog<ResultType>(
         context: context,
         barrierDismissible: barrierDismissible,
@@ -79,7 +102,11 @@ abstract class DialogWidget<ResultType> extends StatefulWidget {
       anchorPoint: anchorPoint,
       context: context,
       builder: _rememberContextAndBuild,
-      durationMs: animation == NavAni.Blink ? 0 : Nav.defaultDialogDurationMs,
+      duration: duration ??
+          Duration(
+              milliseconds:
+                  animation == NavAni.Blink ? 0 : Nav.defaultDialogDurationMs),
+      curve: curve,
     );
   }
 
@@ -132,7 +159,8 @@ Future<T?> _showDialogWith<T>(
   Offset? anchorPoint,
   Color? barrierColor,
   bool useRootNavigator = true,
-  int durationMs = Nav.defaultDialogDurationMs,
+  required Duration duration,
+  Curve? curve,
 }) {
   assert(debugCheckHasMaterialLocalizations(context));
 
@@ -153,24 +181,24 @@ Future<T?> _showDialogWith<T>(
     routeSettings: routeSettings,
     anchorPoint: anchorPoint,
     barrierColor: barrierColor ?? Colors.black54,
-    transitionDuration: Duration(milliseconds: durationMs),
-    transitionBuilder: _getTransition(ani),
+    transitionDuration: duration,
+    transitionBuilder: _getTransition(ani, curve ?? dialogTransitionCurve),
   );
 }
 
-RouteTransitionsBuilder _getTransition(NavAni ani) {
+RouteTransitionsBuilder _getTransition(NavAni ani, Curve curve) {
   return switch (ani) {
-    NavAni.Left => slideTransitionBuilder(const Offset(-1.0, 0.0),
-        curve: dialogTransitionCurve),
-    NavAni.Right => slideTransitionBuilder(const Offset(1.0, 0.0),
-        curve: dialogTransitionCurve),
-    NavAni.Top => slideTransitionBuilder(const Offset(0.0, -1.0),
-        curve: dialogTransitionCurve),
-    NavAni.Bottom => slideTransitionBuilder(const Offset(0.0, 1.0),
-        curve: dialogTransitionCurve),
+    NavAni.Left =>
+      slideTransitionBuilder(const Offset(-1.0, 0.0), curve: curve),
+    NavAni.Right =>
+      slideTransitionBuilder(const Offset(1.0, 0.0), curve: curve),
+    NavAni.Top => slideTransitionBuilder(const Offset(0.0, -1.0), curve: curve),
+    NavAni.Bottom =>
+      slideTransitionBuilder(const Offset(0.0, 1.0), curve: curve),
     NavAni.Ripple => _buildRippleTransition,
-    // NavAni.Fade normally goes through showDialog (see show()); it is
-    // grouped with Blink so the switch stays exhaustive.
-    NavAni.Blink || NavAni.Fade => fadeTransitionBuilder,
+    // NavAni.Fade and NavAni.platform (Material's own dialog) go through
+    // showDialog unless a duration / curve is given (see show()).
+    NavAni.Blink => fadeTransitionBuilder,
+    NavAni.Fade || NavAni.platform => curvedFadeTransitionBuilder(curve),
   };
 }
