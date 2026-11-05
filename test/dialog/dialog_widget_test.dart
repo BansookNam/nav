@@ -4,7 +4,13 @@ import 'package:nav/nav.dart';
 import 'package:nav/testing.dart';
 
 class _ProbeDialog extends DialogWidget<void> {
-  _ProbeDialog({super.useSafeArea, super.useRootNavigator});
+  _ProbeDialog({
+    super.useSafeArea,
+    super.useRootNavigator,
+    super.animation,
+    super.animationDuration,
+    super.animationCurve,
+  });
 
   @override
   State<_ProbeDialog> createState() => _ProbeDialogState();
@@ -53,5 +59,82 @@ void main() {
     dialog.hide();
     await tester.pumpAndSettle();
     expect(dialog.isShown, false);
+  });
+
+  // Time until the dialog's route has finished its transition.
+  Future<int> settleMs(WidgetTester tester) async {
+    var ms = 0;
+    while (tester.binding.hasScheduledFrame && ms < 2000) {
+      await tester.pump(const Duration(milliseconds: 10));
+      ms += 10;
+    }
+    return ms;
+  }
+
+  group('animation props', () {
+    testWidgets('default slide takes Nav.defaultDialogDurationMs',
+        (tester) async {
+      await tester.pumpWidget(NavAppForTesting(child: Container()));
+      _ProbeDialog(animation: NavAni.Bottom).show();
+      await tester.pump();
+      final ms = await settleMs(tester);
+      expect(
+          ms,
+          inInclusiveRange(Nav.defaultDialogDurationMs - 20,
+              Nav.defaultDialogDurationMs + 20));
+    });
+
+    testWidgets('animationDuration in the constructor', (tester) async {
+      await tester.pumpWidget(NavAppForTesting(child: Container()));
+      _ProbeDialog(
+              animation: NavAni.Bottom,
+              animationDuration: const Duration(milliseconds: 250))
+          .show();
+      await tester.pump();
+      expect(await settleMs(tester), inInclusiveRange(230, 270));
+    });
+
+    testWidgets('show() overrides the constructor', (tester) async {
+      await tester.pumpWidget(NavAppForTesting(child: Container()));
+      _ProbeDialog(
+              animation: NavAni.Bottom,
+              animationDuration: const Duration(milliseconds: 250))
+          .show(animationDuration: const Duration(milliseconds: 100));
+      await tester.pump();
+      expect(await settleMs(tester), inInclusiveRange(80, 120));
+    });
+
+    testWidgets('show() duration applies to NavAni.Ripple', (tester) async {
+      await tester.pumpWidget(NavAppForTesting(child: Container()));
+      _ProbeDialog(animation: NavAni.Ripple)
+          .show(animationDuration: const Duration(milliseconds: 700));
+      await tester.pump();
+      expect(await settleMs(tester), inInclusiveRange(680, 720));
+    });
+
+    testWidgets('animationCurve shapes the slide', (tester) async {
+      await tester.pumpWidget(NavAppForTesting(child: Container()));
+      _ProbeDialog(
+        animation: NavAni.Bottom,
+        animationDuration: const Duration(milliseconds: 200),
+        animationCurve: Curves.linear,
+      ).show();
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 100));
+      final slide = tester.widget<SlideTransition>(find
+          .ancestor(
+              of: find.byType(_ProbeDialog),
+              matching: find.byType(SlideTransition))
+          .first);
+      // Half way through, linear: half the sheet is still below the screen.
+      expect(slide.position.value.dy, closeTo(0.5, 0.05));
+    });
+
+    testWidgets('a duration also applies to NavAni.Fade', (tester) async {
+      await tester.pumpWidget(NavAppForTesting(child: Container()));
+      _ProbeDialog(animationDuration: const Duration(milliseconds: 300)).show();
+      await tester.pump();
+      expect(await settleMs(tester), inInclusiveRange(280, 320));
+    });
   });
 }

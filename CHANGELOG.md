@@ -1,3 +1,8 @@
+## [Unreleased]
+
+* Add `DialogWidget(animationDuration:, animationCurve:)` and the same two arguments on `show()` (which win for that showing): how long a dialog's transition runs, opening and closing, and its easing. The duration applies to every `NavAni` including `Ripple`; the curve applies to the slides and `Fade` (`Ripple` has its own reveal). Defaults are unchanged (`Nav.defaultDialogDurationMs`, `dialogTransitionCurve`); `NavAni.Fade` stays Material's `showDialog` fade unless one of them is given
+* Example: *Dialog animation* (pick `NavAni`, duration and curve) and *Per-show animation* (`show(animationDuration:)` over the constructor's) samples, with tests
+
 ## [2.0.1] - 2026-10-26
 
 * **Fix**: `Nav.pushWithRippleEffect(screen, offset: ...)` without an `alignment` failed an assertion in debug builds; `RippleRouteBuilder` accepts `centerOffset` alone again (as `RoundRevealRoute` did in 1.x), and `centerOffset` is now optional
